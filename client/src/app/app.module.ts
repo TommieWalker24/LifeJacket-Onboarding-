@@ -13,6 +13,7 @@ import { SideNavComponent } from './side-nav/side-nav.component';
 import { HomeComponent } from './home/home.component';
 import { UserComponent } from './user/user.component';
 import { AdminComponent } from './admin/admin.component';
+import { HeadNavComponent } from './head-nav/head-nav.component';
 
 let config = new AuthServiceConfig([
   {
@@ -30,7 +31,8 @@ export function provideConfig() {
     SideNavComponent,
     HomeComponent,
     UserComponent,
-    AdminComponent
+    AdminComponent,
+    HeadNavComponent
   ],
   imports: [
     HttpClientModule,
