@@ -1,0 +1,12 @@
+/* .home {
+  display: flex;
+  justify-content: space-around;
+} */
+
+.home-title {
+width: 100%;
+}
+
+.login {
+  width: 100%;
+}
