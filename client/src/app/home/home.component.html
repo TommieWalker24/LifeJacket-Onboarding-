@@ -1,23 +1,19 @@
 <div class="home container-fluid">
+
+  <h1 *ngIf="userData.length">Logged In!</h1>
+
   <div class="home-title">
     <h1>The RSI Life Jacket</h1>
     <p>The guide to stay afloat during your onboarding</p>
   </div>
+
   <div class="login card">
     <div class="card-body">
       <h2>Login</h2>
-      <form>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" class="form-control" id="email" #email>
-        </div>
-        <div class="form-group">
-          <label for="password">Password:</label>
-          <input type="password" class="form-control" id="password" #password>
-        </div>
-        <button type="submit" class="btn btn-primary"
-          (click)="logInUser(email.value, password.value); email.value =''; password.value=''">Login</button>
-      </form>
+      <h5 class="danger">{{resultMessage}}</h5>
+      <button (click)="logInWithGoogle('Google')" class="btn btn-success Google"> Google Login </button>
+      <button (click)="logOut()" class="btn btn-success Google">Sign Out</button>
     </div>
   </div>
+
 </div>
