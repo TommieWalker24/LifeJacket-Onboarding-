@@ -1,7 +1,7 @@
-/* .home {
-  display: flex;
-  justify-content: space-around;
-} */
+.home {
+  padding-top: 5vh;
+  height: 100vh;
+}
 
 .home-title {
 width: 100%;
