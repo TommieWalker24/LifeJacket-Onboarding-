@@ -1,4 +1,10 @@
-<nav>
-  <a routerLink="/">Home</a>
-  <a routerLink="/user/:id">User</a>
-</nav>
+<div class="right" *ngIf="users">
+
+  <h3>Users</h3>
+  <ul>
+    <li *ngFor="let user of users | async">
+      <a [href]="user.url" target="_blank">{{ user.name }}</a>
+    </li>
+  </ul>
+
+</div>

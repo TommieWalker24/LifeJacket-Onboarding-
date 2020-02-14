@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
+import { StoreModule } from '@ngrx/store';
 
 import { InMemoryDataService } from './in-memory-data.service';
 import { AppRoutingModule } from './app-routing.module';
@@ -14,6 +15,7 @@ import { HomeComponent } from './home/home.component';
 import { UserComponent } from './user/user.component';
 import { AdminComponent } from './admin/admin.component';
 import { HeadNavComponent } from './head-nav/head-nav.component';
+import { reducer } from './reducers/user.reducer';
 
 let config = new AuthServiceConfig([
   {
@@ -42,7 +44,10 @@ export function provideConfig() {
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, { dataEncapsulation: false }
     ),
-    SocialLoginModule.initialize(config)
+    SocialLoginModule.initialize(config),
+    StoreModule.forRoot({
+      user: reducer
+    })
   ],
   providers: [
     {
