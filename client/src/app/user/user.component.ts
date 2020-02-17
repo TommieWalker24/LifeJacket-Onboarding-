@@ -3,6 +3,8 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { User } from './../models/user.model';
 import { AppState } from './../app.state';
+import { DataService } from '../data.service';
+import { Step } from '../models/steps.models';
 
 @Component({
   selector: 'app-user',
@@ -10,44 +12,16 @@ import { AppState } from './../app.state';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-  steps = [
-    {
-      name: "Step1",
-      complete: true,
-      pending: false,
-      description: "steeeep 11"
-    },
-    {
-      name: "Step2",
-      complete: true,
-      pending: false,
-      description: "steeeep 22"
-    },
-    {
-      name: "Step3",
-      complete: false,
-      pending: true,
-      description: "steeeep 33"
-    },
-    {
-      name: "Step4",
-      complete: false,
-      pending: false,
-      description: "steeeep 44"
-    },
-    {
-      name: "Step5",
-      complete: false,
-      pending: false,
-      description: "steeeep 55"
-    }]
   users: Observable<User[]>;
+  steps: Observable<Step[]>;
 
-  constructor(private store: Store<AppState>) {
-    this.users = store.select('user')
+  constructor(private store: Store<AppState>, private dataService: DataService) {
+    this.users = store.select('user');
+    this.steps = store.select('steps');
+    console.log(this.steps)
   }
 
   ngOnInit() {
+    this.dataService.getSteps();
   }
-
 }

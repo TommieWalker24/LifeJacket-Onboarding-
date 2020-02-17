@@ -14,7 +14,7 @@
     "@angular/animations": "~8.2.14",
     "@angular/common": "~8.2.14",
     "@angular/compiler": "~8.2.14",
-    "@angular/core": "~8.2.14",
+    "@angular/core": "^8.2.14",
     "@angular/forms": "~8.2.14",
     "@angular/platform-browser": "~8.2.14",
     "@angular/platform-browser-dynamic": "~8.2.14",
@@ -23,7 +23,7 @@
     "angular-in-memory-web-api": "^0.9.0",
     "angularx-social-login": "^2.2.1",
     "bootswatch": "^4.4.1",
-    "rxjs": "~6.4.0",
+    "rxjs": "^6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
   },

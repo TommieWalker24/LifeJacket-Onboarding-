@@ -12,7 +12,38 @@ export class InMemoryDataService implements InMemoryDbService {
       { EmailAddress: "test@gmail.com", password: 'test2' },
       { EmailAddress: "nottest@ruralsourcing.com", password: 'test3' },
     ];
-    return { users };
+    const steps = [
+      {
+        name: "Step1",
+        complete: true,
+        pending: false,
+        description: "steeeep 11"
+      },
+      {
+        name: "Step2",
+        complete: true,
+        pending: false,
+        description: "steeeep 22"
+      },
+      {
+        name: "Step3",
+        complete: false,
+        pending: true,
+        description: "steeeep 33"
+      },
+      {
+        name: "Step4",
+        complete: false,
+        pending: false,
+        description: "steeeep 44"
+      },
+      {
+        name: "Step5",
+        complete: false,
+        pending: false,
+        description: "steeeep 55"
+      }]
+    return { users, steps };
   }
   constructor() { }
 }
