@@ -1,10 +1,27 @@
-<div class="right" *ngIf="users">
+<div *ngFor="let user of users | async">
+  <app-head-nav></app-head-nav>
+  <div class="container">
+    <h3>{{user.FirstName}} {{user.LastName}}</h3>
+    <div *ngFor="let step of steps" class="accordion" id="accordionExample">
+      <div class="card">
+        <div class="card-header" id="{{step.name}}">
+          <h2 class="mb-0">
+            <button class="btn btn-link" type="button" data-toggle="collapse"
+              [attr.data-target]="'#' + step.name + '-body'" aria-expanded="true" aria-controls="collapseOne"
+              [disabled]="step.complete ? true : false">
+              {{step.complete ? step.name + " (completed)" : step.name}}
+            </button>
+          </h2>
+        </div>
 
-  <h3>Users</h3>
-  <ul>
-    <li *ngFor="let user of users | async">
-      <a [href]="user.url" target="_blank">{{ user.name }}</a>
-    </li>
-  </ul>
+        <div [attr.id]="step.name + '-body'" [className]="step.pending ? 'collapse show' : 'collapse'"
+          aria-labelledby="headingOne" data-parent="#accordionExample">
+          <div class="card-body">
+            {{step.description}}
+          </div>
+        </div>
+      </div>
 
+    </div>
+  </div>
 </div>

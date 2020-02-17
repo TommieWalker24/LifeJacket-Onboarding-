@@ -31,25 +31,24 @@ export class HomeComponent implements OnInit {
       (response) => {
         if (response.email.split('@')[1] !== "ruralsourcing.com") return this.resultMessage = "Make sure you use your RSI email.";
         console.log(platform + ' logged in user data is= ', response);
-        // this.store.dispatch(new UserActions.AddUser({ name: response.name, url: response.email }))
-        this.userData.push({
+        this.store.dispatch(new UserActions.AddUser({
           UserId: response.id,
-          Provider: response.provider,
           FirstName: response.firstName,
           LastName: response.lastName,
           EmailAddress: response.email,
           PictureUrl: response.photoUrl
-        });
-        this.accountService.Login(this.userData[0]).subscribe(
-          result => {
-            console.log('success', result);
-            this.router.navigateByUrl(`/user/${response.id}`);
-          },
-          error => {
-            this.resultMessage = 'Routing didn\'t work and that sucks.';
-            console.log(error);
-          }
-        );
+        }));
+        this.router.navigateByUrl(`/user/${response.id}`);
+        // this.accountService.Login(this.userData[0]).subscribe(
+        //   result => {
+        //     console.log('success', result);
+        //     this.router.navigateByUrl(`/user/${response.id}`);
+        //   },
+        //   error => {
+        //     this.resultMessage = 'Routing didn\'t work and that sucks.';
+        //     console.log(error);
+        //   }
+        // );
       },
       (error) => {
         console.log(error);
