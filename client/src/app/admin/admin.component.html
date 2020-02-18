@@ -14,22 +14,18 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+
       <h3 class="banner">Add a new Step to the Onboarding Process</h3>
-      <form>
+      <form [formGroup]="editorForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
           <label for="title">Title</label>
-          <input type="text" class="form-control" id="title" #title>
+          <input formControlName="title" type="text" class="form-control">
         </div>
         <div class="form-group">
-          <label for="url">Url for this Step(if applicable)</label>
-          <input type="text" class="form-control" id="url" #url>
+          <label for="editor">Content</label>
+          <quill-editor formControlName="editor" [style]="editorStyle"></quill-editor>
         </div>
-        <div class="form-group">
-          <label for="description">Description</label>
-          <textarea class="form-control" id="description" #description></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary"
-          (click)="addStep(title.value, url.value, description.value); title.value=''; url.value=''; description.value=''">Add</button>
+        <button type="submit" class="btn btn-primary">Add</button>
       </form>
     </div>
   </div>

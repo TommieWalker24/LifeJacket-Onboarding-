@@ -1,11 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
 import { StoreModule } from '@ngrx/store';
+import { QuillModule } from 'ngx-quill';
 
 import { InMemoryDataService } from './in-memory-data.service';
 import { AppRoutingModule } from './app-routing.module';
@@ -46,8 +47,11 @@ export function provideConfig() {
     ),
     SocialLoginModule.initialize(config),
     StoreModule.forRoot({
-      user: reducer
-    })
+      user: reducer,
+      step: reducer
+    }),
+    QuillModule.forRoot(),
+    ReactiveFormsModule
   ],
   providers: [
     {

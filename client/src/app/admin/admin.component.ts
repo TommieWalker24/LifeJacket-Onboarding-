@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AdminService } from '../admin.service';
+import { DataService } from '../data.service';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-admin',
@@ -8,12 +9,20 @@ import { AdminService } from '../admin.service';
 })
 export class AdminComponent implements OnInit {
 
-  constructor(private adminService: AdminService) { }
-
   addSuccess: boolean = false;
   addFailure: boolean = false;
+  editorForm: FormGroup;
+  editorStyle = {
+    height: '200px'
+  }
+
+  constructor(private dataService: DataService) { }
 
   ngOnInit() {
+    this.editorForm = new FormGroup({
+      'editor': new FormControl(null),
+      'title': new FormControl(null)
+    })
   }
 
   hideAlert() {
@@ -21,9 +30,11 @@ export class AdminComponent implements OnInit {
     this.addSuccess = false;
   }
 
-  addStep(title: string, url: string, description: string): void {
-    const data = { title, url, description }
-    this.adminService.AddStep(data).subscribe(
+  onSubmit() {
+    const content = this.editorForm.get('editor').value;
+    const title = this.editorForm.get('title').value;
+    const data = { title, content, pending: false, complete: false }
+    this.dataService.addStep(data).subscribe(
       result => {
         console.log('success', result);
         this.addSuccess = true;
@@ -34,5 +45,6 @@ export class AdminComponent implements OnInit {
       }
     );
   }
+
 
 }

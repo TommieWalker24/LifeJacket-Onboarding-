@@ -1,6 +1,6 @@
 export class Step {
-  name: string;
+  title: string;
   pending: boolean;
   complete: boolean;
-  description: string;
+  content: string;
 }
