@@ -12,6 +12,7 @@ export class AdminComponent implements OnInit {
   addSuccess: boolean = false;
   addFailure: boolean = false;
   editorForm: FormGroup;
+
   editorStyle = {
     height: '200px'
   }
@@ -44,6 +45,10 @@ export class AdminComponent implements OnInit {
         this.addFailure = true;
       }
     );
+  }
+
+  addAsset(assetName) {
+    console.log(assetName);
   }
 
 

@@ -1,4 +1,3 @@
-import { Action, INITIAL_REDUCERS } from '@ngrx/store'
 import { User } from './../models/user.model'
 import * as UserActions from './../actions/user.actions'
 

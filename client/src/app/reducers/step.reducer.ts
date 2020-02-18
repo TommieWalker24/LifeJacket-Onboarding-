@@ -1,37 +1,36 @@
-import { Action } from '@ngrx/store';
 import { Step } from './../models/steps.models';
 import * as StepActions from '../actions/step.actions'
 
 const initialState = [
   {
-    name: "Step1",
+    title: "Step1",
     complete: true,
     pending: false,
-    description: "steeeep 11"
+    content: "steeeep 11"
   },
   {
-    name: "Step2",
+    title: "Step2",
     complete: true,
     pending: false,
-    description: "steeeep 22"
+    content: "steeeep 22"
   },
   {
-    name: "Step3",
+    title: "Step3",
     complete: false,
     pending: true,
-    description: "steeeep 33"
+    content: "steeeep 33"
   },
   {
-    name: "Step4",
+    title: "Step4",
     complete: false,
     pending: false,
-    description: "steeeep 44"
+    content: "steeeep 44"
   },
   {
-    name: "Step5",
+    title: "Step5",
     complete: false,
     pending: false,
-    description: "steeeep 55"
+    content: "steeeep 55"
   }]
 
 export function reducer(state: Step[] = initialState, action: StepActions.Actions) {
