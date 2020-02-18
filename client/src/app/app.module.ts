@@ -16,7 +16,8 @@ import { HomeComponent } from './home/home.component';
 import { UserComponent } from './user/user.component';
 import { AdminComponent } from './admin/admin.component';
 import { HeadNavComponent } from './head-nav/head-nav.component';
-import { reducer } from './reducers/user.reducer';
+import { userReducer } from './reducers/user.reducer';
+import { stepReducer } from './reducers/step.reducer';
 
 let config = new AuthServiceConfig([
   {
@@ -47,8 +48,8 @@ export function provideConfig() {
     ),
     SocialLoginModule.initialize(config),
     StoreModule.forRoot({
-      user: reducer,
-      step: reducer
+      user: userReducer,
+      steps: stepReducer
     }),
     QuillModule.forRoot(),
     ReactiveFormsModule

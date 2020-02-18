@@ -18,10 +18,9 @@ export class UserComponent implements OnInit {
   constructor(private store: Store<AppState>, private dataService: DataService) {
     this.users = store.select('user');
     this.steps = store.select('steps');
-    console.log(this.steps)
   }
 
   ngOnInit() {
-    this.dataService.getSteps();
+    // this.dataService.getSteps();
   }
 }

@@ -2,22 +2,23 @@
   <app-head-nav></app-head-nav>
   <div class="container">
     <h3>{{user.FirstName}} {{user.LastName}}</h3>
-    <div *ngFor="let step of steps" class="accordion" id="accordionExample">
+
+    <div *ngFor="let step of steps | async" class="accordion" id="accordionExample">
       <div class="card">
-        <div class="card-header" id="{{step.name}}">
+        <div class="card-header" id="{{step.title}}">
           <h2 class="mb-0">
             <button class="btn btn-link" type="button" data-toggle="collapse"
-              [attr.data-target]="'#' + step.name + '-body'" aria-expanded="true" aria-controls="collapseOne"
+              [attr.data-target]="'#' + step.title + '-body'" aria-expanded="true" aria-controls="collapseOne"
               [disabled]="step.complete ? true : false">
-              {{step.complete ? step.name + " (completed)" : step.name}}
+              {{step.complete ? step.title + " (completed)" : step.title}}
             </button>
           </h2>
         </div>
 
-        <div [attr.id]="step.name + '-body'" [className]="step.pending ? 'collapse show' : 'collapse'"
+        <div [attr.id]="step.title + '-body'" [className]="step.pending ? 'collapse show' : 'collapse'"
           aria-labelledby="headingOne" data-parent="#accordionExample">
           <div class="card-body">
-            {{step.description}}
+            {{step.content}}
           </div>
         </div>
       </div>

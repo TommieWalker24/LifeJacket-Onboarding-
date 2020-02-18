@@ -1,7 +1,7 @@
 import { Step } from './../models/steps.models';
 import * as StepActions from '../actions/step.actions'
 
-const initialState = [
+const initialState: Step[] = [
   {
     title: "Step1",
     complete: true,
@@ -33,7 +33,7 @@ const initialState = [
     content: "steeeep 55"
   }]
 
-export function reducer(state: Step[] = initialState, action: StepActions.Actions) {
+export function stepReducer(state: Step[] = initialState, action: StepActions.Actions) {
   switch (action.type) {
     case StepActions.ADD_STEP:
       return [...state, action.payload];

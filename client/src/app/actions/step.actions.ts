@@ -1,4 +1,3 @@
-import { Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
 import { Step } from '../models/steps.models';
 
