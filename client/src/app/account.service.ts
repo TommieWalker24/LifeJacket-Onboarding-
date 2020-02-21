@@ -20,4 +20,8 @@ export class AccountService {
       })
     );
   }
+
+  getLocation() {
+    return this.http.get('http://api.ipapi.com/api/check?access_key=AIzaSyAaRscLNoUBrJPFFbn50yKEb6-I8ibaeUM')
+  }
 }

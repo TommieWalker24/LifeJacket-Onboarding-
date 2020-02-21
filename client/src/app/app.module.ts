@@ -7,6 +7,7 @@ import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
 import { StoreModule } from '@ngrx/store';
 import { QuillModule } from 'ngx-quill';
+import { AgmCoreModule } from '@agm/core';
 
 import { InMemoryDataService } from './in-memory-data.service';
 import { AppRoutingModule } from './app-routing.module';
@@ -52,7 +53,10 @@ export function provideConfig() {
       steps: stepReducer
     }),
     QuillModule.forRoot(),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAaRscLNoUBrJPFFbn50yKEb6-I8ibaeUM'
+    })
   ],
   providers: [
     {

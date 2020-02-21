@@ -4,4 +4,5 @@ export class User {
   LastName: string
   EmailAddress: string
   PictureUrl: string
+  Location: Object
 }

@@ -5,9 +5,7 @@ import { AccountService } from '../account.service';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from './../app.state';
-import { User } from './../models/user.model'
 import * as UserActions from './../actions/user.actions';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -18,27 +16,40 @@ export class HomeComponent implements OnInit {
 
   userData = [];
   resultMessage: string;
+  latitude: string;
+  longitude: string;
 
   constructor(private router: Router, private accountService: AccountService, private authService: AuthService, private store: Store<AppState>) { }
 
   ngOnInit() {
   }
 
-  logInWithGoogle(platform: string): void {
+  logInWithGoogle(platform: string) {
     this.resultMessage = '';
     platform = GoogleLoginProvider.PROVIDER_ID;
     this.authService.signIn(platform).then(
-      (response) => {
+      async (response) => {
+        let location = {};
         if (response.email.split('@')[1] !== "ruralsourcing.com") return this.resultMessage = "Make sure you use your RSI email.";
         console.log(platform + ' logged in user data is= ', response);
-        this.store.dispatch(new UserActions.AddUser({
+        // if (navigator.geolocation) {
+        //   await navigator.geolocation.getCurrentPosition(position => {
+        //     console.log(position);
+        //     location = position;
+        //   })
+        // }
+        this.accountService.getLocation().subscribe(data => {
+          console.log(data);
+        })
+        await this.store.dispatch(new UserActions.AddUser({
           UserId: response.id,
           FirstName: response.firstName,
           LastName: response.lastName,
           EmailAddress: response.email,
-          PictureUrl: response.photoUrl
+          PictureUrl: response.photoUrl,
+          Location: location
         }));
-        this.router.navigateByUrl(`/user/${response.id}`);
+        await this.router.navigateByUrl(`/user/${response.id}`);
         // this.accountService.Login(this.userData[0]).subscribe(
         //   result => {
         //     console.log('success', result);
