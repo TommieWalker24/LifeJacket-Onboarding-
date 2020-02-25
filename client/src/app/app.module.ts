@@ -7,7 +7,6 @@ import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
 import { StoreModule } from '@ngrx/store';
 import { QuillModule } from 'ngx-quill';
-import { AgmCoreModule } from '@agm/core';
 
 import { InMemoryDataService } from './in-memory-data.service';
 import { AppRoutingModule } from './app-routing.module';
@@ -19,6 +18,7 @@ import { AdminComponent } from './admin/admin.component';
 import { HeadNavComponent } from './head-nav/head-nav.component';
 import { userReducer } from './reducers/user.reducer';
 import { stepReducer } from './reducers/step.reducer';
+import { LocationComponent } from './location/location.component';
 
 let config = new AuthServiceConfig([
   {
@@ -37,7 +37,8 @@ export function provideConfig() {
     HomeComponent,
     UserComponent,
     AdminComponent,
-    HeadNavComponent
+    HeadNavComponent,
+    LocationComponent
   ],
   imports: [
     HttpClientModule,
@@ -53,10 +54,7 @@ export function provideConfig() {
       steps: stepReducer
     }),
     QuillModule.forRoot(),
-    ReactiveFormsModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyAaRscLNoUBrJPFFbn50yKEb6-I8ibaeUM'
-    })
+    ReactiveFormsModule
   ],
   providers: [
     {

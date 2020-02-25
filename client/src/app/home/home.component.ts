@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from './../app.state';
 import * as UserActions from './../actions/user.actions';
+import { Observable } from 'rxjs';
+import { User } from '../models/user.model';
 
 @Component({
   selector: 'app-home',
@@ -13,15 +15,16 @@ import * as UserActions from './../actions/user.actions';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
+  user: Observable<User[]>
   userData = [];
   resultMessage: string;
-  latitude: string;
-  longitude: string;
 
-  constructor(private router: Router, private accountService: AccountService, private authService: AuthService, private store: Store<AppState>) { }
+  constructor(private router: Router, private accountService: AccountService, private authService: AuthService, private store: Store<AppState>) {
+    this.user = store.select('user');
+  }
 
   ngOnInit() {
+
   }
 
   logInWithGoogle(platform: string) {
@@ -29,37 +32,35 @@ export class HomeComponent implements OnInit {
     platform = GoogleLoginProvider.PROVIDER_ID;
     this.authService.signIn(platform).then(
       async (response) => {
-        let location = {};
         if (response.email.split('@')[1] !== "ruralsourcing.com") return this.resultMessage = "Make sure you use your RSI email.";
         console.log(platform + ' logged in user data is= ', response);
-        // if (navigator.geolocation) {
-        //   await navigator.geolocation.getCurrentPosition(position => {
-        //     console.log(position);
-        //     location = position;
-        //   })
-        // }
-        this.accountService.getLocation().subscribe(data => {
-          console.log(data);
-        })
         await this.store.dispatch(new UserActions.AddUser({
           UserId: response.id,
           FirstName: response.firstName,
           LastName: response.lastName,
           EmailAddress: response.email,
-          PictureUrl: response.photoUrl,
-          Location: location
+          PictureUrl: response.photoUrl
         }));
-        await this.router.navigateByUrl(`/user/${response.id}`);
-        // this.accountService.Login(this.userData[0]).subscribe(
-        //   result => {
-        //     console.log('success', result);
-        //     this.router.navigateByUrl(`/user/${response.id}`);
-        //   },
-        //   error => {
-        //     this.resultMessage = 'Routing didn\'t work and that sucks.';
-        //     console.log(error);
-        //   }
-        // );
+        await this.accountService.GetUser(response.email).subscribe(
+          result => {
+            console.log('success', result);
+            this.router.navigateByUrl(`/user`);
+          },
+          error => {
+            console.log(error);
+            this.router.navigateByUrl(`/location`);
+          }
+        )
+        await this.accountService.Login(this.store.select('user').subscribe(
+          result => {
+            console.log('success', result);
+            this.router.navigateByUrl(`/user`);
+          },
+          error => {
+            this.resultMessage = 'Routing didn\'t work and that sucks.';
+            console.log(error);
+          }
+        ));
       },
       (error) => {
         console.log(error);

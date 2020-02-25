@@ -9,16 +9,16 @@ import { Observable, of } from 'rxjs';
 })
 export class DataService {
 
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
+  private handleError(operation = 'operation', result) {
+    return (error: any) => {
       console.error(error);
-      return of(result as T);
+      return of(result);
     };
   }
 
   constructor(private http: HttpClient) { }
 
-  private serviceUrl = 'api/steps';
+  private serviceUrl = 'api';
 
   addStep(data: Step) {
     return this.http.post<Step>(this.serviceUrl, data).pipe(
@@ -26,10 +26,18 @@ export class DataService {
     );
   }
 
-  getSteps(): Observable<Step[]> {
-    return this.http.get<Step[]>(this.serviceUrl)
+  getSteps() {
+    return this.http.get(`${this.serviceUrl}/steps`)
       .pipe(
-        catchError(this.handleError<Step[]>('getSteps', []))
+        catchError(this.handleError('getSteps', []))
       );
+  }
+
+  getDevCenters() {
+    return this.http.get(`${this.serviceUrl}/devCenters`)
+      .pipe(
+        map(result => { return result }),
+        catchError(this.handleError('getDevCenters', []))
+      )
   }
 }

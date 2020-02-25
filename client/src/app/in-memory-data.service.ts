@@ -6,6 +6,14 @@ import { InMemoryDbService } from 'angular-in-memory-web-api';
 })
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
+    const devCenters = [
+      { devCenter: 'Oklahoma City' },
+      { devCenter: 'Mobile' },
+      { devCenter: 'Jonesboro' },
+      { devCenter: 'Augusta' },
+      { devCenter: 'Fort Wayne' },
+      { devCenter: 'Albuquerque' }
+    ]
     const users = [
       { EmailAddress: "brayden.robbins@ruralsourcing.com", UserId: 1234, FirstName: "Brayden", LastName: "Robbins", PictureUrl: 'http://google.com', Provider: 'Google' },
       { EmailAddress: "braydenrobbins98@gmail.com", password: 'test1' },
@@ -43,7 +51,7 @@ export class InMemoryDataService implements InMemoryDbService {
         pending: false,
         description: "steeeep 55"
       }]
-    return { users, steps };
+    return { users, steps, devCenters };
   }
   constructor() { }
 }
