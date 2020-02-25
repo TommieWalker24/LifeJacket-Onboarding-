@@ -14,6 +14,7 @@ import { Step } from '../models/steps.models';
 export class UserComponent implements OnInit {
   users: Observable<User[]>;
   steps: Observable<Step[]>;
+  stepProgress: number;
 
   constructor(private store: Store<AppState>, private dataService: DataService) {
     this.users = store.select('user');
@@ -22,5 +23,9 @@ export class UserComponent implements OnInit {
 
   ngOnInit() {
     // this.dataService.getSteps();
+    this.steps.subscribe(results => {
+      this.stepProgress = (results.filter(step => step.complete === true).length / results.length) * 100;
+      console.log(this.stepProgress);
+    })
   }
 }

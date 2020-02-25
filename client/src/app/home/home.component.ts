@@ -41,16 +41,16 @@ export class HomeComponent implements OnInit {
           EmailAddress: response.email,
           PictureUrl: response.photoUrl
         }));
-        await this.accountService.GetUser(response.email).subscribe(
-          result => {
-            console.log('success', result);
-            this.router.navigateByUrl(`/user`);
-          },
-          error => {
-            console.log(error);
-            this.router.navigateByUrl(`/location`);
-          }
-        )
+        // await this.accountService.GetUser(response.email).subscribe(
+        //   result => {
+        //     console.log('success', result);
+        //     this.router.navigateByUrl(`/user`);
+        //   },
+        //   error => {
+        //     console.log(error);
+        //     this.router.navigateByUrl(`/location`);
+        //   }
+        // )
         await this.accountService.Login(this.store.select('user').subscribe(
           result => {
             console.log('success', result);

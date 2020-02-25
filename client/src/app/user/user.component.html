@@ -1,8 +1,12 @@
 <div *ngFor="let user of users | async">
   <app-head-nav></app-head-nav>
   <div class="container">
-    <h3>{{user.FirstName}} {{user.LastName}}</h3>
-
+    <h3>You're {{stepProgress}}% complete with onboarding.</h3>
+    <div class="progress">
+      <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+        aria-valuenow="stepProgress" aria-valuemin="0" aria-valuemax="100" [style.width]="stepProgress + '%'"></div>
+    </div>
+    <h4>Here's what you need to complete to join the team:</h4>
     <div *ngFor="let step of steps | async" class="accordion" id="accordionExample">
       <div class="card">
         <div class="card-header" id="{{step.title}}">
