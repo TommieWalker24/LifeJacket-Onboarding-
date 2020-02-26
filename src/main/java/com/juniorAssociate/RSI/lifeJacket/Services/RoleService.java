@@ -1,9 +1,7 @@
 package com.juniorAssociate.RSI.lifeJacket.Services;
 
 import com.juniorAssociate.RSI.lifeJacket.Entities.Role;
-import com.juniorAssociate.RSI.lifeJacket.Entities.Step;
 import com.juniorAssociate.RSI.lifeJacket.Repositories.RoleRepository;
-import com.juniorAssociate.RSI.lifeJacket.Repositories.StepRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,20 +17,20 @@ public class RoleService {
         return roleRepository.findAll();
     }
 
-    public void saveAllSteps(){
+    public void saveAllRoles(){
         List<Role> steps = roleRepository.findAll();
         roleRepository.saveAll(steps);
     }
-    public List<Role> findAllSteps(){
+    public List<Role> findAllRole(){
         return roleRepository.findAll();
     }
-    public Optional<Step> findByID(){
+    public Optional<Role> findByID(){
         return roleRepository.findById();
     }
-    public void deleteStep(Step step){
-        stepRepository.delete(step);
+    public void deleteRole(Role role){
+        roleRepository.delete(role);
     }
-    public void saveStep(Step step){
-        stepRepository.save(step);
+    public void saveRole(Role role){
+        roleRepository.save(role);
     }
 }
