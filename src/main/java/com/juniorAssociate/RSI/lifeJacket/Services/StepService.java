@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class StepService {
     @Autowired
@@ -15,17 +17,23 @@ public class StepService {
         return stepRepository.findAll();
     }
 
-//    public void deleteStep(String stepTitle){
-//        var step = stepRepository.findByTitle(stepTitle);
-//        stepRepository.delete((Step) step);
-//    }
     public void saveAllSteps(){
         List<Step> steps = stepRepository.findAll();
         stepRepository.saveAll(steps);
     }
-//    public void saveStep(String stepTitle){
-//        var step = stepRepository.findByTitle(stepTitle);
-//        stepRepository.save(step);
-//    }
+    public List<Step> findAllSteps(){
+        List<Step> allSteps = stepRepository.findAll();
+        return allSteps;
+    }
+    public Optional<Step> findByID(){
+        return stepRepository.findById();
+    }
+    public void deleteStep(Step step){
+        stepRepository.delete(step);
+    }
+    public void saveStep(Step step){
+        stepRepository.save(step);
+    }
+
 
 }
