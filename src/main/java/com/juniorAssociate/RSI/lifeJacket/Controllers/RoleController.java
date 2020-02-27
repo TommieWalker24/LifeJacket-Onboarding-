@@ -1,72 +1,68 @@
 package com.juniorAssociate.RSI.lifeJacket.Controllers;
 
-import com.juniorAssociate.RSI.lifeJacket.Entities.Step;
-import com.juniorAssociate.RSI.lifeJacket.Services.StepService;
+import com.juniorAssociate.RSI.lifeJacket.Entities.Role;
+import com.juniorAssociate.RSI.lifeJacket.Services.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
-
-//todo: Look up update endpoints
 
 @RestController
-@RequestMapping("/step")
-public class StepController {
+@RequestMapping("/role")
+public class RoleController {
     @Autowired
-    private StepService stepService;
+    private RoleService roleService;
 
     @RequestMapping("/")
     public String Helloworld (){
-        return "Tommie is amazing in his steps!!!";
+        return "Tommie is amazing in his role!!!";
     }
 
     @RequestMapping(value = "/getAll")
-    public List<Step> getAllSteps() {
-        return stepService.getAllSteps();
+    public List<Role> getAllRoles() {
+        return roleService.getAllRoles();
     }
 
     @PatchMapping(value = "/saveAll")
-    public void saveAllSteps() {
-        stepService.saveAllSteps();
+    public void saveAllRoles() {
+        roleService.saveAllRoles();
     }
 
     @RequestMapping(value = "/findAll")
-    public void findAllSteps(){
-        stepService.findAllSteps();
+    public void findAllRoles(){
+        roleService.findAllRole();
     }
     //todo figure out what info i will have
 //    @RequestMapping("/findByID")
-//    public Optional<Step> findById(Long id){
-//        Optional<Step> foundStep = stepService.findByID();
-//        return foundStep;
+//    public Optional<Role> findById(Long id){
+//        Optional<Role> foundRole = roleService.findByID();
+//        return foundRole;
 //    }
     //todo figure out what info i will have
-    @DeleteMapping ("/delete")
-    public void delete(){
-        //  stepService.deleteStep(Step);
+    @DeleteMapping(value = "/delete")
+    public void delete(Role role){
+         roleService.deleteRole(role);
     }
     //todo figure out what info i will have
     @PatchMapping("/save")
-    public void saveStep(){
-        //  stepService.saveStep(Step);
+    public void saveStep(Role role){
+          roleService.saveRole(role);
     }
 
 
     //todo:this endpoint after basic endpoints
     @PatchMapping(value = "/admin/change/{title}")
-    public void changeStep(@PathVariable String title){
+    public void changeRole(@PathVariable String title){
         //check step repo so we can find by the step name
     }
 
     //todo:this endpoint after basic endpoints
-    @PutMapping(value = "/admin/insert/{title}")
-    public void insertStep(@PathVariable String title){
+  //  @PutMapping(value = "/admin/insert/{title}")
+   // public void insertRole(Role role){
 
-    }
+   // }
 }

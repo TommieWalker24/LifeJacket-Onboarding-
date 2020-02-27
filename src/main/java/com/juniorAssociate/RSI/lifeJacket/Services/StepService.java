@@ -25,9 +25,9 @@ public class StepService {
         List<Step> allSteps = stepRepository.findAll();
         return allSteps;
     }
-    public Optional<Step> findByID(){
-        return stepRepository.findById();
-    }
+//    public Optional<Step> findByID(){
+//        return stepRepository.findById();
+//    }
     public void deleteStep(Step step){
         stepRepository.delete(step);
     }
