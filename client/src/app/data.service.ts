@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, tap, catchError } from 'rxjs/operators';
-import { Step } from './models/steps.models';
 import { Observable, of } from 'rxjs';
 
 @Injectable({
@@ -20,17 +19,10 @@ export class DataService {
 
   private serviceUrl = 'api';
 
-  addStep(data: Step) {
-    return this.http.post<Step>(this.serviceUrl, data).pipe(
+  addStep(data) {
+    return this.http.post(this.serviceUrl, data).pipe(
       map(result => { return result })
     );
-  }
-
-  getSteps() {
-    return this.http.get(`${this.serviceUrl}/steps`)
-      .pipe(
-        catchError(this.handleError('getSteps', []))
-      );
   }
 
   getDevCenters() {

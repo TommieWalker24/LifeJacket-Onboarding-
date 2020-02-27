@@ -1,32 +1,39 @@
-<div *ngFor="let user of users | async">
-  <app-head-nav></app-head-nav>
-  <div class="container">
-    <h3>You're {{stepProgress}}% complete with onboarding.</h3>
-    <div class="progress">
-      <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-        aria-valuenow="stepProgress" aria-valuemin="0" aria-valuemax="100" [style.width]="stepProgress + '%'"></div>
+<app-head-nav></app-head-nav>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-2 side-nav">
+      <app-side-nav></app-side-nav>
     </div>
-    <h4>Here's what you need to complete to join the team:</h4>
-    <div *ngFor="let step of steps | async" class="accordion" id="accordionExample">
-      <div class="card">
-        <div class="card-header" id="{{step.title}}">
-          <h2 class="mb-0">
-            <button class="btn btn-link" type="button" data-toggle="collapse"
-              [attr.data-target]="'#' + step.title + '-body'" aria-expanded="true" aria-controls="collapseOne"
-              [disabled]="step.complete ? true : false">
-              {{step.complete ? step.title + " (completed)" : step.title}}
-            </button>
-          </h2>
+    <div class="col-10">
+      <div *ngFor="let user of users$ | async">
+        <h2>{{user.FirstName}}'s Progress</h2>
+        <div class="progress">
+          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+            aria-valuenow="stepProgress" aria-valuemin="0" aria-valuemax="100" [style.width]="stepProgress + '%'">
+            {{stepProgress}}%</div>
         </div>
-
-        <div [attr.id]="step.title + '-body'" [className]="step.pending ? 'collapse show' : 'collapse'"
-          aria-labelledby="headingOne" data-parent="#accordionExample">
-          <div class="card-body">
-            {{step.content}}
+        <div *ngFor="let category of categories$ | async">
+          <h2 class="{{category.name}}">{{category.name}}</h2>
+          <div *ngFor="let step of category.steps" class="accordion" id="accordionExample">
+            <div class="card">
+              <div class="card-header" id="{{step.title}}">
+                <h2 class="mb-0">
+                  <button class="btn btn-link" type="button" data-toggle="collapse"
+                    [attr.data-target]="'#' + step.title + '-body'" aria-expanded="true" aria-controls="collapseOne">
+                    {{step.complete ? step.title + " (completed)" : step.title}}
+                  </button>
+                </h2>
+              </div>
+              <div [attr.id]="step.title + '-body'" [className]="step.pending ? 'collapse show' : 'collapse'"
+                aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="card-body">
+                  {{step.content}}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </div>

@@ -33,7 +33,6 @@ export class HomeComponent implements OnInit {
     this.authService.signIn(platform).then(
       async (response) => {
         if (response.email.split('@')[1] !== "ruralsourcing.com") return this.resultMessage = "Make sure you use your RSI email.";
-        console.log(platform + ' logged in user data is= ', response);
         await this.store.dispatch(new UserActions.AddUser({
           UserId: response.id,
           FirstName: response.firstName,
@@ -43,17 +42,15 @@ export class HomeComponent implements OnInit {
         }));
         // await this.accountService.GetUser(response.email).subscribe(
         //   result => {
-        //     console.log('success', result);
         //     this.router.navigateByUrl(`/user`);
         //   },
         //   error => {
         //     console.log(error);
         //     this.router.navigateByUrl(`/location`);
         //   }
-        // )
+        // );
         await this.accountService.Login(this.store.select('user').subscribe(
           result => {
-            console.log('success', result);
             this.router.navigateByUrl(`/user`);
           },
           error => {

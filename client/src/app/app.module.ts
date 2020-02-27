@@ -16,9 +16,9 @@ import { HomeComponent } from './home/home.component';
 import { UserComponent } from './user/user.component';
 import { AdminComponent } from './admin/admin.component';
 import { HeadNavComponent } from './head-nav/head-nav.component';
-import { userReducer } from './reducers/user.reducer';
-import { stepReducer } from './reducers/step.reducer';
 import { LocationComponent } from './location/location.component';
+import { userReducer } from './reducers/user.reducer';
+import { categoryReducer } from './reducers/category.reducer';
 
 let config = new AuthServiceConfig([
   {
@@ -51,7 +51,7 @@ export function provideConfig() {
     SocialLoginModule.initialize(config),
     StoreModule.forRoot({
       user: userReducer,
-      steps: stepReducer
+      categories: categoryReducer
     }),
     QuillModule.forRoot(),
     ReactiveFormsModule

@@ -1,7 +1,7 @@
 import { User } from './models/user.model';
-import { Step } from './models/steps.models';
+import { Category } from './models/category.model';
 
 export interface AppState {
   readonly user: User[];
-  readonly steps: Step[];
+  readonly categories: Category[];
 }
