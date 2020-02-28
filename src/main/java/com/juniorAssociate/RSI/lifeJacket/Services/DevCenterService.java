@@ -22,9 +22,7 @@ public class DevCenterService {
         }
 
         public List<DevCenter> findAllDevCenters() {
-            List<DevCenter> foundCenters = devCenterRepository.findAll();
-            System.out.println("This is something");
-            return foundCenters;
+            return devCenterRepository.findAll();
         }
 
         public DevCenter findByID(String id){

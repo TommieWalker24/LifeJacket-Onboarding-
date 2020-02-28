@@ -21,19 +21,14 @@ public class AssetController {
         return "Assets are cool.java!!!";
     }
 
-    @RequestMapping(value = "/getAll")
-    public List<Asset> getAllAssets() {
-        return assetService.getAllAssets();
-    }
-
     @PatchMapping(value = "/saveAll")
     public void saveAllAssets() {
         assetService.saveAllAssets();
     }
 
     @RequestMapping(value = "/findAll")
-    public void findAllAssets(){
-        assetService.findAllAssets();
+    public List<Asset> findAllAssets(){
+        return assetService.findAllAssets();
     }
     //todo figure out what info i will have
     @RequestMapping("/findByID")

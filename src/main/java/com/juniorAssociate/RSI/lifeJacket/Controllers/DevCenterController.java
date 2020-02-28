@@ -1,13 +1,10 @@
 package com.juniorAssociate.RSI.lifeJacket.Controllers;
 
-import com.juniorAssociate.RSI.lifeJacket.Entities.Categories;
 import com.juniorAssociate.RSI.lifeJacket.Entities.DevCenter;
-import com.juniorAssociate.RSI.lifeJacket.Services.CategoryService;
 import com.juniorAssociate.RSI.lifeJacket.Services.DevCenterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,6 +15,8 @@ import java.util.List;
 public class DevCenterController {
     @Autowired
     private DevCenterService devCenterService;
+
+
 
     @RequestMapping("/")
     public String Helloworld (){
@@ -31,8 +30,7 @@ public class DevCenterController {
 
     @RequestMapping(value = "/findAll")
     public List<DevCenter>findAllDevCenters(){
-        List<DevCenter> allCenters = devCenterService.findAllDevCenters();
-      return  allCenters;
+        return devCenterService.findAllDevCenters();
     }
     //todo figure out what info i will have
     @RequestMapping("/findByID")

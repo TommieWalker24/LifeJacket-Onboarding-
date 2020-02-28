@@ -21,7 +21,7 @@ public class CategoryController {
     }
 
     @RequestMapping(value = "/findAll")
-    public List<Categories> getAllCategories() {
+    public List<Categories> findAllCategories() {
         return categoryService.findAllCategories();
     }
 
