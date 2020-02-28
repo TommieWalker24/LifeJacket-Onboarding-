@@ -1,8 +1,8 @@
 export class User {
-  UserId: string
-  FirstName: string
-  LastName: string
+  UserId?: string
+  FirstName?: string
+  LastName?: string
   EmailAddress: string
-  PictureUrl: string
+  PictureUrl?: string
   Location?: string
 }

@@ -15,7 +15,7 @@ export class InMemoryDataService implements InMemoryDbService {
       { devCenter: 'Albuquerque' }
     ]
     const users = [
-      { EmailAddress: "brayden.robbins@ruralsourcing.com", UserId: 1234, FirstName: "Brayden", LastName: "Robbins", PictureUrl: 'http://google.com', Provider: 'Google' },
+      { EmailAddress: "brayden.robbins@ruralsourcing.com" },
       { EmailAddress: "braydenrobbins98@gmail.com", password: 'test1' },
       { EmailAddress: "test@gmail.com", password: 'test2' },
       { EmailAddress: "nottest@ruralsourcing.com", password: 'test3' },

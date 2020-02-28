@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { AppState } from './app.state';
+import { Store } from '@ngrx/store';
+import * as UserActions from './actions/user.actions';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private store: Store<AppState>) { }
   //properties needed
   private baseUrlLogin = 'api/users';
   //communicate with web api
@@ -21,7 +24,15 @@ export class AccountService {
     );
   }
 
-  GetUser(email) {
+  Refresh() {
+    return this.http.get(`${this.baseUrlLogin}/refresh`).pipe(
+      map(res => {
+        // this.store.dispatch(new UserActions.AddUser(res));
+      })
+    );
+  }
+
+  CheckUserExist(email) {
     return this.http.get(`${this.baseUrlLogin}/${email}`).pipe(
       map(res => {
         return res;

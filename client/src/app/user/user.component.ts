@@ -13,7 +13,7 @@ import { AccountService } from '../account.service';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-  users$: Observable<User[]>;
+  users$: Observable<User>;
   user: User;
   stepProgress: number;
   categories$: Observable<Category[]>;
@@ -26,12 +26,14 @@ export class UserComponent implements OnInit {
 
   ngOnInit() {
     this.users$.subscribe(result => {
-      this.user = result[0];
+      this.user = result;
     });
     if (!this.user) {
-      this.accountService.refresh();
+      console.log('We tried to refresh the user');
+      this.accountService.Refresh();
     }
-
+    console.log("We tried to fetch the user categories");
+    // this.dataService.getCategories(this.user.EmailAddress);
     this.categories$.subscribe(results => {
       let stepsArray = [];
       const steps = results.map(category => category.steps.map(step => stepsArray.push(step)));

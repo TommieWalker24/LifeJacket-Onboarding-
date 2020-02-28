@@ -11,7 +11,6 @@ import { QuillModule } from 'ngx-quill';
 import { InMemoryDataService } from './in-memory-data.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SideNavComponent } from './side-nav/side-nav.component';
 import { HomeComponent } from './home/home.component';
 import { UserComponent } from './user/user.component';
 import { AdminComponent } from './admin/admin.component';
@@ -33,7 +32,6 @@ export function provideConfig() {
 @NgModule({
   declarations: [
     AppComponent,
-    SideNavComponent,
     HomeComponent,
     UserComponent,
     AdminComponent,

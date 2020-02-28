@@ -25,6 +25,10 @@ export class DataService {
     );
   }
 
+  getCategories(email) {
+    console.log(email);
+  }
+
   getDevCenters() {
     return this.http.get(`${this.serviceUrl}/devCenters`)
       .pipe(

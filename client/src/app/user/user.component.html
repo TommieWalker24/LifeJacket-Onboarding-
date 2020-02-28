@@ -1,39 +1,45 @@
 <app-head-nav></app-head-nav>
 <div class="container-fluid">
   <div class="row">
-    <div class="col-2 side-nav">
-      <app-side-nav></app-side-nav>
+
+    <div class="col-2">
+      <div class="nav navbar navbar-expand-lg navbar-dark bg-dark center position-fixed">
+        <ul class="navbar-nav flex-column">
+          <li>
+            <h5 class="sideNavTitle">Sections</h5>
+          </li>
+          <li *ngFor="let category of categories$ | async" class="nav-item">
+            <a class="nav-link" [href]="'/user/#' + category.name">{{category.name}}</a>
+          </li>
+        </ul>
+      </div>
     </div>
-    <div class="col-10">
-      <div *ngFor="let user of users$ | async">
-        <h2>{{user.FirstName}}'s Progress</h2>
+
+    <div class="col-9">
+      <div data-spy="scroll" data-target="#navbar-example2" data-offset="0">
+        <h2>{{user?.FirstName}}'s Progress</h2>
         <div class="progress">
           <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
             aria-valuenow="stepProgress" aria-valuemin="0" aria-valuemax="100" [style.width]="stepProgress + '%'">
             {{stepProgress}}%</div>
         </div>
+
         <div *ngFor="let category of categories$ | async">
-          <h2 class="{{category.name}}">{{category.name}}</h2>
-          <div *ngFor="let step of category.steps" class="accordion" id="accordionExample">
-            <div class="card">
-              <div class="card-header" id="{{step.title}}">
-                <h2 class="mb-0">
-                  <button class="btn btn-link" type="button" data-toggle="collapse"
-                    [attr.data-target]="'#' + step.title + '-body'" aria-expanded="true" aria-controls="collapseOne">
-                    {{step.complete ? step.title + " (completed)" : step.title}}
-                  </button>
-                </h2>
-              </div>
-              <div [attr.id]="step.title + '-body'" [className]="step.pending ? 'collapse show' : 'collapse'"
-                aria-labelledby="headingOne" data-parent="#accordionExample">
-                <div class="card-body">
-                  {{step.content}}
-                </div>
+          <div class="card">
+            <div class="card-header ">
+              <h2>{{category.name}}</h2>
+            </div>
+            <div class=" card-body">
+              <div *ngFor="let step of category.steps" class="accordion" [id]="category.name + '-accordion'">
+                <h4>{{step.complete ? step.title + " (completed)" : step.title}}</h4>
+                <div [innerHTML]="step.content"></div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+
+
   </div>
 </div>

@@ -35,16 +35,17 @@ export class AdminComponent implements OnInit {
     const content = this.editorForm.get('editor').value;
     const title = this.editorForm.get('title').value;
     const data = { title, content, pending: false, complete: false }
-    this.dataService.addStep(data).subscribe(
-      result => {
-        console.log('success', result);
-        this.addSuccess = true;
-      },
-      error => {
-        console.log(error);
-        this.addFailure = true;
-      }
-    );
+    console.log(content);
+    // this.dataService.addStep(data).subscribe(
+    //   result => {
+    //     console.log('success', result);
+    //     this.addSuccess = true;
+    //   },
+    //   error => {
+    //     console.log(error);
+    //     this.addFailure = true;
+    //   }
+    // );
   }
 
   addAsset(assetName) {

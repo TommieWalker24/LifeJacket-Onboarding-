@@ -7,7 +7,7 @@ const initialState: Category[] = [
     steps: [
       {
         title: 'category 1 step 1',
-        content: 'category 1 step 1 content',
+        content: '<p><em>This is some text that will be html and it\'s gonna have a video.</em></p><p><em>sdfghfgd</em></p><p><em>dfghdfgj</em></p><p><em>fghjk</em></p><p><em>hg</em><strong><em>kghjkl</em></strong></p><p><strong><em>ghjk</em></strong></p><p><strong><em>f</em></strong></p><p><strong>srg</strong></p><p><br></p><p><s>rt</s></p><p><br></p><p><br></p>',
         pending: false,
         complete: true
       },

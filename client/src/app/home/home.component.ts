@@ -15,7 +15,7 @@ import { User } from '../models/user.model';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  user: Observable<User[]>
+  user: Observable<User>
   userData = [];
   resultMessage: string;
 
@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit {
           EmailAddress: response.email,
           PictureUrl: response.photoUrl
         }));
-        // await this.accountService.GetUser(response.email).subscribe(
+        // await this.accountService.CheckUserExist(response.email).subscribe(
         //   result => {
         //     this.router.navigateByUrl(`/user`);
         //   },
