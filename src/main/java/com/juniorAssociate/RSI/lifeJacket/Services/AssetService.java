@@ -1,7 +1,6 @@
 package com.juniorAssociate.RSI.lifeJacket.Services;
 
 import com.juniorAssociate.RSI.lifeJacket.Entities.Asset;
-import com.juniorAssociate.RSI.lifeJacket.Entities.Categories;
 import com.juniorAssociate.RSI.lifeJacket.Repositories.AssetsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +26,6 @@ public class AssetService {
         public List<Asset> findAllAssets() {
             return assetRepository.findAll();
         }
-
         //public Optional<Role> findByID(){
         //   return roleRepository.findById();
         //  }
