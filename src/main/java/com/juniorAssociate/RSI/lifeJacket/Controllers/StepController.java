@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 //todo: Look up update endpoints
 
@@ -26,35 +25,29 @@ public class StepController {
         return "Tommie is amazing in his steps!!!";
     }
 
-    @RequestMapping(value = "/getAll")
-    public List<Step> getAllSteps() {
-        return stepService.getAllSteps();
-    }
-
     @PatchMapping(value = "/saveAll")
     public void saveAllSteps() {
         stepService.saveAllSteps();
     }
 
     @RequestMapping(value = "/findAll")
-    public void findAllSteps(){
-        stepService.findAllSteps();
+    public List<Step> findAllSteps(){
+           return stepService.findAllSteps();
+        }
+
+    @RequestMapping("/findByID")
+    public Step findById(Long id){
+        return  stepService.findByID(id);
     }
     //todo figure out what info i will have
-//    @RequestMapping("/findByID")
-//    public Optional<Step> findById(Long id){
-//        Optional<Step> foundStep = stepService.findByID();
-//        return foundStep;
-//    }
-    //todo figure out what info i will have
     @DeleteMapping ("/delete")
-    public void delete(){
-        //  stepService.deleteStep(Step);
+    public void delete(Long stepId){
+          stepService.deleteStep(stepId);
     }
     //todo figure out what info i will have
     @PatchMapping("/save")
-    public void saveStep(){
-        //  stepService.saveStep(Step);
+    public void saveStep(Long stepId){
+          stepService.saveStep(stepId);
     }
 
 

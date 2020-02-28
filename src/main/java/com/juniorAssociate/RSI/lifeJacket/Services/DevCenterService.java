@@ -12,7 +12,7 @@ public class DevCenterService {
         @Autowired
         private DevCenterRepository devCenterRepository;
 
-        public List<DevCenter> getAllDevCenters() {
+    public List<DevCenter> getAllDevCenters() {
             return devCenterRepository.findAll();
         }
 
@@ -22,17 +22,21 @@ public class DevCenterService {
         }
 
         public List<DevCenter> findAllDevCenters() {
-            return devCenterRepository.findAll();
+            List<DevCenter> foundCenters = devCenterRepository.findAll();
+            System.out.println("This is something");
+            return foundCenters;
         }
 
-        //public Optional<Role> findByID(){
-        //   return roleRepository.findById();
-        //  }
-        public void deleteDevCenter(DevCenter devCenter) {
+        public DevCenter findByID(String id){
+           return devCenterRepository.getOne(id);
+          }
+        public void deleteDevCenter(String id) {
+            DevCenter devCenter = devCenterRepository.getOne(id);
             devCenterRepository.delete(devCenter);
         }
 
-        public void saveDevCenter(DevCenter devCenter) {
+        public void saveDevCenter(String id) {
+            DevCenter devCenter = devCenterRepository.getOne(id);
             devCenterRepository.save(devCenter);
         }
     }

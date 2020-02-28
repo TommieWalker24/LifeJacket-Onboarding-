@@ -23,13 +23,15 @@ public class RoleService {
     public List<Role> findAllRole(){
         return roleRepository.findAll();
     }
-    //public Optional<Role> findByID(){
-     //   return roleRepository.findById();
-  //  }
-    public void deleteRole(Role role){
+    public Role findByID(String id){
+        return roleRepository.getOne(id);
+    }
+    public void deleteRole(String id){
+        Role role = roleRepository.getOne(id);
         roleRepository.delete(role);
     }
-    public void saveRole(Role role){
+    public void saveRole(String id){
+        Role role = roleRepository.getOne(id);
         roleRepository.save(role);
     }
 }

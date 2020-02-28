@@ -36,20 +36,19 @@ public class AssetController {
         assetService.findAllAssets();
     }
     //todo figure out what info i will have
-//    @RequestMapping("/findByID")
-//    public Optional<Role> findById(Long id){
-//        Optional<Role> foundRole = roleService.findByID();
-//        return foundRole;
-//    }
+    @RequestMapping("/findByID")
+    public Asset findById(Long id){
+        return assetService.findByID(id);
+    }
     //todo figure out what info i will have
     @DeleteMapping(value = "/delete")
-    public void delete(Asset asset){
-        assetService.deleteAsset(asset);
+    public void delete(Long id){
+        assetService.deleteAsset(id);
     }
     //todo figure out what info i will have
     @PatchMapping("/save")
-    public void saveAsset(Asset asset){
-        assetService.saveAsset(asset);
+    public void saveAsset(Long id){
+        assetService.saveAsset(id);
     }
 
 

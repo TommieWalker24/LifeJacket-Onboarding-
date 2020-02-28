@@ -19,7 +19,7 @@ public class RoleController {
 
     @RequestMapping("/")
     public String Helloworld (){
-        return "Tommie is amazing in his role!!!";
+        return "Roll roll, keep on rolling then roll some more";
     }
 
     @RequestMapping(value = "/getAll")
@@ -37,32 +37,19 @@ public class RoleController {
         roleService.findAllRole();
     }
     //todo figure out what info i will have
-//    @RequestMapping("/findByID")
-//    public Optional<Role> findById(Long id){
-//        Optional<Role> foundRole = roleService.findByID();
-//        return foundRole;
-//    }
-    //todo figure out what info i will have
+    @RequestMapping("/findByID")
+    public Role findById(String id){
+      return roleService.findByID(id);
+    }
+
     @DeleteMapping(value = "/delete")
-    public void delete(Role role){
-         roleService.deleteRole(role);
+    public void delete(String id){
+         roleService.deleteRole(id);
     }
-    //todo figure out what info i will have
+
     @PatchMapping("/save")
-    public void saveStep(Role role){
-          roleService.saveRole(role);
+    public void saveStep(String id){
+          roleService.saveRole(id);
     }
 
-
-    //todo:this endpoint after basic endpoints
-    @PatchMapping(value = "/admin/change/{title}")
-    public void changeRole(@PathVariable String title){
-        //check step repo so we can find by the step name
-    }
-
-    //todo:this endpoint after basic endpoints
-  //  @PutMapping(value = "/admin/insert/{title}")
-   // public void insertRole(Role role){
-
-   // }
 }

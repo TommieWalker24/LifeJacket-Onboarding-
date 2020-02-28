@@ -25,15 +25,15 @@ public class UserStepService {
         List<UserStep> allUserSteps = userStepRepository.findAll();
         return allUserSteps;
     }
-    //    public Optional<Step> findByID(){
-//        return stepRepository.findById();
-//    }
-    public void deleteUserStep(UserStep userstep){
+        public UserStep findByID(long id){
+        return userStepRepository.getOne(id);
+    }
+    public void deleteUserStep(Long id){
+        UserStep userstep = userStepRepository.getOne(id);
         userStepRepository.delete(userstep);
     }
-    public void saveUserStep(UserStep userstep){
+    public void saveUserStep(Long id){
+        UserStep userstep = userStepRepository.getOne(id);
         userStepRepository.save(userstep);
     }
-
-
 }

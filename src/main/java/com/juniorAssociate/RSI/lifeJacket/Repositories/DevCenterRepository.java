@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface DevCenterRepository extends JpaRepository<DevCenter,String> {
+public interface DevCenterRepository extends JpaRepository <DevCenter,String> {
     //todo: for built in functions look up jpa repository
 }

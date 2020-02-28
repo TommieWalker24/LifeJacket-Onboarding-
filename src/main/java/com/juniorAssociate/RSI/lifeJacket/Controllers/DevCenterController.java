@@ -24,46 +24,29 @@ public class DevCenterController {
         return "Tommie is amazing in his DevCenter!!!";
     }
 
-    @RequestMapping(value = "/getAll")
-    public List<DevCenter> getAllDevCenters() {
-        return devCenterService.getAllDevCenters();
-    }
-
     @PatchMapping(value = "/saveAll")
     public void saveAllDevCenters() {
         devCenterService.saveAllDevCenters();
     }
 
     @RequestMapping(value = "/findAll")
-    public void findAllDevCenters(){
-        devCenterService.findAllDevCenters();
+    public List<DevCenter>findAllDevCenters(){
+        List<DevCenter> allCenters = devCenterService.findAllDevCenters();
+      return  allCenters;
     }
     //todo figure out what info i will have
-//    @RequestMapping("/findByID")
-//    public Optional<Role> findById(Long id){
-//        Optional<Role> foundRole = roleService.findByID();
-//        return foundRole;
-//    }
+    @RequestMapping("/findByID")
+    public DevCenter findById(String id){
+        return devCenterService.findByID(id);
+    }
     //todo figure out what info i will have
     @DeleteMapping(value = "/delete")
-    public void delete(DevCenter devCenter){
-        devCenterService.deleteDevCenter(devCenter);
+    public void delete(String id){
+        devCenterService.deleteDevCenter(id);
     }
-    //todo figure out what info i will have
+
     @PatchMapping("/save")
-    public void saveDevCenter(DevCenter devCenter){
-        devCenterService.saveDevCenter(devCenter);
+    public void saveDevCenter(String id){
+        devCenterService.saveDevCenter(id);
     }
-
-    //todo:this endpoint after basic endpoints
-    @PatchMapping(value = "/admin/change/{title}")
-    public void changeDevCenter(@PathVariable String title){
-        //check step repo so we can find by the step name
-    }
-
-    //todo:this endpoint after basic endpoints
-    //  @PutMapping(value = "/admin/insert/{title}")
-    // public void insertRole(Role role){
-
-    // }
 }

@@ -13,25 +13,22 @@ public class StepService {
     @Autowired
     private StepRepository stepRepository;
 
-    public List<Step> getAllSteps() {
-        return stepRepository.findAll();
-    }
-
     public void saveAllSteps(){
         List<Step> steps = stepRepository.findAll();
         stepRepository.saveAll(steps);
     }
     public List<Step> findAllSteps(){
-        List<Step> allSteps = stepRepository.findAll();
-        return allSteps;
+        return stepRepository.findAll();
     }
-//    public Optional<Step> findByID(){
-//        return stepRepository.findById();
-//    }
-    public void deleteStep(Step step){
+    public Step findByID(Long stepId){
+        return stepRepository.getOne(stepId);
+    }
+    public void deleteStep(Long stepId){
+      Step step = stepRepository.getOne(stepId);
         stepRepository.delete(step);
     }
-    public void saveStep(Step step){
+    public void saveStep(Long stepId){
+        Step step = stepRepository.getOne(stepId);
         stepRepository.save(step);
     }
 

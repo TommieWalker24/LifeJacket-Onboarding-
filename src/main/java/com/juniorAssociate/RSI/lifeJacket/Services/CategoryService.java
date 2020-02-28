@@ -12,7 +12,7 @@ public class CategoryService {
     @Autowired
     private CategoriesRepository categoryRepository;
 
-    public List<Categories> getAllCategories() {
+    public List<Categories> findAllCategories() {
         return categoryRepository.findAll();
     }
 
@@ -20,16 +20,16 @@ public class CategoryService {
         List<Categories> categories = categoryRepository.findAll();
         categoryRepository.saveAll(categories);
     }
-    public List<Categories> findAllCategories(){
-        return categoryRepository.findAll();
-    }
-    //public Optional<Role> findByID(){
-    //   return roleRepository.findById();
-    //  }
-    public void deleteCategory(Categories category){
+
+    public Categories findByID(Long id){
+       return categoryRepository.getOne(id);
+      }
+    public void deleteCategory(Long id){
+        Categories category = categoryRepository.getOne(id);
         categoryRepository.delete(category);
     }
-    public void saveCategory(Categories category){
+    public void saveCategory(Long id){
+        Categories category = categoryRepository.getOne(id);
         categoryRepository.save(category);
     }
 }
