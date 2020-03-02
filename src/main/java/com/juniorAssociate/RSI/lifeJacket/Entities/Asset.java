@@ -21,8 +21,6 @@ public class Asset {
     @Column(name = "equipment")
     Equipment equipment;
 
-
-
     @ManyToOne(cascade= CascadeType.ALL)
     @JoinColumn(name = "email")
     private User user;
@@ -53,6 +51,6 @@ public class Asset {
                 '}';
     }
 
-
-
+    public Asset() {
+    }
 }

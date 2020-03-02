@@ -29,5 +29,8 @@ public class UserStep {
     @ManyToOne(cascade= CascadeType.ALL)
     @JoinColumn(name = "step_id")
     private Step stepId;
+
+    public UserStep() {
+    }
 }
 //todo: join of user and steps

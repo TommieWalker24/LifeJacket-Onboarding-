@@ -33,6 +33,7 @@ public class Step {
     @UniqueElements
     String tile;
     String description;
+    @NotNull
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "category", referencedColumnName = "category")
     private Categories category;
@@ -110,4 +111,5 @@ public class Step {
     public void setUser(List<UserStep> user) {
         this.user = user;
     }
+
 }

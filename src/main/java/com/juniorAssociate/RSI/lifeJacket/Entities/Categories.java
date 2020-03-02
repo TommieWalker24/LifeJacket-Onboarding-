@@ -1,5 +1,7 @@
 package com.juniorAssociate.RSI.lifeJacket.Entities;
 //Todo: id is of type long
+import com.sun.istack.NotNull;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,8 +18,12 @@ public class Categories {
     @Column(name = "category_id")
     Long categoryId;
 
+    @NotNull
     @Column(name = "category")
     Category category;
     @OneToOne(mappedBy = "category")
     private Step steps;
+
+    public Categories() {
+    }
 }

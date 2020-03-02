@@ -43,4 +43,6 @@ public class DevCenter {
         this.hrRep = hrRep;
     }
 
+    public DevCenter() {
+    }
 }

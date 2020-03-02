@@ -1,5 +1,7 @@
 package com.juniorAssociate.RSI.lifeJacket.Entities;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,14 +19,17 @@ public class User implements Serializable {
     @Id
     @Column(name = "email")
     String email;
+    @NotNull
     @Column(name= "fist_name")
     String firstName;
+    @NotNull
     @Column(name= "last_name")
     String lastName;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "role", referencedColumnName = "role" )
     private Role role;
 
+    @NotNull
     @ManyToOne(cascade= CascadeType.ALL)
     @JoinColumn(name = "dev_center")
     private DevCenter devCenter;
@@ -36,4 +41,7 @@ public class User implements Serializable {
 
     String password;
     int cubeNumber;
+
+    public User() {
+    }
 }
