@@ -5,6 +5,7 @@ import com.juniorAssociate.RSI.lifeJacket.Services.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,17 +38,17 @@ public class RoleController {
     }
     //todo figure out what info i will have
     @RequestMapping("/findByID")
-    public Role findById(String id){
+    public Role findById(@RequestBody String id){
       return roleService.findByID(id);
     }
 
     @DeleteMapping(value = "/delete")
-    public void delete(String id){
+    public void delete(@RequestBody String id){
          roleService.deleteRole(id);
     }
 
     @PatchMapping("/save")
-    public void saveStep(String id){
+    public void saveStep(@RequestBody String id){
           roleService.saveRole(id);
     }
 

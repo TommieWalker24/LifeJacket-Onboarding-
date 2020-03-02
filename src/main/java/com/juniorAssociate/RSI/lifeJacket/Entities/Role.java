@@ -17,7 +17,6 @@ public class Role implements Serializable {
     @OneToOne(mappedBy = "role")
             private User user;
 
-
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Step> steps;
 

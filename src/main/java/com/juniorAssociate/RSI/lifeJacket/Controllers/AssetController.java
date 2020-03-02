@@ -5,6 +5,7 @@ import com.juniorAssociate.RSI.lifeJacket.Services.AssetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,25 +33,18 @@ public class AssetController {
     }
     //todo figure out what info i will have
     @RequestMapping("/findByID")
-    public Asset findById(Long id){
+    public Asset findById(@RequestBody Long id){
         return assetService.findByID(id);
     }
     //todo figure out what info i will have
     @DeleteMapping(value = "/delete")
-    public void delete(Long id){
+    public void delete(@RequestBody Long id){
         assetService.deleteAsset(id);
     }
     //todo figure out what info i will have
     @PatchMapping("/save")
-    public void saveAsset(Long id){
+    public void saveAsset(@RequestBody Long id){
         assetService.saveAsset(id);
     }
 
-
-
-    //todo:this endpoint after basic endpoints
-    //  @PutMapping(value = "/admin/insert/{title}")
-    // public void insertRole(Role role){
-
-    // }
 }

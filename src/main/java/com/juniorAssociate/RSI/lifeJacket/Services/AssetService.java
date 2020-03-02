@@ -34,8 +34,7 @@ public class AssetService {
            return assetRepository.getOne(id);
           }
         public void deleteAsset(Long id) {
-             Asset asset = assetRepository.getOne(id);
-             assetRepository.delete(asset);
+             assetRepository.deleteById(id);
         }
 
         public void saveAsset(Long id) {

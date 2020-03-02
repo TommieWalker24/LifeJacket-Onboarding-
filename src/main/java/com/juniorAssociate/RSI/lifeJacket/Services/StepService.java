@@ -24,8 +24,7 @@ public class StepService {
         return stepRepository.getOne(stepId);
     }
     public void deleteStep(Long stepId){
-      Step step = stepRepository.getOne(stepId);
-        stepRepository.delete(step);
+        stepRepository.deleteById(stepId);
     }
     public void saveStep(Long stepId){
         Step step = stepRepository.getOne(stepId);

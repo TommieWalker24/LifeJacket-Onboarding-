@@ -1,10 +1,12 @@
 package com.juniorAssociate.RSI.lifeJacket.Controllers;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.juniorAssociate.RSI.lifeJacket.Entities.DevCenter;
 import com.juniorAssociate.RSI.lifeJacket.Services.DevCenterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,17 +36,17 @@ public class DevCenterController {
     }
     //todo figure out what info i will have
     @RequestMapping("/findByID")
-    public DevCenter findById(String id){
+    public DevCenter findById(@RequestBody String id){
         return devCenterService.findByID(id);
     }
     //todo figure out what info i will have
     @DeleteMapping(value = "/delete")
-    public void delete(String id){
+    public void delete(@RequestBody String id){
         devCenterService.deleteDevCenter(id);
     }
 
     @PatchMapping("/save")
-    public void saveDevCenter(String id){
+    public void saveDevCenter(@RequestBody String id){
         devCenterService.saveDevCenter(id);
     }
 }

@@ -18,7 +18,6 @@ public class DevCenter {
     String location;
     @NotNull
     String hrRep;
-    //adam was crushing it just below this line
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<User> users;
 

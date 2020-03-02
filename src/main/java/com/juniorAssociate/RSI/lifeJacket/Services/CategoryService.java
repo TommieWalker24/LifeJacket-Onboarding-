@@ -25,8 +25,7 @@ public class CategoryService {
        return categoryRepository.getOne(id);
       }
     public void deleteCategory(Long id){
-        Categories category = categoryRepository.getOne(id);
-        categoryRepository.delete(category);
+        categoryRepository.deleteById(id);
     }
     public void saveCategory(Long id){
         Categories category = categoryRepository.getOne(id);

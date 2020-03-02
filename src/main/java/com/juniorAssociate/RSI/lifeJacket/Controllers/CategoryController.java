@@ -5,6 +5,7 @@ import com.juniorAssociate.RSI.lifeJacket.Services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,17 +32,17 @@ public class CategoryController {
     }
 
     @RequestMapping("/findByID")
-    public Categories categoryFindById(Long id){
+    public Categories categoryFindById(@RequestBody Long id){
         return categoryService.findByID(id);
     }
     //todo figure out what info i will have
     @DeleteMapping(value = "/delete")
-    public void delete(Long id){
+    public void delete(@RequestBody Long id){
         categoryService.deleteCategory(id);
     }
     //todo figure out what info i will have
     @PatchMapping("/save")
-    public void saveCategory(Long id){
+    public void saveCategory(@RequestBody Long id){
         categoryService.saveCategory(id);
     }
 

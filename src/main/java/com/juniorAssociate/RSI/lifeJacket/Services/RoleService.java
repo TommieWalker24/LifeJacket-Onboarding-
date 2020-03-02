@@ -27,8 +27,7 @@ public class RoleService {
         return roleRepository.getOne(id);
     }
     public void deleteRole(String id){
-        Role role = roleRepository.getOne(id);
-        roleRepository.delete(role);
+        roleRepository.deleteById(id);
     }
     public void saveRole(String id){
         Role role = roleRepository.getOne(id);

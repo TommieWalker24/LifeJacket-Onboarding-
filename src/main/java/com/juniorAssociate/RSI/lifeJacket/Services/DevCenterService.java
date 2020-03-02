@@ -30,8 +30,7 @@ public class DevCenterService {
            return devCenterRepository.getOne(id);
           }
         public void deleteDevCenter(String id) {
-            DevCenter devCenter = devCenterRepository.getOne(id);
-            devCenterRepository.delete(devCenter);
+            devCenterRepository.deleteById(id);
         }
 
         public void saveDevCenter(String id) {

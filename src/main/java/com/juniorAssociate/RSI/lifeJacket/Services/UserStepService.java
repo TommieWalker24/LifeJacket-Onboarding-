@@ -29,8 +29,7 @@ public class UserStepService {
         return userStepRepository.getOne(id);
     }
     public void deleteUserStep(Long id){
-        UserStep userstep = userStepRepository.getOne(id);
-        userStepRepository.delete(userstep);
+        userStepRepository.deleteById(id);
     }
     public void saveUserStep(Long id){
         UserStep userstep = userStepRepository.getOne(id);
