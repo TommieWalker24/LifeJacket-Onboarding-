@@ -36,4 +36,9 @@ export class DataService {
         catchError(this.handleError('getDevCenters', []))
       )
   }
+
+  userCompleteStep(step, email) {
+    console.log(email, step)
+    return this.http.patch(`${this.serviceUrl}/user`, { email, step });
+  }
 }

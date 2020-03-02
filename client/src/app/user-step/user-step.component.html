@@ -2,7 +2,7 @@
 <div class="container-fluid">
   <div class="row">
 
-    <div class="col-2">
+    <div class="col-1">
       <div class="nav navbar navbar-expand-lg navbar-dark bg-dark center position-fixed">
         <ul class="navbar-nav flex-column">
           <li>
@@ -15,7 +15,7 @@
       </div>
     </div>
 
-    <div class="col-9">
+    <div class="container col-9">
       <h2>{{user?.FirstName}}'s Progress</h2>
       <div class="progress">
         <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
@@ -31,6 +31,9 @@
           <div *ngFor="let step of currentCategory.steps">
             <h4>{{step.complete ? step.title + " (completed)" : step.title}}</h4>
             <div [innerHTML]="step.content"></div>
+            <button *ngIf="!step.complete" class="btn btn-primary" (click)='completeStep(step.title)'>Complete
+              Step</button>
+            <hr class="my-4">
           </div>
         </div>
       </div>

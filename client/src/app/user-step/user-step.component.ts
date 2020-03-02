@@ -61,4 +61,8 @@ export class UserStepComponent implements OnInit {
     this.stepProgress = Math.floor((stepsArray.filter(step => step.complete === true).length / stepsArray.length) * 100);
   }
 
+  completeStep(step) {
+    this.dataService.userCompleteStep(step, this.user.EmailAddress);
+  }
+
 }
