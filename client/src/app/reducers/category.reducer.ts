@@ -13,7 +13,7 @@ const initialState: Category[] = [
       },
       {
         title: 'category 1 step 2',
-        content: 'category 1 step 2 content',
+        content: '<p>malicious content</p><script>console.log(\'attack!\'</script>',
         pending: false,
         complete: true
       },

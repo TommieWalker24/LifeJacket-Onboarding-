@@ -35,10 +35,11 @@ export class UserComponent implements OnInit {
     console.log("We tried to fetch the user categories");
     // this.dataService.getCategories(this.user.EmailAddress);
     this.categories$.subscribe(results => {
-      let stepsArray = [];
-      const steps = results.map(category => category.steps.map(step => stepsArray.push(step)));
       this.categories = results;
-      this.stepProgress = Math.floor((stepsArray.filter(step => step.complete === true).length / stepsArray.length) * 100);
     });
+  }
+
+  handleClick() {
+    console.log('here');
   }
 }

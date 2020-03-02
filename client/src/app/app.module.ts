@@ -18,6 +18,7 @@ import { HeadNavComponent } from './head-nav/head-nav.component';
 import { LocationComponent } from './location/location.component';
 import { userReducer } from './reducers/user.reducer';
 import { categoryReducer } from './reducers/category.reducer';
+import { UserStepComponent } from './user-step/user-step.component';
 
 let config = new AuthServiceConfig([
   {
@@ -36,7 +37,8 @@ export function provideConfig() {
     UserComponent,
     AdminComponent,
     HeadNavComponent,
-    LocationComponent
+    LocationComponent,
+    UserStepComponent
   ],
   imports: [
     HttpClientModule,

@@ -2,44 +2,27 @@
 <div class="container-fluid">
   <div class="row">
 
-    <div class="col-2">
-      <div class="nav navbar navbar-expand-lg navbar-dark bg-dark center position-fixed">
+    <div class="col-1">
+      <div class="nav navbar navbar-expand-lg navbar-dark bg-dark position-fixed">
         <ul class="navbar-nav flex-column">
           <li>
             <h5 class="sideNavTitle">Sections</h5>
           </li>
           <li *ngFor="let category of categories$ | async" class="nav-item">
-            <a class="nav-link" [href]="'/user/#' + category.name">{{category.name}}</a>
+            <a class="nav-link" routerLink="/user/{{category.name}}">{{category.name}}</a>
           </li>
         </ul>
       </div>
     </div>
 
-    <div class="col-9">
-      <div data-spy="scroll" data-target="#navbar-example2" data-offset="0">
-        <h2>{{user?.FirstName}}'s Progress</h2>
-        <div class="progress">
-          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
-            aria-valuenow="stepProgress" aria-valuemin="0" aria-valuemax="100" [style.width]="stepProgress + '%'">
-            {{stepProgress}}%</div>
-        </div>
-
-        <div *ngFor="let category of categories$ | async">
-          <div class="card">
-            <div class="card-header ">
-              <h2>{{category.name}}</h2>
-            </div>
-            <div class=" card-body">
-              <div *ngFor="let step of category.steps" class="accordion" [id]="category.name + '-accordion'">
-                <h4>{{step.complete ? step.title + " (completed)" : step.title}}</h4>
-                <div [innerHTML]="step.content"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="jumbotron container col-10">
+      <h1>The RSI Life Jacket</h1>
+      <p>The RSI Life Jacket is here to help you learn about the office and begin your career
+        here at Rural
+        Sourcing.</p>
+      <hr class="my-4">
+      <a routerLink="/user/{{categories[0].name}}" class="btn btn-info float-right">
+        Begin
+      </a>
     </div>
-
-
   </div>
-</div>
