@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
   userData = [];
   resultMessage: string;
 
-  constructor(private router: Router, private accountService: AccountService, private authService: AuthService, private store: Store<AppState>, private cookieService: CookieService) {
+  constructor(private router: Router, private accountService: AccountService, private authService: AuthService, private store: Store<AppState>) {
     this.user = store.select('user');
   }
 
