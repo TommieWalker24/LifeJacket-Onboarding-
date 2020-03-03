@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
   userData = [];
   resultMessage: string;
 
-  constructor(private router: Router, private accountService: AccountService, private authService: AuthService, private store: Store<AppState>) {
+  constructor(private router: Router, private accountService: AccountService, private authService: AuthService, private store: Store<AppState>, private cookieService: CookieService) {
     this.user = store.select('user');
   }
 
@@ -30,9 +30,11 @@ export class HomeComponent implements OnInit {
   logInWithGoogle(platform: string) {
     this.resultMessage = '';
     platform = GoogleLoginProvider.PROVIDER_ID;
-    this.authService.signIn(platform).then(
+    this.authService.signIn(platform, { 'prompt': 'select_account' }).then(
       async (response) => {
-        if (response.email.split('@')[1] !== "ruralsourcing.com") return this.resultMessage = "Make sure you use your RSI email.";
+        if (response.email.split('@')[1] !== "ruralsourcing.com") {
+          return this.resultMessage = "Make sure you use your RSI email.";
+        }
         await this.store.dispatch(new UserActions.AddUser({
           UserId: response.id,
           FirstName: response.firstName,
