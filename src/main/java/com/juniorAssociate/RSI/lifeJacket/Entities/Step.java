@@ -25,17 +25,18 @@ public class Step {
     @Id
     @GeneratedValue(strategy= GenerationType.SEQUENCE)
     @Column(name = "step")
-    Long stepId;
+    long stepId;
     @ManyToOne(cascade= CascadeType.ALL)
     @JoinColumn(name = "step_num")
     private Role steps_of_role;
     @NotNull
     @UniqueElements
+    @Column(name = "title", nullable = false)
     String tile;
     String description;
     @NotNull
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "category", referencedColumnName = "category")
+    @JoinColumn(name = "category", referencedColumnName = "category", nullable = false)
     private Categories category;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<UserStep> user;

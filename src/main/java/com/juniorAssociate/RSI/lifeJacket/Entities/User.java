@@ -20,10 +20,10 @@ public class User implements Serializable {
     @Column(name = "email")
     String email;
     @NotNull
-    @Column(name= "fist_name")
+    @Column(name= "fist_name", nullable = false)
     String firstName;
     @NotNull
-    @Column(name= "last_name")
+    @Column(name= "last_name", nullable = false)
     String lastName;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "role", referencedColumnName = "role" )
@@ -31,7 +31,7 @@ public class User implements Serializable {
 
     @NotNull
     @ManyToOne(cascade= CascadeType.ALL)
-    @JoinColumn(name = "dev_center")
+    @JoinColumn(name = "dev_center", nullable = false)
     private DevCenter devCenter;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

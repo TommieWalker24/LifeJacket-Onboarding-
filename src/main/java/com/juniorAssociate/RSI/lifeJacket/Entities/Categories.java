@@ -16,14 +16,22 @@ public class Categories {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "category_id")
-    Long categoryId;
+    long categoryId;
 
     @NotNull
-    @Column(name = "category")
-    Category category;
+    @Column(name = "category", nullable = false)
+    String category;
     @OneToOne(mappedBy = "category")
     private Step steps;
 
     public Categories() {
+    }
+
+    public void setCategory(String category){
+        this.category = category;
+    }
+
+    public String getCategory(){
+        return this.category;
     }
 }

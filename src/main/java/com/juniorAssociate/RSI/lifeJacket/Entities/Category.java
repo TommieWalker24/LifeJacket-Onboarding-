@@ -6,6 +6,13 @@ public enum Category {
     CALENDAR("Calendar"),
     SLACK("Slack");
 
-    Category(String meeting) {
+    private final String type;
+
+    Category(String type) {
+        this.type = type;
+    }
+
+    public String getType() {
+        return type;
     }
 }

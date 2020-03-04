@@ -3,6 +3,7 @@ package com.juniorAssociate.RSI.lifeJacket.Entities;
 import com.sun.istack.NotNull;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -17,6 +18,7 @@ public class DevCenter {
     @Id
     String location;
     @NotNull
+    @Column(name = "hr_rep", nullable = false)
     String hrRep;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<User> users;

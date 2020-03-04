@@ -19,7 +19,7 @@ public class UserStep {
     @Id
     @GeneratedValue(strategy= GenerationType.SEQUENCE)
     @Column(name = "user_step_id")
-    Long userStepId;
+    long userStepId;
     Boolean complete;
     Boolean pending;
     @ManyToOne(cascade= CascadeType.ALL)
