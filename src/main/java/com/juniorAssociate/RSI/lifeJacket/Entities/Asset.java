@@ -19,7 +19,7 @@ public class Asset {
     @Column(name = "asset_id")
     long equipmentNumber;
     @Column(name = "equipment")
-    Equipment equipment;
+    String equipment;
 
     @ManyToOne(cascade= CascadeType.ALL)
     @JoinColumn(name = "email")
@@ -28,11 +28,11 @@ public class Asset {
     public Asset(String user_email, long equipmentNumber) {
         this.equipmentNumber = equipmentNumber;
     }
-    public Equipment getEquipment() {
+    public String getEquipment() {
         return equipment;
     }
 
-    public void setEquipment(Equipment equipment) {
+    public void setEquipment(String equipment) {
         this.equipment = equipment;
     }
     public long getEquipmentNumber() {
