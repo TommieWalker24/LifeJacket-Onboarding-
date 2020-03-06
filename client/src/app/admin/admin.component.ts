@@ -34,8 +34,7 @@ export class AdminComponent implements OnInit {
   onSubmit() {
     const content = this.editorForm.get('editor').value;
     const title = this.editorForm.get('title').value;
-    const data = { title, content, pending: false, complete: false }
-    console.log(content);
+    const data = { title, content, pending: false, complete: false };
     // this.dataService.addStep(data).subscribe(
     //   result => {
     //     console.log('success', result);
@@ -48,9 +47,9 @@ export class AdminComponent implements OnInit {
     // );
   }
 
-  addAsset(assetName) {
-    console.log(assetName);
-  }
+  // addAsset(assetName) {
+  //   console.log(assetName);
+  // }
 
 
 }
