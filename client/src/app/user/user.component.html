@@ -1,21 +1,7 @@
 <app-head-nav></app-head-nav>
 <div class="container-fluid">
-  <div class="row">
-
-    <div class="col-1">
-      <div class="nav navbar navbar-expand-lg navbar-dark bg-dark position-fixed">
-        <ul class="navbar-nav flex-column">
-          <li>
-            <h5 class="sideNavTitle">Sections</h5>
-          </li>
-          <li *ngFor="let category of categories$ | async" class="nav-item">
-            <a class="nav-link" routerLink="/user/{{category.name}}">{{category.name}}</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="jumbotron container col-10">
+  <div class="container user">
+    <div class="jumbotron">
       <h1>The RSI Life Jacket</h1>
       <p>The RSI Life Jacket is here to help you learn about the office and begin your career
         here at Rural
@@ -26,3 +12,4 @@
       </a>
     </div>
   </div>
+</div>

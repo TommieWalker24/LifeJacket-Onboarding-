@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'angularx-social-login';
-import { AccountService } from '../account.service';
-import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { User } from './../models/user.model';
+import { AppState } from './../app.state';
+import { Category } from '../models/category.model';
 
 @Component({
   selector: 'app-head-nav',
@@ -9,18 +11,35 @@ import { Router } from '@angular/router';
   styleUrls: ['./head-nav.component.css']
 })
 export class HeadNavComponent implements OnInit {
-  userData = [];
+  users$: Observable<User>;
+  user: User;
+  categories$: Observable<Category[]>;
+  categories: Category[];
+  searchOptions: Category[];
+  dropdownShow: boolean;
 
-  constructor(private router: Router, private accountService: AccountService, private authService: AuthService) { }
+  constructor(private store: Store<AppState>) {
+    this.users$ = store.select('user');
+    this.categories$ = store.select('categories');
+  }
 
   ngOnInit() {
+    this.handleLoad();
   }
 
-  logOut(): void {
-    if (!this.userData.length) return
-    this.authService.signOut();
-    this.userData = [];
-    console.log('User has signed our');
+  handleLoad() {
+    this.users$.subscribe(result => {
+      this.user = result;
+    });
+    this.categories$.subscribe(results => this.categories = results);
+    this.searchOptions = this.categories;
   }
 
+  toggleDropdown() {
+    this.dropdownShow = !this.dropdownShow;
+  }
+
+  updateSearchOptions(value) {
+    this.searchOptions = this.categories.filter(category => category.name.includes(value));
+  }
 }

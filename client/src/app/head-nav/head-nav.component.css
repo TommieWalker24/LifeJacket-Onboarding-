@@ -1,0 +1,25 @@
+.profilePic {
+  border-radius: 50px;
+  height: 70px;
+}
+
+.head-nav {
+  padding: .727rem 1rem;
+}
+
+.searchCard {
+  height: 35vh;
+}
+
+.searchCardBody {
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+.sectionsDropdown {
+  font-size: large;
+}
+
+.pointer {
+  cursor: pointer;
+}
