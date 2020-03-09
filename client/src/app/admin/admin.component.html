@@ -1,27 +1,68 @@
 <app-head-nav></app-head-nav>
 <div class="container">
-  <h1>Administration</h1>
-  <div class="card">
-    <div class="card-body">
+  <h1 class="text-center">Administrator Tools</h1>
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="category-tab" data-toggle="tab" href="#category" role="tab"
+        aria-controls="category" aria-selected="true">Categories</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="steps-tab" data-toggle="tab" href="#steps" role="tab" aria-controls="steps"
+        aria-selected="false">Steps</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="assets-tab" data-toggle="tab" href="#assets" role="tab" aria-controls="assets"
+        aria-selected="false">Assets</a>
+    </li>
+  </ul>
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="category" role="tabpanel" aria-labelledby="category-tab">
+      <h3 class="banner">Create a new category</h3>
+      <form>
+        <div class="form-group">
+          <label for="categoryName">Name</label>
+          <input id="categoryName" type="text" class="form-control" #categoryName>
+        </div>
+        <button type="submit" class="btn btn-primary"
+          (click)="addCategory(categoryName.value); categoryName.value='';">Add</button>
+      </form>
+      <hr class="my-4">
+      <h3 class="banner">Edit Categories</h3>
+      <ul class="list-group">
+        <li *ngFor="let category of categories" class="list-group-item">
+          <span>
+            <input #newName placeholder="{{category.name}}" required />
+            <button class="btn btn-info" (click)="updateCategoryName(category.name, newName.value)">Save</button>
+            <i class="fas fa-trash clickable float-right" (click)="deleteCategory(category.name)"></i>
+          </span>
+        </li>
+      </ul>
 
-      <div *ngIf="addSuccess" class="alert alert-success alert-dismissible fade show" role="alert">Your step was added!
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="hideAlert">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div *ngIf="addFailure" class="alert alert-danger alert-dismissible fade show" role="alert">Sorry, your step could
-        not be added at this time.
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="hideAlert">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
+    </div>
 
-      <h3 class="banner">Add a new Step to the Onboarding Process</h3>
+    <div class="tab-pane fade" id="steps" role="tabpanel" aria-labelledby="steps-tab">
+      <h3 class="banner">Add a new Step</h3>
       <form [formGroup]="editorForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
           <label for="title">Title</label>
           <input formControlName="title" type="text" class="form-control">
         </div>
+        <hr class="my-4">
+        <div class="form-group">
+          <label>What category does this step belong to?</label>
+          <div class="dropdown">
+            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Select Category
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <button *ngFor="let category of categories" class="dropdown-item" type="button"
+                (click)="selectCategory(category.name)">{{category.name}}</button>
+            </div>
+          </div>
+          <h5 *ngIf="selectedCategory">Category Selected: {{selectedCategory}}</h5>
+        </div>
+        <hr class="my-4">
         <div class="form-group">
           <label for="editor">Content</label>
           <quill-editor formControlName="editor" [styles]="editorStyle"></quill-editor>
@@ -29,10 +70,8 @@
         <button type="submit" class="btn btn-primary">Add</button>
       </form>
     </div>
-  </div>
 
-  <div class="card">
-    <div class="card-body">
+    <div class="tab-pane fade" id="assets" role="tabpanel" aria-labelledby="assets-tab">
       <h3 class="banner">Asset Controls</h3>
       <form>
         <div class="form-group">
@@ -42,6 +81,14 @@
         <button type="submit" class="btn btn-primary"
           (click)="addAsset(assetName.value); assetName.value='';">Add</button>
       </form>
+      <hr class="my-4">
+      <h3 class="banner">Assets</h3>
+      <ul class="list-group">
+        <li *ngFor="let asset of assets" class="list-group-item">
+          <div>{{asset.name}}</div>
+        </li>
+      </ul>
     </div>
+
   </div>
 </div>

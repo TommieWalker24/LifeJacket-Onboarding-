@@ -21,7 +21,7 @@ export class DataService {
 
   addStep(data) {
     return this.http.post(this.serviceUrl, data).pipe(
-      map(result => { return result })
+      map(result => result)
     );
   }
 
