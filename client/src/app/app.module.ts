@@ -6,6 +6,7 @@ import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
 import { StoreModule } from '@ngrx/store';
 import { QuillModule } from 'ngx-quill';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -56,6 +57,10 @@ export function provideConfig() {
     }),
     QuillModule.forRoot(),
     ReactiveFormsModule,
+<<<<<<< HEAD
+=======
+    NgbModule
+>>>>>>> WIP on admin page. saving for backup. Added the tabs for the admin nav and started to flush out the functionality
   ],
   providers: [
     {

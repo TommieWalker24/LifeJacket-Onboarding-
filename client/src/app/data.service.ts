@@ -34,6 +34,7 @@ export class DataService {
       })
   }
 
+<<<<<<< HEAD
   getUserPendingCategory(email) {
     fetch(`${this.serviceUrl}/categories/firstPending?email=${email}`)
       .then(res => {
@@ -42,6 +43,12 @@ export class DataService {
       .then(pendingCategory => {
         this.store.dispatch(new PendingCategoryActions.SetPendingCategory(pendingCategory));
       })
+=======
+  addStep(data) {
+    return this.http.post(this.serviceUrl, data).pipe(
+      map(result => result)
+    );
+>>>>>>> WIP on admin page. saving for backup. Added the tabs for the admin nav and started to flush out the functionality
   }
 
   getCategoryDetails(email, categoryId) {
