@@ -1,4 +1,9 @@
-<app-head-nav></app-head-nav>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top head-nav shadow">
+  <img src="assets/img/editedLogo.jpg" style="height: 5em;">
+  <a class="navbar-brand" href="#">RSI Life Jacket</a>
+</nav>
+
+
 <div class="container">
   <h1 class="text-center">Administrator Tools</h1>
 
@@ -39,23 +44,23 @@
           <div class="card-body">
             <form>
               <div class="form-group">
-                <label [for]="'newName' + category.sequenceNumber">Title</label>
-                <input [id]="'newName' + category.sequenceNumber" placeholder="{{category.name}}" required
+                <label [for]="'newName' + category.fixedName">Title</label>
+                <input [id]="'newName' + category.fixedName" placeholder="{{category.name}}" required
                   class="form-control mb-3" #newName />
               </div>
               <button class="btn btn-info saveButton mr-3" (click)="updateCategoryName(category.name, newName.value)">
                 <i class="far fa-save"></i> Save
               </button>
               <button class="btn btn-danger saveButton" data-toggle="modal"
-                [attr.data-target]="'#' + category.sequenceNumber">
+                [attr.data-target]="'#' + category.fixedName">
                 <i class="fas fa-trash"></i> Delete
               </button>
-              <div class="modal fade" [id]="category.sequenceNumber" tabindex="-1" role="dialog"
-                [attr.aria-labelledby]="category.sequenceNumber + 'Label'" aria-hidden="true">
+              <div class="modal fade" [id]="category.fixedName" tabindex="-1" role="dialog"
+                [attr.aria-labelledby]="category.fixedName + 'Label'" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" [id]="category.sequenceNumber + 'Label'">Delete?</h5>
+                      <h5 class="modal-title" [id]="category.fixedName + 'Label'">Delete?</h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
@@ -65,9 +70,9 @@
                       <p>Deleting <b>{{category.name}}</b> will delete all of the steps within it.</p>
                       <form>
                         <div class="form-group">
-                          <label [for]="'deleteForm' + category.sequenceNumber">Please type "<b>{{category.name}}</b>"
+                          <label [for]="'deleteForm' + category.fixedName">Please type "<b>{{category.name}}</b>"
                             to confirm.</label>
-                          <input [id]="'deleteForm' + category.sequenceNumber" class="form-control mb-3" #deleteForm
+                          <input [id]="'deleteForm' + category.fixedName" class="form-control mb-3" #deleteForm
                             (keyup)="deleteInputChange(deleteForm.value, category.name)" />
                         </div>
                       </form>

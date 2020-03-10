@@ -6,11 +6,7 @@ export function categoryReducer(state: Category[], action: CategoryActions.Actio
     case CategoryActions.ADD_CATEGORY:
       return [...state, action.payload];
     case CategoryActions.SET_CATEGORIES:
-<<<<<<< HEAD
       return action.payload;
-=======
-      return [action.payload];
->>>>>>> Finished a lot of the requests to the server and replaced the assets from the nav with the document view
     case CategoryActions.REMOVE_CATEGORY:
       return [...state, action.payload];
     default:
