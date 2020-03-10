@@ -33,7 +33,7 @@ export class AdminComponent implements OnInit {
     this.editorForm = new FormGroup({
       'editor': new FormControl(null),
       'title': new FormControl(null)
-    })
+    });
   }
 
 
@@ -55,7 +55,7 @@ export class AdminComponent implements OnInit {
   }
 
   deleteCategory(category) {
-    console.log(category)
+    this.dataService.deleteCategory(category);
   }
 
   deleteInputChange(value, categoryName) {
@@ -67,7 +67,7 @@ export class AdminComponent implements OnInit {
   }
 
   updateCategoryName(originalName, newName) {
-    console.log(originalName, newName);
+    this.dataService.editCategoryName(originalName, newName);
   }
 
   // addAsset(assetName) {

@@ -38,7 +38,22 @@ export class DataService {
   }
 
   userCompleteStep(step, email) {
-    console.log(email, step)
     return this.http.patch(`${this.serviceUrl}/user`, { email, step });
+  }
+
+  deleteCategory(categoryId) {
+    return this.http.delete(`${this.serviceUrl}/categories/delete/${categoryId}`)
+      .pipe(
+        map(result => result),
+        catchError(this.handleError('deleteCategory', []))
+      )
+  }
+
+  editCategoryName(categoryId, newName) {
+    return this.http.patch(`${this.serviceUrl}/categories/edit`, { categoryId, newName })
+      .pipe(
+        map(result => result),
+        catchError(this.handleError('deleteCategory', []))
+      )
   }
 }
