@@ -20,7 +20,6 @@
     "@angular/platform-browser": "~8.2.14",
     "@angular/platform-browser-dynamic": "~8.2.14",
     "@angular/router": "~8.2.14",
-    "@ng-bootstrap/ng-bootstrap": "^6.0.0",
     "@ngrx/store": "^8.6.0",
     "angular-in-memory-web-api": "^0.9.0",
     "angularx-social-login": "^2.2.1",
