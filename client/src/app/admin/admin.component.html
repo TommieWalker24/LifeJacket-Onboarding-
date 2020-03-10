@@ -12,15 +12,15 @@
         aria-selected="false">Steps</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" id="assets-tab" data-toggle="tab" href="#assets" role="tab" aria-controls="assets"
-        aria-selected="false">Assets</a>
+      <a class="nav-link" id="document-tab" data-toggle="tab" href="#document" role="tab" aria-controls="document"
+        aria-selected="false">Document</a>
     </li>
   </ul>
 
   <div class="tab-content" id="myTabContent">
 
     <div class="tab-pane fade show active" id="category" role="tabpanel" aria-labelledby="category-tab">
-      <h3 class="banner">Create a new category</h3>
+      <h3 class="text-center">Create a new category</h3>
       <form>
         <div class="form-group">
           <label for="categoryName">Name</label>
@@ -30,7 +30,7 @@
           (click)="addCategory(categoryName.value); categoryName.value='';">Add</button>
       </form>
       <hr class="my-4">
-      <h3 class="banner">Edit Categories</h3>
+      <h3 class="text-center">Edit Categories</h3>
       <div class="card-group">
         <div class="card" *ngFor="let category of categories">
           <div class="card-header">
@@ -84,8 +84,8 @@
     </div>
 
     <div class="tab-pane fade" id="steps" role="tabpanel" aria-labelledby="steps-tab">
-      <h3 class="banner">Create a new Step</h3>
-      <form [formGroup]="editorForm" (ngSubmit)="onSubmit()">
+      <h3 class="text-center">Create a new Step</h3>
+      <form [formGroup]="editorForm" (ngSubmit)="addStep()">
         <div class="form-group">
           <label for="title">Title</label>
           <input formControlName="title" type="text" class="form-control">
@@ -114,41 +114,15 @@
       </form>
     </div>
 
-    <div class="tab-pane fade" id="assets" role="tabpanel" aria-labelledby="assets-tab">
-      <h3 class="banner">Create a new Asset</h3>
-      <form>
-        <div class="form-group">
-          <label for="assetName">Enter a new asset for the associates</label>
-          <input id="assetName" type="text" class="form-control" #assetName>
+    <div class="tab-pane fade" id="document" role="tabpanel" aria-labelledby="document-tab">
+      <h3 class="text-center">Document View</h3>
+      <div *ngFor="let category of categories">
+        <h4>{{category.name}}</h4>
+        <div *ngFor="let step of category.steps" class="mb-4 shadow-sm p-3 mb-5 bg-white rounded">
+          <h5>{{step.title}}</h5>
+          <div [innerHTML]="step.content"></div>
         </div>
-        <button type="submit" class="btn btn-primary"
-          (click)="addAsset(assetName.value); assetName.value='';">Add</button>
-      </form>
-      <hr class="my-4">
-      <h3 class="banner">Edit Assets</h3>
-      <div class="card-group">
-        <div class="card" *ngFor="let asset of assets">
-          <div class="card-header">
-            <h5>{{asset.name}}</h5>
-          </div>
-          <div class="card-body">
-            <form>
-              <div class="form-group">
-                <label for="newAssetName">Title</label>
-                <input id="newAssetName" placeholder="{{asset.name}}" required class="form-control mb-3"
-                  #newAssetName />
-              </div>
-              <span>
-                <button class="btn btn-info saveButton mr-3" (click)="updateAssetName(asset.name, newAssetName.value)">
-                  <i class="far fa-save"></i> Save
-                </button>
-                <button class="btn btn-danger saveButton" (click)="deleteAsset(asset.name)">
-                  <i class="fas fa-trash"></i> Delete
-                </button>
-              </span>
-            </form>
-          </div>
-        </div>
+        <hr class="my-4">
       </div>
     </div>
 

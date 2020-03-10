@@ -5,6 +5,7 @@ import { Category } from '../models/category.model';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../app.state';
+import * as CategoryActions from '../actions/category.actions';
 
 @Component({
   selector: 'app-admin',
@@ -19,7 +20,7 @@ export class AdminComponent implements OnInit {
   match: boolean = false;
 
   editorStyle = {
-    height: '200px'
+    height: '300px'
   }
 
   constructor(private dataService: DataService, private store: Store<AppState>) {
@@ -28,7 +29,13 @@ export class AdminComponent implements OnInit {
 
   ngOnInit() {
     this.categories$.subscribe(result => {
-      this.categories = result;
+      if (!result) {
+        this.dataService.getCategories()
+          .subscribe(categories => {
+            this.store.dispatch(new CategoryActions.SetCategories(categories));
+            this.categories = categories;
+          })
+      }
     });
     this.editorForm = new FormGroup({
       'editor': new FormControl(null),
@@ -36,22 +43,23 @@ export class AdminComponent implements OnInit {
     });
   }
 
-
-  onSubmit() {
+  addStep() {
     const content = this.editorForm.get('editor').value;
     const title = this.editorForm.get('title').value;
-    const data = { title, content, pending: false, complete: false };
-    console.log(content);
-    // this.dataService.addStep(data).subscribe(
-    //   result => {
-    //     console.log('success', result);
-    //     this.addSuccess = true;
-    //   },
-    //   error => {
-    //     console.log(error);
-    //     this.addFailure = true;
-    //   }
-    // );
+    const data = { title, category: this.selectedCategory, content };
+    this.dataService.addStep(data)
+      .subscribe(
+        result => {
+          console.log('success', result);
+        },
+        error => {
+          console.log(error);
+        }
+      );
+  }
+
+  addCategory(categoryName) {
+    this.dataService.addCategory(categoryName);
   }
 
   deleteCategory(category) {
@@ -69,10 +77,5 @@ export class AdminComponent implements OnInit {
   updateCategoryName(originalName, newName) {
     this.dataService.editCategoryName(originalName, newName);
   }
-
-  // addAsset(assetName) {
-  //   console.log(assetName);
-  // }
-
 
 }
