@@ -81,78 +81,76 @@
           </div>
         </div>
       </div>
+    </div>
 
-
-      <div class="tab-pane fade" id="steps" role="tabpanel" aria-labelledby="steps-tab">
-        <h3 class="banner">Create a new Step</h3>
-        <form [formGroup]="editorForm" (ngSubmit)="onSubmit()">
-          <div class="form-group">
-            <label for="title">Title</label>
-            <input formControlName="title" type="text" class="form-control">
-          </div>
-          <hr class="my-4">
-          <div class="form-group">
-            <label>What category does this step belong to?</label>
-            <div class="dropdown">
-              <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                Select Category
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                <button *ngFor="let category of categories" class="dropdown-item" type="button"
-                  (click)="selectCategory(category.name)">{{category.name}}</button>
-              </div>
-            </div>
-            <h5 *ngIf="selectedCategory">Category Selected: {{selectedCategory}}</h5>
-          </div>
-          <hr class="my-4">
-          <div class="form-group">
-            <label for="editor">Content</label>
-            <quill-editor formControlName="editor" [styles]="editorStyle"></quill-editor>
-          </div>
-          <button type="submit" class="btn btn-primary">Add</button>
-        </form>
-      </div>
-
-      <div class="tab-pane fade" id="assets" role="tabpanel" aria-labelledby="assets-tab">
-        <h3 class="banner">Create a new Asset</h3>
-        <form>
-          <div class="form-group">
-            <label for="assetName">Enter a new asset for the associates</label>
-            <input id="assetName" type="text" class="form-control" #assetName>
-          </div>
-          <button type="submit" class="btn btn-primary"
-            (click)="addAsset(assetName.value); assetName.value='';">Add</button>
-        </form>
+    <div class="tab-pane fade" id="steps" role="tabpanel" aria-labelledby="steps-tab">
+      <h3 class="banner">Create a new Step</h3>
+      <form [formGroup]="editorForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input formControlName="title" type="text" class="form-control">
+        </div>
         <hr class="my-4">
-        <h3 class="banner">Edit Assets</h3>
-        <div class="card-group">
-          <div class="card" *ngFor="let asset of assets">
-            <div class="card-header">
-              <h5>{{asset.name}}</h5>
+        <div class="form-group">
+          <label>What category does this step belong to?</label>
+          <div class="dropdown">
+            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Select Category
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <button *ngFor="let category of categories" class="dropdown-item" type="button"
+                (click)="selectCategory(category.name)">{{category.name}}</button>
             </div>
-            <div class="card-body">
-              <form>
-                <div class="form-group">
-                  <label for="newAssetName">Title</label>
-                  <input id="newAssetName" placeholder="{{asset.name}}" required class="form-control mb-3"
-                    #newAssetName />
-                </div>
-                <span>
-                  <button class="btn btn-info saveButton mr-3"
-                    (click)="updateAssetName(asset.name, newAssetName.value)">
-                    <i class="far fa-save"></i> Save
-                  </button>
-                  <button class="btn btn-danger saveButton" (click)="deleteAsset(asset.name)">
-                    <i class="fas fa-trash"></i> Delete
-                  </button>
-                </span>
-              </form>
-            </div>
+          </div>
+          <h5 *ngIf="selectedCategory">Category Selected: {{selectedCategory}}</h5>
+        </div>
+        <hr class="my-4">
+        <div class="form-group">
+          <label for="editor">Content</label>
+          <quill-editor formControlName="editor" [styles]="editorStyle"></quill-editor>
+        </div>
+        <button type="submit" class="btn btn-primary">Add</button>
+      </form>
+    </div>
+
+    <div class="tab-pane fade" id="assets" role="tabpanel" aria-labelledby="assets-tab">
+      <h3 class="banner">Create a new Asset</h3>
+      <form>
+        <div class="form-group">
+          <label for="assetName">Enter a new asset for the associates</label>
+          <input id="assetName" type="text" class="form-control" #assetName>
+        </div>
+        <button type="submit" class="btn btn-primary"
+          (click)="addAsset(assetName.value); assetName.value='';">Add</button>
+      </form>
+      <hr class="my-4">
+      <h3 class="banner">Edit Assets</h3>
+      <div class="card-group">
+        <div class="card" *ngFor="let asset of assets">
+          <div class="card-header">
+            <h5>{{asset.name}}</h5>
+          </div>
+          <div class="card-body">
+            <form>
+              <div class="form-group">
+                <label for="newAssetName">Title</label>
+                <input id="newAssetName" placeholder="{{asset.name}}" required class="form-control mb-3"
+                  #newAssetName />
+              </div>
+              <span>
+                <button class="btn btn-info saveButton mr-3" (click)="updateAssetName(asset.name, newAssetName.value)">
+                  <i class="far fa-save"></i> Save
+                </button>
+                <button class="btn btn-danger saveButton" (click)="deleteAsset(asset.name)">
+                  <i class="fas fa-trash"></i> Delete
+                </button>
+              </span>
+            </form>
           </div>
         </div>
       </div>
-
     </div>
+
   </div>
 </div>
