@@ -81,67 +81,65 @@
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="tab-pane fade" id="steps" role="tabpanel" aria-labelledby="steps-tab">
-      <h3 class="text-center">Create a new Step</h3>
-      <form [formGroup]="editorForm" (ngSubmit)="addStep()">
-        <div class="form-group">
-          <label for="title">Title</label>
-          <input formControlName="title" type="text" class="form-control">
-        </div>
-        <hr class="my-4">
-        <div class="form-group">
-          <label>What category does this step belong to?</label>
-          <div class="dropdown">
-            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">
-              Select Category
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-              <button *ngFor="let category of categories" class="dropdown-item" type="button"
-                (click)="selectCategory(category.name)">{{category.name}}</button>
-            </div>
-          </div>
-          <h5 *ngIf="selectedCategory">Category Selected: {{selectedCategory}}</h5>
-        </div>
-        <hr class="my-4">
-        <div class="form-group">
-          <label for="editor">Content</label>
-          <quill-editor formControlName="editor" [styles]="editorStyle"></quill-editor>
-        </div>
-        <button type="submit" class="btn btn-primary">Add</button>
-      </form>
-    </div>
-
-    <div class="tab-pane fade" id="document" role="tabpanel" aria-labelledby="document-tab">
-      <h3 class="text-center">Document View</h3>
-      <div *ngFor="let category of categories">
-        <h4>{{category.name}}</h4>
-        <div *ngFor="let step of category.steps" class="mb-4 shadow-sm p-3 mb-5 bg-white rounded">
-          <h5>{{step.title}}</h5>
-          <div [innerHTML]="step.content"></div>
-        </div>
-        <hr class="my-4">
-      </div>
-      <div class="tab-pane fade" id="assets" role="tabpanel" aria-labelledby="assets-tab">
-        <h3 class="banner">Asset Controls</h3>
-        <form>
+      <div class="tab-pane fade" id="steps" role="tabpanel" aria-labelledby="steps-tab">
+        <h3 class="text-center">Create a new Step</h3>
+        <form [formGroup]="editorForm" (ngSubmit)="addStep()">
           <div class="form-group">
-            <label for="assetName">Enter a new asset for the associates</label>
-            <input id="assetName" type="text" class="form-control" #assetName>
+            <label for="title">Title</label>
+            <input formControlName="title" type="text" class="form-control">
           </div>
-          <button type="submit" class="btn btn-primary"
-            (click)="addAsset(assetName.value); assetName.value='';">Add</button>
+          <hr class="my-4">
+          <div class="form-group">
+            <label>What category does this step belong to?</label>
+            <div class="dropdown">
+              <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Select Category
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <button *ngFor="let category of categories" class="dropdown-item" type="button"
+                  (click)="selectCategory(category.name)">{{category.name}}</button>
+              </div>
+              <h5 *ngIf="selectedCategory">Category Selected: {{selectedCategory}}</h5>
+            </div>
+            <hr class="my-4">
+            <div class="form-group">
+              <label for="editor">Content</label>
+              <quill-editor formControlName="editor" [styles]="editorStyle"></quill-editor>
+            </div>
+            <button type="submit" class="btn btn-primary">Add</button>
         </form>
-        <hr class="my-4">
-        <h3 class="banner">Assets</h3>
-        <ul class="list-group">
-          <li *ngFor="let asset of assets" class="list-group-item">
-            <div>{{asset.name}}</div>
-          </li>
-        </ul>
       </div>
 
+      <div class="tab-pane fade" id="document" role="tabpanel" aria-labelledby="document-tab">
+        <h3 class="text-center">Document View</h3>
+        <div *ngFor="let category of categories">
+          <h4>{{category.name}}</h4>
+          <div *ngFor="let step of category.steps" class="mb-4 shadow-sm p-3 mb-5 bg-white rounded">
+            <h5>{{step.title}}</h5>
+            <div [innerHTML]="step.content"></div>
+          </div>
+          <hr class="my-4">
+        </div>
+        <div class="tab-pane fade" id="assets" role="tabpanel" aria-labelledby="assets-tab">
+          <h3 class="banner">Asset Controls</h3>
+          <form>
+            <div class="form-group">
+              <label for="assetName">Enter a new asset for the associates</label>
+              <input id="assetName" type="text" class="form-control" #assetName>
+            </div>
+            <button type="submit" class="btn btn-primary"
+              (click)="addAsset(assetName.value); assetName.value='';">Add</button>
+          </form>
+          <hr class="my-4">
+          <h3 class="banner">Assets</h3>
+          <ul class="list-group">
+            <li *ngFor="let asset of assets" class="list-group-item">
+              <div>{{asset.name}}</div>
+            </li>
+          </ul>
+        </div>
+
+      </div>
     </div>
-  </div>
