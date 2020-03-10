@@ -3,7 +3,7 @@ import { Category } from '../models/category.model';
 
 const initialState: Category[] = [
   {
-    name: 'category 1',
+    name: 'category1',
     steps: [
       {
         title: 'category 1 step 1',
@@ -26,7 +26,7 @@ const initialState: Category[] = [
     ]
   },
   {
-    name: 'category 2',
+    name: 'category2',
     steps: [
       {
         title: 'category 2 step 1',
@@ -49,7 +49,7 @@ const initialState: Category[] = [
     ]
   },
   {
-    name: 'category 3',
+    name: 'category3',
     steps: [
       {
         title: 'category 3 step 1',

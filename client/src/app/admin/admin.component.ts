@@ -5,7 +5,6 @@ import { Category } from '../models/category.model';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '../app.state';
-// import { $ } from 'protractor';
 
 @Component({
   selector: 'app-admin',
@@ -17,6 +16,7 @@ export class AdminComponent implements OnInit {
   categories: Category[];
   selectedCategory: string;
   editorForm: FormGroup;
+  match: boolean = false;
 
   editorStyle = {
     height: '200px'
@@ -56,6 +56,10 @@ export class AdminComponent implements OnInit {
 
   deleteCategory(category) {
     console.log(category)
+  }
+
+  deleteInputChange(value, categoryName) {
+    value === categoryName ? this.match = true : this.match = false;
   }
 
   selectCategory(category) {
