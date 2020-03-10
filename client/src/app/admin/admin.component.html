@@ -39,21 +39,23 @@
           <div class="card-body">
             <form>
               <div class="form-group">
-                <label for="newName">Title</label>
-                <input id="newName" placeholder="{{category.name}}" required class="form-control mb-3" #newName />
+                <label [for]="'newName' + category.sequenceNumber">Title</label>
+                <input [id]="'newName' + category.sequenceNumber" placeholder="{{category.name}}" required
+                  class="form-control mb-3" #newName />
               </div>
               <button class="btn btn-info saveButton mr-3" (click)="updateCategoryName(category.name, newName.value)">
                 <i class="far fa-save"></i> Save
               </button>
-              <button class="btn btn-danger saveButton" data-toggle="modal" [attr.data-target]="'#' + category.name">
+              <button class="btn btn-danger saveButton" data-toggle="modal"
+                [attr.data-target]="'#' + category.sequenceNumber">
                 <i class="fas fa-trash"></i> Delete
               </button>
-              <div class="modal fade" [id]="category.name" tabindex="-1" role="dialog"
-                [attr.aria-labelledby]="category.name + 'Label'" aria-hidden="true">
+              <div class="modal fade" [id]="category.sequenceNumber" tabindex="-1" role="dialog"
+                [attr.aria-labelledby]="category.sequenceNumber + 'Label'" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" [id]="category.name + 'Label'">Delete?</h5>
+                      <h5 class="modal-title" [id]="category.sequenceNumber + 'Label'">Delete?</h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
@@ -63,15 +65,16 @@
                       <p>Deleting <b>{{category.name}}</b> will delete all of the steps within it.</p>
                       <form>
                         <div class="form-group">
-                          <label for="deleteForm">Please type "<b>{{category.name}}</b>" to confirm.</label>
-                          <input id="deleteForm" class="form-control mb-3" #deleteForm
+                          <label [for]="'deleteForm' + category.sequenceNumber">Please type "<b>{{category.name}}</b>"
+                            to confirm.</label>
+                          <input [id]="'deleteForm' + category.sequenceNumber" class="form-control mb-3" #deleteForm
                             (keyup)="deleteInputChange(deleteForm.value, category.name)" />
                         </div>
                       </form>
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                      <button id="deleteButton" type="button" class="btn btn-danger" data-dismiss="modal"
+                      <button type="button" class="btn btn-danger" data-dismiss="modal"
                         (click)="deleteCategory(category.name)" [disabled]="!match">Delete</button>
                     </div>
                   </div>
