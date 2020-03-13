@@ -67,11 +67,18 @@ export class DataService {
   }
 
   addStep(data) {
-    console.log(data);
     return this.http.post(this.serviceUrl, data)
       .pipe(
         map(result => result),
         catchError(this.handleError('addStep', []))
+      );
+  }
+
+  deleteStep(title) {
+    return this.http.delete(`${this.serviceUrl}/steps/delete/${title}`)
+      .pipe(
+        map(result => result),
+        catchError(this.handleError('deleteStep', []))
       );
   }
 

@@ -17,6 +17,7 @@ export class AdminComponent implements OnInit {
   categories: Category[];
   selectedCategory: string;
   editorForm: FormGroup;
+  editStepForm: FormGroup;
   match: boolean = false;
 
   editorStyle = {
@@ -35,15 +36,34 @@ export class AdminComponent implements OnInit {
       'editor': new FormControl(null),
       'title': new FormControl(null)
     });
+
+    this.editStepForm = new FormGroup({
+      'body': new FormControl(null)
+    });
   }
 
   addStep() {
+    // const delta = this.editorForm.getContents()
     const content = this.editorForm.get('editor').value;
     const title = this.editorForm.get('title').value;
     const data = { title, category: this.selectedCategory, content };
     this.dataService.addStep(data)
       .subscribe(
         result => {
+          if (result.status !== 200) return new Error('Step couldn\'t be added')
+          console.log('success', result);
+        },
+        error => {
+          console.log(error);
+        }
+      );
+  }
+
+  deleteStep(title) {
+    this.dataService.deleteStep(title)
+      .subscribe(
+        result => {
+          if (result.status !== 200) return new Error('Step couldn\'t be added')
           console.log('success', result);
         },
         error => {
