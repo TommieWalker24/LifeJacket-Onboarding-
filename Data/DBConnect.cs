@@ -176,7 +176,7 @@ namespace LoginApi.Data
                     list[4].Add(dataReader["PictureURL"] + "");
                     list[5].Add(dataReader["Provider"] + "");
                     list[6].Add(dataReader["TheToken"] + "");
-                    Console.WriteLine(list);
+                    //Console.WriteLine(list.ToString());
                 }
 
                 //close Data Reader

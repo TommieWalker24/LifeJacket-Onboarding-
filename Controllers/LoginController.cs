@@ -4,9 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using LoginApi.Models;
 using LoginApi.Data;
+using LoginApi.Models;
 
 namespace LoginApi.Controllers
 {
@@ -14,107 +13,43 @@ namespace LoginApi.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
-        private readonly LoginContext _context;
+        private readonly DBConnect myDbc = new Data.DBConnect();
 
-        //StudentName student1 = new StudentName("Craig", "Playstead");
-        //private readonly DBConnect myDbc = new Data.DBConnect();
-
-        public LoginController(LoginContext context)
-        {
-            _context = context;
-        }
-
-        // GET: api/LoginItems
+        // GET: api/Login
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<LoginItems>>> GetLoginItems()
+        public IEnumerable<string>[] Get()
         {
-
-
-
-            return await _context.LoginItems.ToListAsync();
-
+            IEnumerable<string>[] columnData = myDbc.Select();
+            return columnData;
+            //return new string[] { "value1", "value2" };
         }
 
-        // GET: api/LoginItems/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<LoginItems>> GetLoginItem(long id)
+        
+
+        // GET: api/Accounts/5
+        [HttpGet("{id}", Name = "Get")]
+        public string Get(int id)
         {
-            var loginItem = await _context.LoginItems.FindAsync(id);
 
-            if (loginItem == null)
-            {
-                return NotFound();
-            }
-
-            return loginItem;
+            return "value";
         }
 
-        // PUT: api/LoginItems/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutLoginItem(long id, LoginItems loginItem)
-        {
-            if (id != loginItem.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(loginItem).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!LoginItemExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
-        // POST: api/LoginItems
+        // POST: api/Accounts
         [HttpPost]
-        public async Task<ActionResult<LoginItems>> PostLoginItem(LoginItems loginItem)
+        public void Post([FromBody] string value)
         {
-            _context.LoginItems.Add(loginItem);
-            await _context.SaveChangesAsync();
-
-            //return CreatedAtAction("GetLoginItem", new { id = loginItem.Id }, loginItem);
-            return CreatedAtAction(nameof(GetLoginItem), new { id = loginItem.Id }, loginItem);
         }
 
-        // DELETE: api/LoginItems/5
+        // PUT: api/Accounts/5
+        [HttpPut("{id}")]
+        public void Put(int id, [FromBody] string value)
+        {
+        }
+
+        // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<LoginItems>> DeleteLoginItem(long id)
+        public void Delete(int id)
         {
-            var loginItem = await _context.LoginItems.FindAsync(id);
-            if (loginItem == null)
-            {
-                return NotFound();
-            }
-
-            _context.LoginItems.Remove(loginItem);
-            await _context.SaveChangesAsync();
-
-            return loginItem;
         }
-
-        private bool LoginItemExists(long id)
-        {
-            return _context.LoginItems.Any(e => e.Id == id);
-        }
-
     }
 }
