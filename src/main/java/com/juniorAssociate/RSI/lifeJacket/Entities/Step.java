@@ -18,36 +18,41 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.util.List;
 
-//todo: id is of type long
 @Entity
 @Table(name= "steps")
 public class Step {
     @Id
     @GeneratedValue(strategy= GenerationType.SEQUENCE)
-    @Column(name = "step")
+    @Column(name = "step_id")
     long stepId;
-    @ManyToOne(cascade= CascadeType.ALL)
-    @JoinColumn(name = "step_num")
-    private Role steps_of_role;
+   @NotNull
+   @GeneratedValue(strategy = GenerationType.SEQUENCE)
+   @Column(name = "sequence_num")
+   int stepSequenceNum;
     @NotNull
     @UniqueElements
     @Column(name = "title", nullable = false)
     String tile;
     String description;
     @NotNull
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "category", referencedColumnName = "category", nullable = false)
-    private Categories category;
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<UserStep> user;
 
-    public Step(Long stepId, Role steps_of_role, String tile, String description, Categories category, List<UserStep> user) {
+    //todo many to one
+    @ManyToOne(cascade= CascadeType.ALL)
+    @JoinColumn(name = "category_id")
+    private Categories categoriesId;
+
+    //todo: one to one
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "step_id", referencedColumnName = "user_step_id", nullable = false)
+    private UserStep userStep;
+
+
+    public Step(Long stepId, int stepSequenceNum, String tile, String description) {
         this.stepId = stepId;
-        this.steps_of_role = steps_of_role;
+        this.stepSequenceNum= stepSequenceNum;
         this.tile = tile;
         this.description = description;
-        this.category = category;
-        this.user = user;
     }
 
     public Step() {
@@ -58,11 +63,9 @@ public class Step {
     public String toString() {
         return "Step{" +
                 "stepId=" + stepId +
-                ", steps_of_role=" + steps_of_role +
+                ", stepSequenceNum=" + stepSequenceNum +
                 ", tile='" + tile + '\'' +
                 ", description='" + description + '\'' +
-                ", category=" + category +
-                ", user=" + user +
                 '}';
     }
     public Long getStepId() {
@@ -73,12 +76,12 @@ public class Step {
         this.stepId = stepId;
     }
 
-    public Role getSteps_of_role() {
-        return steps_of_role;
+    public int getStepSequenceNum() {
+        return stepSequenceNum;
     }
 
-    public void setSteps_of_role(Role steps_of_role) {
-        this.steps_of_role = steps_of_role;
+    public void setStepSequenceNum(int stepSequenceNum) {
+        this.stepSequenceNum = stepSequenceNum;
     }
 
     public String getTile() {
@@ -97,20 +100,5 @@ public class Step {
         this.description = description;
     }
 
-    public Categories getCategory() {
-        return category;
-    }
-
-    public void setCategory(Categories category) {
-        this.category = category;
-    }
-
-    public List<UserStep> getUser() {
-        return user;
-    }
-
-    public void setUser(List<UserStep> user) {
-        this.user = user;
-    }
 
 }

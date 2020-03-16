@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface DevCenterRepository extends JpaRepository <DevCenter,String> {
     //todo: for built in functions look up jpa repository
+    public DevCenter findByLocation(String location);
 }

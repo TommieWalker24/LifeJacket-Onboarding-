@@ -1,6 +1,5 @@
 package com.juniorAssociate.RSI.lifeJacket.Controllers;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.juniorAssociate.RSI.lifeJacket.Entities.DevCenter;
 import com.juniorAssociate.RSI.lifeJacket.Services.DevCenterService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +17,6 @@ public class DevCenterController {
     @Autowired
     private DevCenterService devCenterService;
 
-
-
     @RequestMapping("/")
     public String Helloworld (){
         return "Tommie is amazing in his DevCenter!!!";
@@ -35,9 +32,11 @@ public class DevCenterController {
         return devCenterService.findAllDevCenters();
     }
     //todo figure out what info i will have
-    @RequestMapping("/findByID")
-    public DevCenter findById(@RequestBody String id){
-        return devCenterService.findByID(id);
+
+    @RequestMapping("/findByLocation")
+    public DevCenter findByLocation(@RequestBody String location){
+        DevCenter devCenter = devCenterService.findByLocation(location);
+        return devCenter;
     }
     //todo figure out what info i will have
     @DeleteMapping(value = "/delete")

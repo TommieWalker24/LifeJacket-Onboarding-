@@ -1,7 +1,5 @@
 package com.juniorAssociate.RSI.lifeJacket.Entities;
 
-//todo: id is of type long
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,35 +15,39 @@ import javax.persistence.Table;
 import java.util.List;
 
 @Entity
-@Table(name = "user_step")
-public class UserStep {
+@Table(name = "user_categories")
+public class UserCategories {
     @Id
     @GeneratedValue(strategy= GenerationType.SEQUENCE)
-    @Column(name = "user_step_id")
-    long userStepId;
+    @Column(name = "user_categories_id")
+    long userCategoriesId;
     Boolean complete;
     Boolean pending;
     @ManyToOne(cascade= CascadeType.ALL)
     @JoinColumn(name = "email")
     private User user;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "step_id")
-    private Step stepId;
+    @Column(name = "category_id")
+    long categoryId;
 
-    @ManyToOne(cascade= CascadeType.ALL)
-    @JoinColumn(name = "user_category_id")
-    private UserCategories userCategoriesId;
 
-    public UserStep() {
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "original_category_id")
+    private Categories categories;
+
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<UserStep> userSteps;
+
+    public UserCategories() {
     }
 
-    public long getUserStepId() {
-        return userStepId;
+    public long getUserCategoriesId() {
+        return userCategoriesId;
     }
 
-    public void setUserStepId(long userStepId) {
-        this.userStepId = userStepId;
+    public void setUserCategoriesId(long userCategoriesId) {
+        this.userCategoriesId = userCategoriesId;
     }
 
     public Boolean getComplete() {
@@ -72,20 +74,27 @@ public class UserStep {
         this.user = user;
     }
 
-    public Step getStepId() {
-        return stepId;
+    public long getCategoryId() {
+        return categoryId;
     }
 
-    public void setStepId(Step stepId) {
-        this.stepId = stepId;
+    public void setCategoryId(long categoryId) {
+        this.categoryId = categoryId;
     }
 
-    public UserCategories getUserCategoriesId() {
-        return userCategoriesId;
+    public Categories getCategories() {
+        return categories;
     }
 
-    public void setUserCategoriesId(UserCategories userCategoriesId) {
-        this.userCategoriesId = userCategoriesId;
+    public void setCategories(Categories categories) {
+        this.categories = categories;
+    }
+
+    public List<UserStep> getUserSteps() {
+        return userSteps;
+    }
+
+    public void setUserSteps(List<UserStep> userSteps) {
+        this.userSteps = userSteps;
     }
 }
-//todo: join of user and steps

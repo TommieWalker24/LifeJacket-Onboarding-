@@ -26,8 +26,8 @@ public class DevCenterService {
             return devCenterRepository.findAll();
         }
 
-        public DevCenter findByID(String id){
-           return devCenterRepository.getOne(id);
+        public DevCenter findByLocation(String location){
+           return devCenterRepository.findByLocation(location);
           }
         public void deleteDevCenter(String id) {
             devCenterRepository.deleteById(id);

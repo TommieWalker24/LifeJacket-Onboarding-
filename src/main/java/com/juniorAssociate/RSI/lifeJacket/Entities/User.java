@@ -25,8 +25,11 @@ public class User implements Serializable {
     @NotNull
     @Column(name= "last_name", nullable = false)
     String lastName;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "role", referencedColumnName = "role" )
+
+    //todo: many to one
+    @NotNull
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "role", referencedColumnName = "role")
     private Role role;
 
     @NotNull
@@ -35,7 +38,7 @@ public class User implements Serializable {
     private DevCenter devCenter;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Asset> assignedEquipment;
+    private List<UserCategories> userCategories;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<UserStep> userSteps;
 

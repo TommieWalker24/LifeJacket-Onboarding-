@@ -9,16 +9,17 @@ import javax.persistence.OneToOne;
 import java.io.Serializable;
 import java.util.List;
 
-//todo: id is of type string
 @Entity
 public class Role implements Serializable {
     @Id
     String role;
-    @OneToOne(mappedBy = "role")
-            private User user;
+
+    //todo: one to many
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<User> users;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Step> steps;
+    private List<Categories> categories;
 
 
 //-----------------------------------------------------------------------
