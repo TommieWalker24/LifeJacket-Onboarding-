@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using MySql.Data.EntityFrameworkCore; // need this for mysql connection?
+
 
 namespace LoginApi.Models
 {
@@ -14,7 +14,7 @@ namespace LoginApi.Models
         {
         }
 
-        public DbSet<LoginItem> TodoItems { get; set; }
+        public DbSet<LoginItems> LoginItems { get; set; }
     }
 
 }

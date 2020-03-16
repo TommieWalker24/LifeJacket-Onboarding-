@@ -11,36 +11,32 @@ namespace LoginApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AccountsController : ControllerBase
+    public class RefreshController : ControllerBase
     {
-        private readonly DBConnect myDbc = new Data.DBConnect();
-
-        // GET: api/Accounts
+        // GET: api/Login
         [HttpGet]
-        public IEnumerable<string>[] Get()
+        public IEnumerable<string> Get()
         {
-            IEnumerable<string>[] columnData = myDbc.Select();
-            return columnData;
-            //return new string[] { "value1", "value2" };
+            return new string[] { "value1", "value2" };
         }
 
-        
-
-        // GET: api/Accounts/5
+        // GET: api/Login/5
         [HttpGet("{id}", Name = "Get")]
         public string Get(int id)
         {
-
             return "value";
         }
 
-        // POST: api/Accounts
+        // POST: api/Login
         [HttpPost]
         public void Post([FromBody] string value)
         {
+            DBConnect db = new DBConnect();
+            var uData = db.Select();
+
         }
 
-        // PUT: api/Accounts/5
+        // PUT: api/Login/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {

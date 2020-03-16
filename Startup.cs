@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using LoginApi.Models;
 
+
 namespace LoginApi
 {
     public class Startup
@@ -21,12 +22,12 @@ namespace LoginApi
         public void ConfigureServices(IServiceCollection services)
         {
             
-            services.AddDbContext<LoginContext>(opt =>
-               opt.UseInMemoryDatabase("TodoList"));
-            // Add framework services.
+            //services.AddDbContext<LoginContext>(opt =>
+            //   opt.UseInMemoryDatabase("TodoList"));
+            //// Add framework services.
 
-            services.AddDbContext<ApplicationDbContext>(opt =>
-               opt.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<LoginContext>(opt =>
+               opt.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
 
 
             services.AddControllers();

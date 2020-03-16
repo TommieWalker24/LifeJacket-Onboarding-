@@ -1,0 +1,4 @@
+﻿Verbose logs are written to:
+C:\Users\BRIAN~1.PHI\AppData\Local\Temp\vscode-chrome-debug.txt
+The program '' has exited with code -1 (0xffffffff).
+The program '[3612] iisexpress.exe' has exited with code -1 (0xffffffff).

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace LoginApi.Models
 {
-    public class LoginItem
+    public class LoginItems
     {
         public long Id { get; set; }
         public string Name { get; set; }
