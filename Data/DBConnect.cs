@@ -142,7 +142,7 @@ namespace LoginApi.Data
         //Select statement
         public List<string>[] Select()
         {
-            string query = "SELECT * FROM userdata";
+            string query = "SELECT * FROM user";
 
 
 

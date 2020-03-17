@@ -13,8 +13,10 @@ namespace LoginApi.Models
         public string EmailAddress { get; set; }
         public string PictureUrl { get; set; }
         public string Provider { get; set; }
+        public string TheToken { get; set; }
 
         public bool IsAuthenticated { get; set; }
     }
+
 
 }
