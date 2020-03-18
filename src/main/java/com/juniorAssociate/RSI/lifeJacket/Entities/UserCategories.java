@@ -1,5 +1,8 @@
 package com.juniorAssociate.RSI.lifeJacket.Entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.sun.istack.NotNull;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +15,25 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import java.util.Comparator;
 import java.util.List;
+
+/*
+This class directly generates and describes an sql table "user_categories"
+Table ID:
+    o	userCategoriesId
+Non-Null fields include
+    o	user_categories_id
+    o	user
+    o	categories
+
+Relations:
+    o	One-To-Many: UserStep
+    o	One-To-One: Categories
+
+@author: Tommie Walker
+@version: 1.0.0
+ */
 
 @Entity
 @Table(name = "user_categories")
@@ -23,22 +44,27 @@ public class UserCategories {
     long userCategoriesId;
     Boolean complete;
     Boolean pending;
+    @NotNull
     @ManyToOne(cascade= CascadeType.ALL)
-    @JoinColumn(name = "email")
+    @JoinColumn(name = "email", nullable = false)
     private User user;
-
-    @Column(name = "category_id")
-    long categoryId;
-
-
+    @NotNull
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "original_category_id")
+    @JoinColumn(name = "category_id", nullable = false)
     private Categories categories;
 
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<UserStep> userSteps;
 
+
+
+    public static Comparator<UserCategories> sortBySequenceNumber = new Comparator<UserCategories>() {
+        @Override
+        public int compare(UserCategories o1, UserCategories o2) {
+            return o1.getCategories().seqNum - o2.getCategories().seqNum;
+        }
+    };
     public UserCategories() {
     }
 
@@ -74,14 +100,6 @@ public class UserCategories {
         this.user = user;
     }
 
-    public long getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(long categoryId) {
-        this.categoryId = categoryId;
-    }
-
     public Categories getCategories() {
         return categories;
     }
@@ -97,4 +115,6 @@ public class UserCategories {
     public void setUserSteps(List<UserStep> userSteps) {
         this.userSteps = userSteps;
     }
+
+
 }

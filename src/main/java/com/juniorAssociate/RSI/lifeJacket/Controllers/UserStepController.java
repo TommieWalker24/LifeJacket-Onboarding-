@@ -5,6 +5,7 @@ import com.juniorAssociate.RSI.lifeJacket.Services.UserStepService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,8 +33,8 @@ public class UserStepController {
         return userStepService.findAllSteps();
     }
 
-    @RequestMapping("/findByID")
-    public UserStep findById(@RequestBody Long id){
+    @RequestMapping("/findByID/{id}")
+    public UserStep findById(@PathVariable Long id){
         return  userStepService.findByID(id);
     }
     //todo figure out what info i will have
@@ -45,5 +46,10 @@ public class UserStepController {
     @PatchMapping("/save")
     public void saveUserStep(@RequestBody Long stepId){
         userStepService.saveUserStep(stepId);
+    }
+
+    @PatchMapping("/completeStep/{id}")
+    public void completeUserStep(@PathVariable long userStepId){
+        userStepService.completeUserStep(userStepId);
     }
 }

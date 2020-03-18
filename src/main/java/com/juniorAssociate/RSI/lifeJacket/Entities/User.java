@@ -13,14 +13,33 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import java.io.Serializable;
 import java.util.List;
-//todo: type is of type string
+/*
+This class directly generates and describes an sql table "categories"
+Table ID:
+    o	email
+Non-Null fields include
+    o	email
+    o	firstName
+    o	lastName
+    o	role
+    o	devCenter
+
+Relations:
+    o	Many-To-One: Role
+    o	Many-To-One: DevCenter
+    o	One-To-Many: UserCategories
+    o	One-To-Many: UserStep
+
+@author: Tommie Walker
+@version: 1.0.0
+ */
 @Entity
 public class User implements Serializable {
     @Id
     @Column(name = "email")
     String email;
     @NotNull
-    @Column(name= "fist_name", nullable = false)
+    @Column(name= "first_name", nullable = false)
     String firstName;
     @NotNull
     @Column(name= "last_name", nullable = false)
@@ -29,7 +48,7 @@ public class User implements Serializable {
     //todo: many to one
     @NotNull
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "role", referencedColumnName = "role")
+    @JoinColumn(name = "role", referencedColumnName = "role", nullable = false)
     private Role role;
 
     @NotNull
@@ -42,8 +61,8 @@ public class User implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<UserStep> userSteps;
 
-    String password;
-    int cubeNumber;
+    @Column(name = "picture_url")
+    String pictureUrl;
 
     public User() {
     }

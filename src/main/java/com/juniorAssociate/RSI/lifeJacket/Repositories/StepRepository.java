@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface StepRepository extends JpaRepository<Step, Long> {
-
+   public Step findByStepId(Long stepId);
 }

@@ -1,6 +1,6 @@
 package com.juniorAssociate.RSI.lifeJacket.Entities;
 
-//todo: id is of type long
+import com.sun.istack.NotNull;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,11 +11,26 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import java.util.List;
+/*
+This class directly generates and describes an sql table "user_steps"
+Table ID:
+    o	userStepId
+Non-Null fields include
+    o	userStepId
+    o	email
+    o	stepId
+    o	userCategoriesId
 
+Relations:
+    o	Many-To-One: User
+    o	One-To-One: Step
+    o	Many-To-One: UserCategories
+
+@author: Tommie Walker
+@version: 1.0.0
+ */
 @Entity
 @Table(name = "user_step")
 public class UserStep {
@@ -25,16 +40,19 @@ public class UserStep {
     long userStepId;
     Boolean complete;
     Boolean pending;
+    @NotNull
     @ManyToOne(cascade= CascadeType.ALL)
-    @JoinColumn(name = "email")
+    @JoinColumn(name = "email", nullable = false)
     private User user;
 
+    @NotNull
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "step_id")
+    @JoinColumn(name = "step_id", nullable = false)
     private Step stepId;
 
+    @NotNull
     @ManyToOne(cascade= CascadeType.ALL)
-    @JoinColumn(name = "user_category_id")
+    @JoinColumn(name = "user_category_id", nullable = false)
     private UserCategories userCategoriesId;
 
     public UserStep() {

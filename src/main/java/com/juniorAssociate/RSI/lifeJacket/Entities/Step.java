@@ -7,17 +7,30 @@ import org.hibernate.validator.constraints.UniqueElements;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import java.util.List;
+/*
+This class directly generates and describes an sql table "steps"
+Table ID:
+    o	stepId
+Non-Null fields include
+    o	stepId
+    o	stepSequenceNum
+    o	title
+    o	categoriesId
 
+Relations:
+    o	Many-To-One: Categories
+    o	One-To-One: UserStep
+
+@author: Tommie Walker
+@version: 1.0.0
+ */
 @Entity
 @Table(name= "steps")
 public class Step {
@@ -27,31 +40,28 @@ public class Step {
     long stepId;
    @NotNull
    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-   @Column(name = "sequence_num")
+   @Column(name = "sequence_num", nullable = false)
    int stepSequenceNum;
     @NotNull
     @UniqueElements
     @Column(name = "title", nullable = false)
-    String tile;
+    String title;
     String description;
+
     @NotNull
-
-    //todo many to one
     @ManyToOne(cascade= CascadeType.ALL)
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_id", nullable = false)
     private Categories categoriesId;
-
-    //todo: one to one
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "step_id", referencedColumnName = "user_step_id", nullable = false)
     private UserStep userStep;
 
 
-    public Step(Long stepId, int stepSequenceNum, String tile, String description) {
+    public Step(Long stepId, int stepSequenceNum, String title, String description) {
         this.stepId = stepId;
         this.stepSequenceNum= stepSequenceNum;
-        this.tile = tile;
+        this.title = title;
         this.description = description;
     }
 
@@ -64,7 +74,7 @@ public class Step {
         return "Step{" +
                 "stepId=" + stepId +
                 ", stepSequenceNum=" + stepSequenceNum +
-                ", tile='" + tile + '\'' +
+                ", tile='" + title + '\'' +
                 ", description='" + description + '\'' +
                 '}';
     }
@@ -84,12 +94,12 @@ public class Step {
         this.stepSequenceNum = stepSequenceNum;
     }
 
-    public String getTile() {
-        return tile;
+    public String getTitle() {
+        return title;
     }
 
-    public void setTile(String tile) {
-        this.tile = tile;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription() {

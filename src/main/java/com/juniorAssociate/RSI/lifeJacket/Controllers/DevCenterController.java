@@ -5,6 +5,7 @@ import com.juniorAssociate.RSI.lifeJacket.Services.DevCenterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,14 +34,14 @@ public class DevCenterController {
     }
     //todo figure out what info i will have
 
-    @RequestMapping("/findByLocation")
-    public DevCenter findByLocation(@RequestBody String location){
+    @RequestMapping("/findByLocation/{location}")
+    public DevCenter findByLocation(@PathVariable String location){
         DevCenter devCenter = devCenterService.findByLocation(location);
         return devCenter;
     }
-    //todo figure out what info i will have
-    @DeleteMapping(value = "/delete")
-    public void delete(@RequestBody String id){
+
+    @DeleteMapping(value = "/delete/{id}")
+    public void delete(@PathVariable String id){
         devCenterService.deleteDevCenter(id);
     }
 

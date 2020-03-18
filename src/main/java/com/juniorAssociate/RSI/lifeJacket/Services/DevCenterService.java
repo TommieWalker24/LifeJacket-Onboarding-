@@ -34,7 +34,7 @@ public class DevCenterService {
         }
 
         public void saveDevCenter(String id) {
-            DevCenter devCenter = devCenterRepository.getOne(id);
+            DevCenter devCenter = devCenterRepository.findByLocation(id);
             devCenterRepository.save(devCenter);
         }
     }

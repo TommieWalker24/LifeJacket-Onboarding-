@@ -21,13 +21,13 @@ public class StepService {
         return stepRepository.findAll();
     }
     public Step findByID(Long stepId){
-        return stepRepository.getOne(stepId);
+        return stepRepository.findByStepId(stepId);
     }
     public void deleteStep(Long stepId){
         stepRepository.deleteById(stepId);
     }
     public void saveStep(Long stepId){
-        Step step = stepRepository.getOne(stepId);
+        Step step = stepRepository.findByStepId(stepId);
         stepRepository.save(step);
     }
 

@@ -8,7 +8,20 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import java.io.Serializable;
 import java.util.List;
+/*
+This class directly generates and describes an sql table "role"
+Table ID:
+    o	role
+Non-Null fields include
+    o	role
 
+Relations:
+    o	One-To-Many: User
+    o	One-To-Many: Categories
+
+@author: Tommie Walker
+@version: 1.0.0
+ */
 @Entity
 public class Role implements Serializable {
     @Id

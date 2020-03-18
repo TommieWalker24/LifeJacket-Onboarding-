@@ -22,13 +22,14 @@ public class CategoryService {
     }
 
     public Categories findByID(Long id){
-       return categoryRepository.getOne(id);
+       return categoryRepository.findByCategoryId(id);
       }
     public void deleteCategory(Long id){
-        categoryRepository.deleteById(id);
+        Categories toDelete = categoryRepository.findByCategoryId(id);
+        categoryRepository.delete(toDelete);
     }
     public void saveCategory(Long id){
-        Categories category = categoryRepository.getOne(id);
+        Categories category = categoryRepository.findByCategoryId(id);
         categoryRepository.save(category);
     }
 }

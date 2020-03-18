@@ -11,7 +11,20 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.List;
 
-//todo: id is of type string
+/*
+This class directly generates and describes an sql table "dev_center"
+Table ID:
+    o	location
+Non-Null fields include
+    o	location
+    o	hrRep
+
+Relations:
+    o	One-To-Many: User
+
+@author: Tommie Walker
+@version: 1.0.0
+ */
 @Entity
 @Table(name="dev_center")
 public class DevCenter {

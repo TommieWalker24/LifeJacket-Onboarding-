@@ -26,13 +26,20 @@ public class UserStepService {
         return allUserSteps;
     }
         public UserStep findByID(long id){
-        return userStepRepository.getOne(id);
+        return userStepRepository.findByUserStepId(id);
     }
     public void deleteUserStep(Long id){
         userStepRepository.deleteById(id);
     }
     public void saveUserStep(Long id){
-        UserStep userstep = userStepRepository.getOne(id);
+        UserStep userstep = userStepRepository.findByUserStepId(id);
+        userStepRepository.save(userstep);
+    }
+
+    public void completeUserStep(long userStepId) {
+        UserStep userstep = userStepRepository.findByUserStepId(userStepId);
+        userstep.setComplete(true);
+        userstep.setPending(false);
         userStepRepository.save(userstep);
     }
 }

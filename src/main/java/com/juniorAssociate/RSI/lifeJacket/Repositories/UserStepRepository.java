@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserStepRepository extends JpaRepository<UserStep, Long> {
-    //todo: for built in functions look up jpa repository
+    UserStep findByUserStepId(long id);
 }
