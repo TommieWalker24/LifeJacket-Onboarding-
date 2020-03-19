@@ -1,6 +1,6 @@
 package com.juniorAssociate.RSI.lifeJacket.Controllers;
 
-import com.juniorAssociate.RSI.lifeJacket.Entities.UserStep;
+import com.juniorAssociate.RSI.lifeJacket.Entities.UserSteps;
 import com.juniorAssociate.RSI.lifeJacket.Services.UserStepService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,12 +29,12 @@ public class UserStepController {
     }
 
     @RequestMapping(value = "/findAll")
-    public List<UserStep> findAllSteps(){
+    public List<UserSteps> findAllSteps(){
         return userStepService.findAllSteps();
     }
 
     @RequestMapping("/findByID/{id}")
-    public UserStep findById(@PathVariable Long id){
+    public UserSteps findById(@PathVariable Long id){
         return  userStepService.findByID(id);
     }
     //todo figure out what info i will have

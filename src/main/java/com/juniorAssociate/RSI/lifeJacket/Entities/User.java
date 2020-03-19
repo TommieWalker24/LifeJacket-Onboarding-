@@ -10,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import java.io.Serializable;
 import java.util.List;
 /*
@@ -66,7 +65,7 @@ public class User implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<UserCategories> userCategories;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<UserStep> userSteps;
+    private List<UserSteps> userSteps;
 
     @Column(name = "picture_url")
     String pictureUrl;

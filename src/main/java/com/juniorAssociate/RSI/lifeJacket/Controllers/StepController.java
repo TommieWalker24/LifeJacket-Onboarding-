@@ -1,6 +1,6 @@
 package com.juniorAssociate.RSI.lifeJacket.Controllers;
 
-import com.juniorAssociate.RSI.lifeJacket.Entities.Step;
+import com.juniorAssociate.RSI.lifeJacket.Entities.Steps;
 import com.juniorAssociate.RSI.lifeJacket.Services.StepService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,12 +31,12 @@ public class StepController {
     }
 
     @RequestMapping(value = "/findAll")
-    public List<Step> findAllSteps(){
+    public List<Steps> findAllSteps(){
            return stepService.findAllSteps();
         }
 
     @RequestMapping("/findByID/{id}")
-    public Step findById(@PathVariable Long id){
+    public Steps findById(@PathVariable Long id){
         return  stepService.findByID(id);
     }
 

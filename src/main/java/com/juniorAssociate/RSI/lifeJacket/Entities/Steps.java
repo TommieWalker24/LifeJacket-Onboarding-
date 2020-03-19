@@ -39,7 +39,7 @@ Relations:
  */
 @Entity
 @Table(name= "steps")
-public class Step {
+public class Steps {
     @Id
     @GeneratedValue(strategy= GenerationType.SEQUENCE)
     @Column(name = "step_id")
@@ -61,17 +61,17 @@ public class Step {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "step_id", referencedColumnName = "user_step_id", nullable = false)
-    private UserStep userStep;
+    private UserSteps userStep;
 
 
-    public Step(Long stepId, int stepSequenceNum, String title, String description) {
+    public Steps(Long stepId, int stepSequenceNum, String title, String description) {
         this.stepId = stepId;
         this.stepSequenceNum= stepSequenceNum;
         this.title = title;
         this.description = description;
     }
 
-    public Step() {
+    public Steps() {
 
     }
 

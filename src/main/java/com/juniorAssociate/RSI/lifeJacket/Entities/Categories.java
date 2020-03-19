@@ -12,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.util.Comparator;
 import java.util.List;
@@ -60,7 +59,7 @@ public class Categories {
 
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Step> steps;
+    private List<Steps> steps;
     @NotNull
     @ManyToOne(cascade= CascadeType.ALL)
     @JoinColumn(name = "role", nullable = false)
@@ -100,11 +99,11 @@ public class Categories {
         this.seqNum = seqNum;
     }
 
-    public List<Step> getSteps() {
+    public List<Steps> getSteps() {
         return steps;
     }
 
-    public void setSteps(List<Step> steps) {
+    public void setSteps(List<Steps> steps) {
         this.steps = steps;
     }
 

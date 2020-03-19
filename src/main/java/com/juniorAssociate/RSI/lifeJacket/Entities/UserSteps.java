@@ -39,7 +39,7 @@ Relations:
  */
 @Entity
 @Table(name = "user_step")
-public class UserStep {
+public class UserSteps {
     @Id
     @GeneratedValue(strategy= GenerationType.SEQUENCE)
     @Column(name = "user_step_id")
@@ -54,14 +54,14 @@ public class UserStep {
     @NotNull
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "step_id", nullable = false)
-    private Step stepId;
+    private Steps stepId;
 
     @NotNull
     @ManyToOne(cascade= CascadeType.ALL)
     @JoinColumn(name = "user_category_id", nullable = false)
     private UserCategories userCategoriesId;
 
-    public UserStep() {
+    public UserSteps() {
     }
 
     public long getUserStepId() {
@@ -96,11 +96,11 @@ public class UserStep {
         this.user = user;
     }
 
-    public Step getStepId() {
+    public Steps getStepId() {
         return stepId;
     }
 
-    public void setStepId(Step stepId) {
+    public void setStepId(Steps stepId) {
         this.stepId = stepId;
     }
 

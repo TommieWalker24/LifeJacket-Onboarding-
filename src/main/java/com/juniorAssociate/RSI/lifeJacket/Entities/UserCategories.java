@@ -1,6 +1,5 @@
 package com.juniorAssociate.RSI.lifeJacket.Entities;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.istack.NotNull;
 
 import javax.persistence.CascadeType;
@@ -60,7 +59,7 @@ public class UserCategories {
 
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<UserStep> userSteps;
+    private List<UserSteps> userSteps;
 
 
 
@@ -113,11 +112,11 @@ public class UserCategories {
         this.categories = categories;
     }
 
-    public List<UserStep> getUserSteps() {
+    public List<UserSteps> getUserSteps() {
         return userSteps;
     }
 
-    public void setUserSteps(List<UserStep> userSteps) {
+    public void setUserSteps(List<UserSteps> userSteps) {
         this.userSteps = userSteps;
     }
 
