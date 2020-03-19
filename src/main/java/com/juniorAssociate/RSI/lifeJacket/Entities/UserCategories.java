@@ -23,9 +23,14 @@ This class directly generates and describes an sql table "user_categories"
 Table ID:
     o	userCategoriesId
 Non-Null fields include
-    o	user_categories_id
+    o	userCategoriesId
     o	user
     o	categories
+
+Non-Null fields in database include
+    o	user_categories_id
+    o	user
+    o	category_id
 
 Relations:
     o	One-To-Many: UserStep  - used to correspond user steps to a particular user category

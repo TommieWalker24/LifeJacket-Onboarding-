@@ -24,6 +24,12 @@ Non-Null fields include
     o	title
     o	categoriesId
 
+Non-Null fields in database include
+    o	step_id
+    o	sequence_num
+    o	title
+    o	categories_id
+
 Relations:
     o	Many-To-One: Categories  - used to associate steps to a given category.
     o	One-To-One: UserStep - used to provide userSteps with generic step information.

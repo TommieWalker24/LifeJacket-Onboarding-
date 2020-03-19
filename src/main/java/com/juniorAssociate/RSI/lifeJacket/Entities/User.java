@@ -24,6 +24,13 @@ Non-Null fields include
     o	role
     o	devCenter
 
+Non-Null fields in database include
+    o	email
+    o	first_name
+    o	last_name
+    o	role
+    o	dev_center
+
 Relations:
     o	Many-To-One: Role
     o	Many-To-One: DevCenter

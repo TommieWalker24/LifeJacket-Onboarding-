@@ -25,6 +25,13 @@ Non-Null fields include
     o	seqNum
     o	category
     o	role
+
+Non-Null fields in database include
+    o   category_id
+    o	sequence_number
+    o	original_category_name
+    o	role
+
 Relations:
     o	One-To-Many: Steps   - used to associate steps to a particular category.
     o	Many-To-One: Role   - used to associate a number a categories to a given role.

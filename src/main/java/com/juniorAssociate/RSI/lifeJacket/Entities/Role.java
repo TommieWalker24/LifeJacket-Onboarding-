@@ -12,7 +12,10 @@ import java.util.List;
 This class directly generates and describes an sql table "role"
 Table ID:
     o	role
-Non-Null fields include
+Non-Null fields include:
+    o	role
+
+Non-Null fields in database include:
     o	role
 
 Relations:

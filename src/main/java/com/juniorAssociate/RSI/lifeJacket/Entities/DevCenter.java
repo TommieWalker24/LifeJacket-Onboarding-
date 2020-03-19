@@ -15,9 +15,14 @@ import java.util.List;
 This class directly generates and describes an sql table "dev_center"
 Table ID:
     o	location
+
 Non-Null fields include
     o	location
     o	hrRep
+
+Non-Null fields in database include:
+    o	location
+    o	hr_rep
 
 Relations:
     o	One-To-Many: User   - used to associate users to a particular dev-center
