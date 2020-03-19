@@ -28,8 +28,8 @@ Non-Null fields include
     o	categories
 
 Relations:
-    o	One-To-Many: UserStep
-    o	One-To-One: Categories
+    o	One-To-Many: UserStep  - used to correspond user steps to a particular user category
+    o	One-To-One: Categories - used to associate user category to generic category and its information.
 
 @author: Tommie Walker
 @version: 1.0.0

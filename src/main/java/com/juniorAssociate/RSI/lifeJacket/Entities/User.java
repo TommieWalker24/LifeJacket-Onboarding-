@@ -14,7 +14,7 @@ import javax.persistence.OneToOne;
 import java.io.Serializable;
 import java.util.List;
 /*
-This class directly generates and describes an sql table "categories"
+This class directly generates and describes an sql table "user"
 Table ID:
     o	email
 Non-Null fields include

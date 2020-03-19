@@ -24,9 +24,9 @@ Non-Null fields include
     o	userCategoriesId
 
 Relations:
-    o	Many-To-One: User
-    o	One-To-One: Step
-    o	Many-To-One: UserCategories
+    o	Many-To-One: User  - used to get the user email from user object
+    o	One-To-One: Step   - used to get the generic step information
+    o	Many-To-One: UserCategories   - used to correspond a user's step to a user's category
 
 @author: Tommie Walker
 @version: 1.0.0

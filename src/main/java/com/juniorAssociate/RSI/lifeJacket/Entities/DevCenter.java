@@ -20,7 +20,7 @@ Non-Null fields include
     o	hrRep
 
 Relations:
-    o	One-To-Many: User
+    o	One-To-Many: User   - used to associate users to a particular dev-center
 
 @author: Tommie Walker
 @version: 1.0.0

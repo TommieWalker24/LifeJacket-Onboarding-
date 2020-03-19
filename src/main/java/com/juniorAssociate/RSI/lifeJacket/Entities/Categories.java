@@ -21,13 +21,13 @@ This class directly generates and describes an sql table "categories"
 Table ID:
     o	categoryId
 Non-Null fields include
-    o	categoryID
+    o	categoryId
     o	seqNum
     o	category
     o	role
 Relations:
-    o	One-To-Many: Steps
-    o	Many-To-One: Role
+    o	One-To-Many: Steps   - used to associate steps to a particular category.
+    o	Many-To-One: Role   - used to associate a number a categories to a given role.
 
 @author: Tommie Walker
 @version: 1.0.0

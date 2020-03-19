@@ -25,8 +25,8 @@ Non-Null fields include
     o	categoriesId
 
 Relations:
-    o	Many-To-One: Categories
-    o	One-To-One: UserStep
+    o	Many-To-One: Categories  - used to associate steps to a given category.
+    o	One-To-One: UserStep - used to provide userSteps with generic step information.
 
 @author: Tommie Walker
 @version: 1.0.0

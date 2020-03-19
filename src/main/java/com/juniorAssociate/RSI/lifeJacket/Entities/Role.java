@@ -16,8 +16,8 @@ Non-Null fields include
     o	role
 
 Relations:
-    o	One-To-Many: User
-    o	One-To-Many: Categories
+    o	One-To-Many: User  - used to associate users to a particular role
+    o	One-To-Many: Categories  - used to associate categories to a particular role.
 
 @author: Tommie Walker
 @version: 1.0.0
