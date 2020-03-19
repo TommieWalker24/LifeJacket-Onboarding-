@@ -23,6 +23,12 @@ Non-Null fields include
     o	stepId
     o	userCategoriesId
 
+Non-Null fields in database include
+    o	user_step_id
+    o	email
+    o	step_id
+    o	user_category_id
+
 Relations:
     o	Many-To-One: User  - used to get the user email from user object
     o	One-To-One: Step   - used to get the generic step information
