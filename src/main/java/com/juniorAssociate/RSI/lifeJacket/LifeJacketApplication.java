@@ -15,10 +15,6 @@ public class LifeJacketApplication extends SpringBootServletInitializer {
 	}
 
 	public static void main(String[] args) {
-		Categories category = new Categories();
-		category.setCategory(Category.CALENDAR.getType());
-		System.out.println(category.getCategory());
-
 		SpringApplication.run(LifeJacketApplication.class, args);
 	}
 }
