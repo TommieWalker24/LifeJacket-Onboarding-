@@ -22,6 +22,8 @@ namespace LoginApi
 
         public IConfiguration Configuration { get; }
 
+        #region snippet_ConfigureServices
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -29,6 +31,8 @@ namespace LoginApi
             //services.AddDbContext<LoginContext>(opt =>
             //   opt.UseInMemoryDatabase("TodoList"));
             //// Add framework services.
+            ///
+            services.AddRouting();
 
             services
                 .AddDbContext<LoginContext>(opt =>
@@ -51,7 +55,7 @@ namespace LoginApi
                 });
 
         }
-
+        #endregion
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

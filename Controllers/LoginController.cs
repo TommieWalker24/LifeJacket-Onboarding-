@@ -22,13 +22,13 @@ namespace LoginApi.Controllers
         [HttpGet]
         public IEnumerable<string>[] Get()
         {
-            
+            //return all logged in users that are in the userdata column 
 
 
             IEnumerable<string>[] columnData = myDbc.Select();
-            // select * from user table
-            //if empty - write user data to table (email)
-            // return status?
+            // select * from userdata table which is a list of valid logged in users with {first}.{last}@ruralsourcing.com email
+            //if empty?    // return status?
+            //still needs error handling i.e. try/catch blocks
             return columnData;
             
         }
@@ -39,8 +39,13 @@ namespace LoginApi.Controllers
         [HttpGet("{id}", Name = "Get")]
         public string Get(int id)
         {
+            //get a user with a specific id
+            //SelectEmail(string userEmail)//need to change this to an ID or change the method to a string param?
 
-            return "value";
+            string columndata = myDbc.SelectEmailByID(id);
+
+            //return 
+            return columndata;
         }
 
         // POST: api/Logins
@@ -60,6 +65,9 @@ namespace LoginApi.Controllers
             //return logIn2.EmailAddress;
             //return /*json1.ToString();*/
             //return jsonTest;
+
+            // need to create user in userdata table;
+            1
             return user.Email.ToString();
     }
 

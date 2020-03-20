@@ -140,13 +140,14 @@ namespace LoginApi.Data
         }
 
         //alternate select statement to check for just email in field
-        public List<string>[] SelectEmail(string userEmail)
+        public string SelectEmailByID(int userId)
         {
-            string query = "SELECT * FROM user WHERE email= " + userEmail;
+            //return the email of the user with the given UserId
+            string query = "SELECT EmailAddress FROM userdata WHERE UserID= " + userId.ToString();
+
             //Create a list to store the result
-            //probably just need a string not a list  
-            List<string>[] list = new List<string>[7];
-            string rsiEmail = null;
+            List<string>[] list = new List<string>[1];
+            string rsiEmail = "";
 
             //Open connection
             if (this.OpenConnection() == true)
@@ -159,10 +160,16 @@ namespace LoginApi.Data
                 //Read the data and store them in the list
                 while (dataReader.Read())
                 {
-                    //var rowNum = 0;
-                    list[0].Add(dataReader["email"] + "");
+
+                    //list[1].Add(dataReader["EmailAddress"] + "");
+
+                    //probably just need a string not a list  
+
+                    rsiEmail = dataReader["EmailAddress"].ToString();
 
                 }
+
+
                 //close Data Reader
                 dataReader.Close();
 
@@ -171,7 +178,7 @@ namespace LoginApi.Data
 
                 //return list to be displayed
                 Console.WriteLine(list);
-                return list;
+                return rsiEmail;
             }
             else
             {
@@ -183,12 +190,12 @@ namespace LoginApi.Data
         //Select statement to check for user in user table
         public List<string>[] Select()
         {
-            string query = "SELECT * FROM user";
+            string query = "SELECT * FROM userdata";  //user or userdata?
 
 
 
             //Create a list to store the result
-            List<string>[] list = new List<string>[7];
+            List<string>[] list = new List<string>[8];
 
             list[0] = new List<string>();
             list[1] = new List<string>();
@@ -197,6 +204,7 @@ namespace LoginApi.Data
             list[4] = new List<string>();
             list[5] = new List<string>();
             list[6] = new List<string>();
+            list[7] = new List<string>();
 
             //Open connection
             if (this.OpenConnection() == true)
@@ -216,7 +224,10 @@ namespace LoginApi.Data
                     list[3].Add(dataReader["EmailAddress"] + "");
                     list[4].Add(dataReader["PictureURL"] + "");
                     list[5].Add(dataReader["Provider"] + "");
-                    list[6].Add(dataReader["TheToken"] + "");
+                    list[6].Add(dataReader["authToken"] + "");
+                    list[7].Add(dataReader["idToken"] + "");
+
+
                     //Console.WriteLine(list.ToString());
                 }
 
@@ -228,6 +239,7 @@ namespace LoginApi.Data
 
                 //return list to be displayed
                 Console.WriteLine(list);
+                System.Diagnostics.Debug.Write(list + Environment.NewLine);
                 return list;
             }
             else
