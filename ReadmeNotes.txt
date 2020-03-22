@@ -74,3 +74,54 @@ https://dev.mysql.com/doc/connector-net/en/connector-net-entityframework-core-sc
 
 //example scaffolding
 Scaffold-DbContext "server=localhost;port=3306;user=root;password=mypass;database=sakila" MySql.Data.EntityFrameworkCore -OutputDir sakila -f
+
+The Get method is currently returning: [
+    [
+        "107982548316831794905",
+        "1937419",
+        "1A",
+        "1B"
+    ],
+    [
+        "Brandon",
+        "Brayden",
+        "Courtney",
+        "Courtney"
+    ],
+    [
+        "Roberts",
+        "Roberts",
+        "Tull",
+        "Tull"
+    ],
+    [
+        "brandon.roberts@ruralsourcing.com",
+        "brayden.robbins@ruralsourcing.com",
+        "courtney.tull@ruralsourcing.com",
+        "courtney.tull@ruralsourcing.com"
+    ],
+    [
+        "https://lh3.googleusercontent.com/a-/AAuE7mBr5bTYig1ynTCsuoVl_DIQg9i3JuNRsXk1_l4_=s96-c",
+        "",
+        "",
+        ""
+    ],
+    [
+        "",
+        "",
+        "",
+        ""
+    ],
+    [
+        "",
+        "",
+        "",
+        ""
+    ],
+    [
+        "",
+        "",
+        "",
+        ""
+    ]
+]
