@@ -20,12 +20,12 @@ namespace LoginApi.Controllers
 
         // GET: api/Login
         [HttpGet]
-        public IEnumerable<string>[] Get()
+        public IEnumerable<Userdata>[] Get()
         {
             //return all logged in users that are in the userdata column 
 
 
-            IEnumerable<string>[] columnData = myDbc.Select();
+            IEnumerable<Userdata>[] columnData = myDbc.Select();
             // select * from userdata table which is a list of valid logged in users with {first}.{last}@ruralsourcing.com email
             //if empty?    // return status?
             //still needs error handling i.e. try/catch blocks
@@ -67,7 +67,7 @@ namespace LoginApi.Controllers
             //return jsonTest;
 
             // need to create user in userdata table;
-            1
+            
             return user.Email.ToString();
     }
 
