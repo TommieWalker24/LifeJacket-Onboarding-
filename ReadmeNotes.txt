@@ -75,7 +75,9 @@ https://dev.mysql.com/doc/connector-net/en/connector-net-entityframework-core-sc
 //example scaffolding
 Scaffold-DbContext "server=localhost;port=3306;user=root;password=mypass;database=sakila" MySql.Data.EntityFrameworkCore -OutputDir sakila -f
 
-The Get method is currently returning: [
+For this method/action/route:  https://localhost:44375/api/login
+The Get method is currently returning the following, which is not the correct shape: 
+[
     [
         "107982548316831794905",
         "1937419",
