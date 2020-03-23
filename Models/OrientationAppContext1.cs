@@ -28,7 +28,7 @@ namespace LoginApi
         public virtual DbSet<UserAssignedEquipment> UserAssignedEquipment { get; set; }
         public virtual DbSet<UserStep> UserStep { get; set; }
         public virtual DbSet<UserUserSteps> UserUserSteps { get; set; }
-        public virtual DbSet<Userdata> Userdata { get; set; }
+        public virtual DbSet<UserData> Userdata { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -492,7 +492,7 @@ namespace LoginApi
                     .HasConstraintName("FKkbo615uofoc2fpjpmcw6a2j0o");
             });
 
-            modelBuilder.Entity<Userdata>(entity =>
+            modelBuilder.Entity<UserData>(entity =>
             {
                 entity.HasKey(e => e.UserId)
                     .HasName("PRIMARY");

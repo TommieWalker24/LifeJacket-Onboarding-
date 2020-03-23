@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace LoginApi
 {
-    public partial class Userdata
+    public partial class UserData
     {
         public string UserId { get; set; }
         public string FirstName { get; set; }

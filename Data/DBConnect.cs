@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
+using LoginApi.Controllers;
+using static LoginApi.Controllers.LoginController;
 
 namespace LoginApi.Data
 {
@@ -84,11 +86,29 @@ namespace LoginApi.Data
 
 
         //Insert statement
-        public void Insert()
+        //public void Insert(string firstName, string lastName, string emailAddress, string pictureURL, string IFormatProvider, string authtoken, string idtoken)
+        public void Insert(Credentials cred)
         {
-            string query = "INSERT INTO tableinfo (name, age) VALUES('John Smith', '33')";
+            string query = "INSERT INTO Userdata (FirstName, LastName, EmailAddress, PictureURL, Provider, authToken, idToken) VALUES(" +
+                "\"" + cred.FirstName  + "\"" + "," +
+                "\"" + cred.LastName + "\"" + "," +
+                "\"" + cred.Email + "\"" + "," +
+                "\"" + cred.PictureUrl + "\"" + "," +
+                "\"" + cred.Provider + "\"" + "," +
+                "\"" + cred.AuthToken + "\"" + "," +
+                "\"" + cred.IdToken + "\"" + ")";
 
-            //open connection
+            Console.WriteLine( query);
+
+            //removed , authToken, idToken
+            //    "," +
+            //      cred.authToken + "," +
+            //      cred.idToken +                 
+            //cred.PictureUrl + "," +
+            //      cred.Provider + 
+
+
+            ////open connection
             if (this.OpenConnection() == true)
             {
                 //create command and assign the query and connection from the constructor
@@ -186,6 +206,56 @@ namespace LoginApi.Data
 
             }
         }
+
+        public string SelectAll()
+        {
+            //return the email of the user with the given UserId
+            string query = "SELECT * userdat";
+
+            //Create a list to store the result
+            List<string>[] list = new List<string>[1];
+            string rsiEmail = "";
+
+            //Open connection
+            if (this.OpenConnection() == true)
+            {
+                //Create Command
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                //Create a data reader and Execute the command
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                //Read the data and store them in the list
+                while (dataReader.Read())
+                {
+
+                    //list[1].Add(dataReader["EmailAddress"] + "");
+
+                    //probably just need a string not a list  
+
+                    rsiEmail = dataReader["EmailAddress"].ToString();
+
+                }
+
+
+                //close Data Reader
+                dataReader.Close();
+
+                //close Connection
+                this.CloseConnection();
+
+                //return list to be displayed
+                Console.WriteLine(list);
+                return rsiEmail;
+            }
+            else
+            {
+                return null; //not found rsiEmail;
+
+            }
+        }
+
+
+
         public string SelectEmailByString(string email)
         {
             //return the email of the user with the given UserId

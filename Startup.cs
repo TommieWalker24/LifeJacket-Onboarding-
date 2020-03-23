@@ -7,9 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using LoginApi.Models;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.Cookies;
-
-
-
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Options;
 
 namespace LoginApi
 {
@@ -37,22 +36,37 @@ namespace LoginApi
             services
                 .AddDbContext<LoginContext>(opt =>
                opt.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+            // requires using Microsoft.Extensions.Options
+            //services.Configure<UserDataDatabaseSettings>(
+            //    Configuration.GetSection(nameof(UserDataDatabaseSettings)));
+
+            //services.AddSingleton<IUserDatabaseSettings>(sp =>
+            //    sp.GetRequiredService<IOptions<UserDataDatabaseSettings>>().Value);
+
+            
 
             services
                 .AddControllers()
                 .AddNewtonsoftJson(options => options.UseMemberCasing());
 
-            services.AddAuthentication(options =>
-                {
-                    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                    options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
-                })
-                .AddCookie()
-                .AddGoogle(options =>
-                {
-                    options.ClientId = Configuration["Authentication:Google:CliendID"];
-                    options.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
-                });
+            //services.AddAuthentication(options =>
+            //    {
+            //        options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            //        options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+            //    })
+            //    .AddCookie()
+            //    .AddGoogle(options =>
+            //    {
+            //        options.ClientId = Configuration["Authentication:Google:CliendID"];
+            //        options.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
+            //    });
+            //services.Configure<CookiePolicyOptions>(options =>
+            //{
+            //    // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+            //    options.CheckConsentNeeded = context => true;
+            //    options.MinimumSameSitePolicy = Microsoft.AspNetCore.Http.SameSiteMode.None;
+            //});
+            //services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
         }
         #endregion
@@ -71,10 +85,14 @@ namespace LoginApi
 
             app.UseRouting();
 
+            app.UseCookiePolicy();
+            //app.UseMvc();
             //app.UseAuthentication
 
             // see https://docs.microsoft.com/en-us/aspnet/core/security/authentication/social/social-without-identity?view=aspnetcore-3.1
-            app.UseAuthorization();
+            //app.UseAuthentication();
+
+            //app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
