@@ -86,9 +86,9 @@ namespace LoginApi.Data
 
 
         //Insert statement
-        //public void Insert(string firstName, string lastName, string emailAddress, string pictureURL, string IFormatProvider, string authtoken, string idtoken)
         public void Insert(Credentials cred)
         {
+            int mySqlReturnCode;
             string query = "INSERT INTO Userdata (FirstName, LastName, EmailAddress, PictureURL, Provider, authToken, idToken) VALUES(" +
                 "\"" + cred.FirstName  + "\"" + "," +
                 "\"" + cred.LastName + "\"" + "," +
@@ -100,26 +100,19 @@ namespace LoginApi.Data
 
             Console.WriteLine( query);
 
-            //removed , authToken, idToken
-            //    "," +
-            //      cred.authToken + "," +
-            //      cred.idToken +                 
-            //cred.PictureUrl + "," +
-            //      cred.Provider + 
-
-
-            ////open connection
             if (this.OpenConnection() == true)
             {
                 //create command and assign the query and connection from the constructor
                 MySqlCommand cmd = new MySqlCommand(query, connection);
 
                 //Execute command
-                cmd.ExecuteNonQuery();
+                mySqlReturnCode =  cmd.ExecuteNonQuery();
+                Console.WriteLine(mySqlReturnCode);
 
                 //close connection
                 this.CloseConnection();
             }
+            
         }
         //Update statement
         public void Update()
@@ -159,8 +152,7 @@ namespace LoginApi.Data
             }
         }
 
-        //alternate select statement to check for just email in field
-        public string SelectEmailByID(int userId)
+        //alternate select statement to check for just email  (query by id)
         {
             //return the email of the user with the given UserId
             string query = "SELECT EmailAddress FROM userdata WHERE UserID= " + userId.ToString();
@@ -310,6 +302,7 @@ namespace LoginApi.Data
 
 
             //Create a list to store the result
+            //change to userdata object
             List<string>[] list = new List<string>[8];
 
             list[0] = new List<string>();
@@ -332,8 +325,10 @@ namespace LoginApi.Data
                 //Read the data and store them in the list
                 while (dataReader.Read())
                 {
+                    //modify to add key/valud pairs instead
                     //var rowNum = 0;
                     list[0].Add(dataReader["UserId"] + "");
+                    //list[0].Add(dataReader["UserId"] + Credential.userID );
                     list[1].Add(dataReader["FirstName"] + "");
                     list[2].Add(dataReader["LastName"] + "");
                     list[3].Add(dataReader["EmailAddress"] + "");
