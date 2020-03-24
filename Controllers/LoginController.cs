@@ -10,6 +10,7 @@ using System.Dynamic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using SWH = System.Web.Http;
+using MySql.Data.MySqlClient;
 
 namespace LoginApi.Controllers
 {
@@ -63,9 +64,12 @@ namespace LoginApi.Controllers
 
         // GET: api/Logins/
         [HttpGet("{id}", Name = "Get")]
-        public List<string>[] Get() //int id
+        public List<string> Get() //int id
         {
-               List<string>[] columndata = myDbc.Select();
+            var loginList = new List<LoginModel>;
+            loginList = myDbc.SelectAll
+            var reader = myDbc.
+               List<string> columndata = myDbc.Select();
 
             //return 
             return columndata;
@@ -101,45 +105,50 @@ namespace LoginApi.Controllers
 
         }
 
+        private IEnumerable<int> GetIds()
+        {
+            using (MySqlConnection connection = new DBConnect)
+            {
+                connection.Open();
+                string commandText = @"SELECT id FROM userdata"; // Assuming that `orders` is your database, then you do not need to specify it here.
+                
+                using (MySqlCommand command = new MySqlCommand(commandText, connection))
+                {
+                    MySqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        yield return reader.GetInt32(0);
+
+                    }
+                }
+            }
+        }
+        private IEnumerable<string> GetAll()
+        {
+            using (MySqlConnection connection = new DBConnect)
+            {
+                connection.Open();
+                string commandText = @"SELECT * FROM userdata"; // Assuming that `orders` is your database, then you do not need to specify it here.
+
+                using (MySqlCommand command = new MySqlCommand(commandText, connection))
+                {
+                    MySqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        yield return reader.Read
+                }
+            }
+        }
+
+
 
         // POST: api/Logins
         [HttpPost]
         public string Post([FromBody] Credentials credentials)
         {
-            //string jsonTest = "{\"name\":\"Brandon Roberts\",\"email\":\"brandon.roberts@ruralsourcing.com\",\"photoUrl\":\"https://lh3.googleusercontent.com/a-/AAuE7mBr5bTYig1ynTCsuoVl_DIQg9i3JuNRsXk1_l4_=s96-c\",\"firstName\":\"Brandon\",\"lastName\":\"Roberts\",\"authToken\": \"ya29.ImC9B74V1kF_wL6VvsEG5q2Bcp7zHI49hEOAUBAkcn2JzQoNbivwejO-KUN5iNDEuJMdl3-bdPX-dGswM0x_jr1uL1YumayNB-MXqMReilk7OC9iK2mbpOoqXf936RxCBbI\",\"idToken\": \"eyJhbGciOiJSUzI1NiIsImtpZCI6Ijc2MmZhNjM3YWY5NTM1OTBkYjhiYjhhNjM2YmYxMWQ0MzYwYWJjOTgiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwiYXpwIjoiNDA3MDk4MTkzMTY3LTJlcWRrajRmZWFkY2tzcmE3ZDJibWZzaGZhNjExNTZvLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiNDA3MDk4MTkzMTY3LTJlcWRrajRmZWFkY2tzcmE3ZDJibWZzaGZhNjExNTZvLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTA3OTgyNTQ4MzE2ODMxNzk0OTA0IiwiaGQiOiJydXJhbHNvdXJjaW5nLmNvbSIsImVtYWlsIjoiYnJheWRlbi5yb2JiaW5zQHJ1cmFsc291cmNpbmcuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImF0X2hhc2giOiI3SWMyT1ZseGFaSjNXRHg3LTZsT2lBIiwibmFtZSI6IkJyYXlkZW4gUm9iYmlucyIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS0vQUF1RTdtQnI1YlRZaWcxeW5UQ3N1b1ZsX0RJUWc5aTNKdU5Sc1hrMV9sNF89czk2LWMiLCJnaXZlbl9uYW1lIjoiQnJheWRlbiIsImZhbWlseV9uYW1lIjoiUm9iYmlucyIsImxvY2FsZSI6ImVuIiwiaWF0IjoxNTgyMDU3MzY3LCJleHAiOjE1ODIwNjA5NjcsImp0aSI6IjNkNWVhOWVhMzM4NzkxYTFhNjM4ZTVlZTZlMTgxYzkwNDljY2JiZjIifQ.UN_7sA3WfL6qMDfogd7cgcGkDpC3ZnxR5bChsldTz2WDxmgM-jyUr4X3cntwx81G3f7hmb9VVFb-GdO_lA4UHqjJz9DzhNyGgsTa3ffLlDy_xL3_Z5tpqfc_1OIj_oF90pJiBiurp-BKDJ175Rm7_pvnnP9M8YHp4F0P24mlUCpoJrasn8WCTTE2UC9nDmnqwmri4SR61qtheIrtveIrJK7AcwChJFjGObMHDDVVtEe23aD1dIynNKSBbKvxvW7D5ZwlVRggdBqDBFuYIhoY2w_SiR9F_MjdQDtxFpG3icf3kwENVbABzLG6rX3I8BSadsSO64yEUsAWjnIqq3M2Iw\",\"provider\":\"GOOGLE\"}";
-            //string json1 = JsonConvert.SerializeObject(FromB);
-            //LoginModel user2 = JsonConvert.DeserializeObject<LoginModel>(jsonTest);
-            //UserData user = new UserData();
-            //{
-                //string name = credentials.Username;
-                //string email = credentials.Email;
-                //string photoURl = credentials.PictureUrl;
-                //string firstName = credentials.FirstName;
-                //string lastName = credentials.LastName;
-                //string authToken = credentials.AuthToken;
-                //string idToken = credentials.IdToken;
-                //string provider = credentials.Provider;
-                
-                //user.FirstName = value.FirstName;
-                //user.LastName = value.LastName;
-                //user.EmailAddress = value.EmailAddress;
-                //user.PictureUrl = value.PictureUrl;
-                //user.Provider = value.Provider;
-                //user.authToken = value.authToken;
-                //user.idToken = value.idToken;
-
-            //}
-
-
-            //return logIn2.EmailAddress;
-            //return /*json1.ToString();*/
-            //return jsonTest;
-
-            
-
-
             //are APIs supposed to raise errors?
-            
             try
             {
                 myDbc.Insert(credentials);
@@ -149,14 +158,7 @@ namespace LoginApi.Controllers
             {
                 Console.WriteLine( ex.ToString() + ex.InnerException.ToString());
                 return ex.ToString();
-
             }
-
-
-
-
-            ///need to return something else?
-            //return credentials.Email;
         }
 
         //public void setCookie() 
