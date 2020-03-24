@@ -19,11 +19,6 @@ public class UserCategoriesController {
     @Autowired
     private UserCategoriesService userCategoriesService;
 
-    @RequestMapping("/")
-    public String Helloworld (){
-        return "User category, user category, USER CATEGORY";
-    }
-
     @PatchMapping(value = "/saveAll")
     public void saveAllCategories() {
         userCategoriesService.saveAllCategories();
@@ -55,10 +50,6 @@ public class UserCategoriesController {
         return  userCategoriesService.findByID(id);
     }
 
-    @DeleteMapping("/delete")
-    public void delete(@RequestBody Long categoryId){
-        userCategoriesService.deleteCategory(categoryId);
-    }
 
     @PatchMapping("/save")
     public void saveUserStep(@RequestBody Long categoryId){

@@ -53,6 +53,7 @@ public class Steps {
     @Column(name = "title", nullable = false)
     String title;
     String description;
+    String categoryName;
 
     @NotNull
     @ManyToOne(cascade= CascadeType.ALL)
@@ -116,5 +117,19 @@ public class Steps {
         this.description = description;
     }
 
+    public Categories getCategoriesId() {
+        return categoriesId;
+    }
 
+    public void setCategoriesId(Categories categoriesId) {
+        this.categoriesId = categoriesId;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
 }

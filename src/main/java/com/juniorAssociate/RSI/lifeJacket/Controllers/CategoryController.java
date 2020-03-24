@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @RestController
@@ -20,11 +21,6 @@ public class CategoryController {
     @Autowired
 
     private CategoryService categoryService;
-
-    @RequestMapping("/")
-    public String Helloworld (){
-        return "Tommie is amazing in his category!!!";
-    }
 
     @JsonFormat
     @RequestMapping(value = "/findAll")
@@ -37,18 +33,13 @@ public class CategoryController {
         categoryService.saveAllCategories();
     }
 
-    @RequestMapping("/findByID/ {id}")
+    @RequestMapping("/findByID/{id}")
     public Categories categoryFindById(@PathVariable Long id){
         return categoryService.findByID(id);
     }
-    //todo figure out what info i will have
-    @DeleteMapping(value = "/delete/{id}")
-    public void delete(@PathVariable Long id){
-        categoryService.deleteCategory(id);
-    }
-    //todo figure out what info i will have
-    @PatchMapping("/save")
-    public void saveCategory(@RequestBody Long id){
+
+    @PatchMapping("/save/{id}")
+    public void saveCategory(@PathVariable Long id){
         categoryService.saveCategory(id);
     }
 

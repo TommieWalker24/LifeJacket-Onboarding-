@@ -3,10 +3,8 @@ package com.juniorAssociate.RSI.lifeJacket.Controllers;
 import com.juniorAssociate.RSI.lifeJacket.Entities.Role;
 import com.juniorAssociate.RSI.lifeJacket.Services.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,16 +16,6 @@ public class RoleController {
     @Autowired
     private RoleService roleService;
 
-    @RequestMapping("/")
-    public String Helloworld (){
-        return "Roll roll, keep on rolling then roll some more";
-    }
-
-    @RequestMapping(value = "/getAll")
-    public List<Role> getAllRoles() {
-        return roleService.getAllRoles();
-    }
-
     @PatchMapping(value = "/saveAll")
     public void saveAllRoles() {
         roleService.saveAllRoles();
@@ -37,20 +25,14 @@ public class RoleController {
     public List<Role> findAllRoles(){
         return roleService.findAllRole();
     }
-    //todo figure out what info i will have
+
     @RequestMapping("/findByID/{id}")
     public Role findById(@PathVariable String id){
       return roleService.findByID(id);
     }
 
-    @DeleteMapping(value = "/delete")
-    public void delete(@RequestBody String id){
-         roleService.deleteRole(id);
-    }
-
-    @PatchMapping("/save")
-    public void saveStep(@RequestBody String id){
+    @PatchMapping("/save/{id}")
+    public void saveStep(@PathVariable String id){
           roleService.saveRole(id);
     }
-
 }

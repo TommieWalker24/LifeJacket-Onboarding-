@@ -21,4 +21,6 @@ public interface UserCategoriesRepository extends JpaRepository<UserCategories, 
     UserCategories findUserCategory(@Param("email")String email, @Param("categoryId") long categoryId);
 
     UserCategories findByUserCategoriesId(Long id);
+
+    List<UserCategories> deleteByUserCategoriesId(Long id);
 }

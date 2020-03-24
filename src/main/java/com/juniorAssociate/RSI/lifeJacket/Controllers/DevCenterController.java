@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,11 +17,6 @@ public class DevCenterController {
     @Autowired
     private DevCenterService devCenterService;
 
-    @RequestMapping("/")
-    public String Helloworld (){
-        return "Tommie is amazing in his DevCenter!!!";
-    }
-
     @PatchMapping(value = "/saveAll")
     public void saveAllDevCenters() {
         devCenterService.saveAllDevCenters();
@@ -32,21 +26,14 @@ public class DevCenterController {
     public List<DevCenter>findAllDevCenters(){
         return devCenterService.findAllDevCenters();
     }
-    //todo figure out what info i will have
 
     @RequestMapping("/findByLocation/{location}")
     public DevCenter findByLocation(@PathVariable String location){
         DevCenter devCenter = devCenterService.findByLocation(location);
         return devCenter;
     }
-
-    @DeleteMapping(value = "/delete/{id}")
-    public void delete(@PathVariable String id){
-        devCenterService.deleteDevCenter(id);
-    }
-
-    @PatchMapping("/save")
-    public void saveDevCenter(@RequestBody String id){
+    @PatchMapping("/save/{id}")
+    public void saveDevCenter(@PathVariable String id){
         devCenterService.saveDevCenter(id);
     }
 }

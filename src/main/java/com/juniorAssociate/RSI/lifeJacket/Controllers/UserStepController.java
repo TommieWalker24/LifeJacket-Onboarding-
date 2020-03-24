@@ -3,7 +3,6 @@ package com.juniorAssociate.RSI.lifeJacket.Controllers;
 import com.juniorAssociate.RSI.lifeJacket.Entities.UserSteps;
 import com.juniorAssociate.RSI.lifeJacket.Services.UserStepService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,11 +16,6 @@ import java.util.List;
 public class UserStepController {
     @Autowired
     private UserStepService userStepService;
-
-    @RequestMapping("/")
-    public String Helloworld (){
-        return "User step user step user step";
-    }
 
     @PatchMapping(value = "/saveAll")
     public void saveAllSteps() {
@@ -37,11 +31,6 @@ public class UserStepController {
     public UserSteps findById(@PathVariable Long id){
         return  userStepService.findByID(id);
     }
-    //todo figure out what info i will have
-    @DeleteMapping ("/delete")
-    public void delete(@RequestBody Long stepId){
-        userStepService.deleteUserStep(stepId);
-    }
 
     @PatchMapping("/save")
     public void saveUserStep(@RequestBody Long stepId){
@@ -49,7 +38,7 @@ public class UserStepController {
     }
 
     @PatchMapping("/completeStep/{id}")
-    public void completeUserStep(@PathVariable long userStepId){
-        userStepService.completeUserStep(userStepId);
+    public void completeUserStep(@PathVariable long id){
+        userStepService.completeUserStep(id);
     }
 }

@@ -1,5 +1,6 @@
 package com.juniorAssociate.RSI.lifeJacket.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
 
 import javax.persistence.CascadeType;
@@ -51,6 +52,7 @@ public class UserSteps {
     @JoinColumn(name = "email", nullable = false)
     private User user;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @NotNull
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "step_id", nullable = false)
@@ -112,4 +114,3 @@ public class UserSteps {
         this.userCategoriesId = userCategoriesId;
     }
 }
-//todo: join of user and steps

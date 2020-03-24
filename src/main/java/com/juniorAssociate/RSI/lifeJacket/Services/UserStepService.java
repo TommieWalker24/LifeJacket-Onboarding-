@@ -32,14 +32,14 @@ public class UserStepService {
         userStepRepository.deleteById(id);
     }
     public void saveUserStep(Long id){
-        UserSteps userstep = userStepRepository.findByUserStepId(id);
-        userStepRepository.save(userstep);
+        UserSteps userStep = userStepRepository.findByUserStepId(id);
+        userStepRepository.save(userStep);
     }
 
-    public void completeUserStep(long userStepId) {
-        UserSteps userstep = userStepRepository.findByUserStepId(userStepId);
-        userstep.setComplete(true);
-        userstep.setPending(false);
-        userStepRepository.save(userstep);
+    public void completeUserStep(long id){
+        UserSteps userStep = userStepRepository.findByUserStepId(id);
+        userStep.setComplete(true);
+        userStep.setPending(false);
+        userStepRepository.save(userStep);
     }
 }

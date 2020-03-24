@@ -8,5 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface StepRepository extends JpaRepository<Steps, Long> {
-   public Steps findByStepId(Long stepId);
+   public Steps findByStepId(long stepId);
+   public Steps deleteByStepId(long stepId);
 }
