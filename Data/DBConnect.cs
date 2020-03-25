@@ -1,10 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using LoginApi.Controllers;
 using static LoginApi.Controllers.LoginController;
+using static LoginApi.Models.LoginModel;
+using Newtonsoft.Json;
+
 
 namespace LoginApi.Data
 {
@@ -54,12 +60,12 @@ namespace LoginApi.Data
                 switch (ex.Number)
                 {
                     case 0:
-                        Console.WriteLine("Cannot connect to server.  Contact administrator");
+                        System.Diagnostics.Debug.WriteLine("Cannot connect to server.  Contact administrator");
                         //Console.ReadLine();
                         break;
 
                     case 1045:
-                        Console.WriteLine("Invalid username/password, please try again");
+                        System.Diagnostics.Debug.WriteLine("Invalid username/password, please try again");
                         //Console.ReadLine();
                         break;
                 }
@@ -78,7 +84,7 @@ namespace LoginApi.Data
             catch (MySqlException ex)
             {
                 //MessageBox.Show(ex.Message);
-                Console.WriteLine(ex.Message);
+                System.Diagnostics.Debug.WriteLine(ex.Message);
                 //Console.ReadLine();
                 return false;
             }
@@ -89,16 +95,18 @@ namespace LoginApi.Data
         public void Insert(Credentials cred)
         {
             int mySqlReturnCode;
+            //using @ is maybe a better way to concat his with using @ ?(time permitting). 
+            //also needs to be parameterized in mysql for sql injection prevention
             string query = "INSERT INTO Userdata (FirstName, LastName, EmailAddress, PictureURL, Provider, authToken, idToken) VALUES(" +
-                "\"" + cred.FirstName  + "\"" + "," +
-                "\"" + cred.LastName + "\"" + "," +
-                "\"" + cred.Email + "\"" + "," +
-                "\"" + cred.PictureUrl + "\"" + "," +
-                "\"" + cred.Provider + "\"" + "," +
-                "\"" + cred.AuthToken + "\"" + "," +
-                "\"" + cred.IdToken + "\"" + ")";
+                '"' + cred.FirstName + '"' + "," +
+                '"' + cred.LastName + '"' + "," +
+                '"' + cred.Email + '"' + "," +
+                '"' + cred.PictureUrl + '"' + "," +
+                '"' + cred.Provider + '"' + "," +
+                '"' + cred.AuthToken + '"' + "," +
+                '"' + cred.IdToken + '"' + ")";
 
-            Console.WriteLine( query);
+            System.Diagnostics.Debug.WriteLine(query);
 
             if (this.OpenConnection() == true)
             {
@@ -106,13 +114,13 @@ namespace LoginApi.Data
                 MySqlCommand cmd = new MySqlCommand(query, connection);
 
                 //Execute command
-                mySqlReturnCode =  cmd.ExecuteNonQuery();
-                Console.WriteLine(mySqlReturnCode);
+                mySqlReturnCode = cmd.ExecuteNonQuery();
+                System.Diagnostics.Debug.WriteLine(mySqlReturnCode);
 
                 //close connection
                 this.CloseConnection();
             }
-            
+
         }
         //Update statement
         public void Update()
@@ -140,9 +148,10 @@ namespace LoginApi.Data
         }
 
         //Delete statement
-        public void Delete()
+        public void Delete(Credentials cred)
         {
-            string query = "DELETE FROM tableinfo WHERE name='John Smith'";
+            string queryParam = cred.Email;
+            string query = "DELETE FROM userdata WHERE email= " + '"' + queryParam + '"';
 
             if (this.OpenConnection() == true)
             {
@@ -153,12 +162,14 @@ namespace LoginApi.Data
         }
 
         //alternate select statement to check for just email  (query by id)
+        public List<Credentials> Select()// Select(int id)
         {
             //return the email of the user with the given UserId
-            string query = "SELECT EmailAddress FROM userdata WHERE UserID= " + userId.ToString();
-
+            string query = "SELECT *FROM userdata"; //where UserId = 
             //Create a list to store the result
-            List<string>[] list = new List<string>[1];
+            var list = new List<Credentials>();
+
+
             string rsiEmail = "";
 
             //Open connection
@@ -172,14 +183,19 @@ namespace LoginApi.Data
                 //Read the data and store them in the list
                 while (dataReader.Read())
                 {
-
-                    //list[1].Add(dataReader["EmailAddress"] + "");
-
-                    //probably just need a string not a list  
-
-                    rsiEmail = dataReader["EmailAddress"].ToString();
-
+                    list.Add(new Credentials
+                    {
+                        Id = dataReader["UserId"].ToString(),
+                        FirstName = dataReader["FirstName"].ToString(),
+                        LastName = dataReader["LastName"].ToString(),
+                        Email = dataReader["EmailAddress"].ToString(),
+                        PictureUrl = dataReader["PictureUrl"].ToString(),
+                        Provider = dataReader["Provider"].ToString(),
+                        AuthToken = dataReader["authToken"].ToString(),
+                        IdToken = dataReader["idToken"].ToString(),
+                    });
                 }
+                rsiEmail = dataReader["EmailAddress"].ToString();
 
 
                 //close Data Reader
@@ -189,8 +205,8 @@ namespace LoginApi.Data
                 this.CloseConnection();
 
                 //return list to be displayed
-                Console.WriteLine(list);
-                return rsiEmail;
+                System.Diagnostics.Debug.WriteLine(list);
+                return list;
             }
             else
             {
@@ -198,11 +214,11 @@ namespace LoginApi.Data
 
             }
         }
-
+    
         public string SelectAll()
         {
             //return the email of the user with the given UserId
-            string query = "SELECT * userdat";
+            string query = "SELECT * userdata";
 
             //Create a list to store the result
             List<string>[] list = new List<string>[1];
@@ -236,7 +252,7 @@ namespace LoginApi.Data
                 this.CloseConnection();
 
                 //return list to be displayed
-                Console.WriteLine(list);
+                System.Diagnostics.Debug.WriteLine(list);
                 return rsiEmail;
             }
             else
@@ -285,7 +301,7 @@ namespace LoginApi.Data
                 this.CloseConnection();
 
                 //return list to be displayed
-                Console.WriteLine(list);
+                System.Diagnostics.Debug.WriteLine(list);
                 return rsiEmail;
             }
             else
@@ -295,68 +311,70 @@ namespace LoginApi.Data
             }
         }
         //Select statement to check for user in user table
-        public List<string>[] Select()
-        {
-            string query = "SELECT * FROM userdata";  //user or userdata?
+        //public List<Object> SelectDataSet()
+        //{
+        //    string query = "SELECT * FROM userdata";  //user or userdata?
+        //    DataSet dataSet = new DataSet();
+
+        //    //Create a list to store the result
+        //    List<Object>list = new List<object>();
+        //    //change to userdata object?
+
+        //    #region newlists
+        //    //list[0] = new List<string>();
+        //    //list[1] = new List<string>();
+        //    //list[2] = new List<string>();
+        //    //list[3] = new List<string>();
+        //    //list[4] = new List<string>();
+        //    //list[5] = new List<string>();
+        //    //list[6] = new List<string>();
+        //    //list[7] = new List<string>();
+        //    #endregion
+        //    //Open connection
+        //    if (this.OpenConnection() == true)
+        //    {
+        //        //Create Command
+        //        MySqlCommand cmd = new MySqlCommand(query, connection);
+        //        //Create a data reader and Execute the command
+        //        MySqlDataReader reader = cmd.ExecuteReader();
+        //        System.Data.DataTable dt = reader.GetSchemaTable();
+        //        //Read the data and store them in the list
+        //        while (reader.Read())
+        //        {
+        //            list.Add(new object, reader);
+        //            //list
+        //            //modify to add key/valud pairs instead
+        //            //var rowNum = 0;
+        //            list.Add(reader["UserId"] + reader. "");
+        //            list.Add(reader );
+        //            list.Add(reader["FirstName"] + "");
+        //            list.Add(reader["LastName"] + "");
+        //            list.Add(reader["EmailAddress"] + "");dt.
+        //            list.Add(reader["PictureURL"] + "");
+        //            list.Add(reader["Provider"] + "");
+        //            list.Add(reader["authToken"] + "");
+        //            list.Add(reader["idToken"] + "");
 
 
+        //            //System.Diagnostics.Debug.WriteLine(list.ToString());
+        //        }
 
-            //Create a list to store the result
-            //change to userdata object
-            List<string>[] list = new List<string>[8];
+        //        //close Data Reader
+        //        reader.Close();
 
-            list[0] = new List<string>();
-            list[1] = new List<string>();
-            list[2] = new List<string>();
-            list[3] = new List<string>();
-            list[4] = new List<string>();
-            list[5] = new List<string>();
-            list[6] = new List<string>();
-            list[7] = new List<string>();
+        //        //close Connection
+        //        this.CloseConnection();
 
-            //Open connection
-            if (this.OpenConnection() == true)
-            {
-                //Create Command
-                MySqlCommand cmd = new MySqlCommand(query, connection);
-                //Create a data reader and Execute the command
-                MySqlDataReader dataReader = cmd.ExecuteReader();
-
-                //Read the data and store them in the list
-                while (dataReader.Read())
-                {
-                    //modify to add key/valud pairs instead
-                    //var rowNum = 0;
-                    list[0].Add(dataReader["UserId"] + "");
-                    //list[0].Add(dataReader["UserId"] + Credential.userID );
-                    list[1].Add(dataReader["FirstName"] + "");
-                    list[2].Add(dataReader["LastName"] + "");
-                    list[3].Add(dataReader["EmailAddress"] + "");
-                    list[4].Add(dataReader["PictureURL"] + "");
-                    list[5].Add(dataReader["Provider"] + "");
-                    list[6].Add(dataReader["authToken"] + "");
-                    list[7].Add(dataReader["idToken"] + "");
-
-
-                    //Console.WriteLine(list.ToString());
-                }
-
-                //close Data Reader
-                dataReader.Close();
-
-                //close Connection
-                this.CloseConnection();
-
-                //return list to be displayed
-                Console.WriteLine(list);
-                System.Diagnostics.Debug.Write(list + Environment.NewLine);
-                return list;
-            }
-            else
-            {
-                return list;
-            }
-        }
+        //        //return list to be displayed
+        //        System.Diagnostics.Debug.WriteLine(list);
+        //        System.Diagnostics.Debug.Write(list + Environment.NewLine);
+        //        return list;
+        //    }
+        //    else
+        //    {
+        //        return list;
+        //    }
+        //}
 
         //Count statement
         public int Count()
@@ -384,14 +402,6 @@ namespace LoginApi.Data
             }
         }
 
-        //Backup
-        public void Backup()
-        {
-        }
 
-        //Restore
-        public void Restore()
-        {
-        }
     }
 }

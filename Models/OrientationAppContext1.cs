@@ -35,7 +35,8 @@ namespace LoginApi
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySql("server=agssqlw02;port=3306;database=orientationapp;user=orientationapp;password=9MHCnt76dy3RmNmp", x => x.ServerVersion("8.0.17-mysql"));
+                optionsBuilder.UseMySql("DefaultConnection", x => x.ServerVersion("8.0.17-mysql"));
+                //server=agssqlw02;port=3306;database=orientationapp;user=orientationapp;password=9MHCnt76dy3RmNmp
             }
         }
 

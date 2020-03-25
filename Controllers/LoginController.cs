@@ -11,6 +11,8 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using SWH = System.Web.Http;
 using MySql.Data.MySqlClient;
+//using System.Web.Mvc;
+using System.Data;
 
 namespace LoginApi.Controllers
 {
@@ -44,7 +46,7 @@ namespace LoginApi.Controllers
 
 
         // GET: api/Login
-        [HttpGet]
+        //[HttpGet]
         //public List<UserData> Get()
         //{
         //    //return all logged in users that are in the userdata column 
@@ -60,22 +62,10 @@ namespace LoginApi.Controllers
         //}
 
 
-
-
-        // GET: api/Logins/
-        [HttpGet("{id}", Name = "Get")]
-        public List<string> Get() //int id
-        {
-            var loginList = new List<LoginModel>;
-            loginList = myDbc.SelectAll
-            var reader = myDbc.
-               List<string> columndata = myDbc.Select();
-
-            //return 
-            return columndata;
-        }
         public class Credentials
         {
+            public string Id { get; set; }
+
             [JsonProperty("name")]
             public string Username { get; set; }
 
@@ -105,43 +95,114 @@ namespace LoginApi.Controllers
 
         }
 
-        private IEnumerable<int> GetIds()
+        // GET: api/Logins/
+        [HttpGet("{id}", Name = "Get")]
+
+
+        [HttpGet]
+        public IEnumerable<dynamic> GetLogins()
         {
-            using (MySqlConnection connection = new DBConnect)
+            var data = new ExpandoObject() as IDictionary<string, Object>;
+            string connStr;
+            connStr = "server=agssqlw02;port=3306;database=orientationapp;user=orientationapp;password=9MHCnt76dy3RmNmp";
+            MySqlConnection myConnection = new MySqlConnection(connStr);
+            myConnection.Open();
+               
+            string myQuery = "SELECT * FROM orientationapp.userdata";  //from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME =
+            using ( myConnection ) 
             {
-                connection.Open();
-                string commandText = @"SELECT id FROM userdata"; // Assuming that `orders` is your database, then you do not need to specify it here.
-                
-                using (MySqlCommand command = new MySqlCommand(commandText, connection))
+
+                using (MySqlCommand command = new MySqlCommand(myQuery,myConnection))
                 {
                     MySqlDataReader reader = command.ExecuteReader();
 
+                    var schemaTable = reader.GetSchemaTable();
+
+                    List<string> colnames = new List<string>();
+                    foreach (DataRow row in schemaTable.Rows)
+                    {
+                        colnames.Add(row["ColumnName"].ToString());
+                    }
+
                     while (reader.Read())
                     {
-                        yield return reader.GetInt32(0);
+
+                        foreach (string colname in colnames)
+                        {
+                            var val = reader[colname];
+                            if (!data.ContainsKey(colname))
+                            {
+                                data.Add(colname, Convert.IsDBNull(val) ? null : val);
+                            }
+                            
+                        }
+
 
                     }
+                    yield return (ExpandoObject)data;
                 }
             }
+
+            //        using (MySqlConnection connection = new DBConnect)
+            //        {
+            //            connection.Open();
+            //            //string commandText = @"SELECT JSON_OBJECT('uid',uid,'username',username) FROM  orientationapp.userdata";
+            //             string commandText = @"SELECT * FROM  userdata"; 
+            //            using (MySqlCommand command = new MySqlCommand(commandText, connection))
+            //            {
+            //                MySqlDataReader reader = command.ExecuteReader();
+
+            //                while (reader.Read())
+            //                {
+            //                    LoginModel login = new LoginModel();
+            //l
+            //                    yield return reader.GetInt32(0);
+
+            //                }
+            //            }
+            //        }
         }
-        private IEnumerable<string> GetAll()
+        //private IEnumerable<string> GetAll()
+        //{
+        //    using (MySqlConnection connection = new DBConnect)
+        //    {
+        //        connection.Open();
+        //        string commandText = @"SELECT * FROM userdata"; 
+
+        //        using (MySqlCommand command = new MySqlCommand(commandText, connection))
+        //        {
+        //            MySqlDataReader reader = command.ExecuteReader();
+
+        //            while (reader.Read())
+        //            {
+        //                yield return reader.Read();
+
+        //            }
+
+        //        }
+        //    }
+        //}
+
+        public IEnumerable<Dictionary<string, object>> Serialize(MySqlDataReader reader)
         {
-            using (MySqlConnection connection = new DBConnect)
-            {
-                connection.Open();
-                string commandText = @"SELECT * FROM userdata"; // Assuming that `orders` is your database, then you do not need to specify it here.
+            var results = new List<Dictionary<string, object>>();
+            var cols = new List<string>();
+            for (var i = 0; i < reader.FieldCount; i++)
+                cols.Add(reader.GetName(i));
 
-                using (MySqlCommand command = new MySqlCommand(commandText, connection))
-                {
-                    MySqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+                results.Add(SerializeRow(cols, reader));
 
-                    while (reader.Read())
-                    {
-                        yield return reader.Read
-                }
-            }
+            return results;
         }
-
+        private Dictionary<string, object> SerializeRow(IEnumerable<string> cols,
+                                                        MySqlDataReader reader)
+        {
+            var result = new Dictionary<string, object>();
+            foreach (var col in cols)
+                result.Add(col, reader[col]);
+            return result;
+        }
 
 
         // POST: api/Logins
@@ -156,7 +217,7 @@ namespace LoginApi.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine( ex.ToString() + ex.InnerException.ToString());
+                System.Diagnostics.Debug.WriteLine( ex.ToString() + ex.InnerException.ToString());
                 return ex.ToString();
             }
         }
