@@ -16,8 +16,6 @@ namespace LoginApi.Controllers
     {
         private readonly LoginContext _context;
 
-        //StudentName student1 = new StudentName("Craig", "Playstead");
-        //private readonly DBConnect myDbc = new Data.DBConnect();
 
         public BadLoginController(LoginContext context)
         {
