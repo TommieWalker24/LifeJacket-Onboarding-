@@ -1,22 +1,12 @@
 ﻿CREATE TABLE `userdata` (
-  `UserId` varchar(64) NOT NULL,
-  `FirstName` varchar(45) DEFAULT NULL,
-  `LastName` varchar(45) DEFAULT NULL,
-  `EmailAddress` varchar(45) DEFAULT NULL,
-  `PictureUrl` varchar(128) DEFAULT NULL,
-  `Provider` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`UserId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
-
-
-//Amended to change UserId to just Id and PictureUrl to PictureURL
-
-CREATE TABLE `userdata` (
-  `Id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `FirstName` varchar(45) DEFAULT NULL,
-  `LastName` varchar(45) DEFAULT NULL,
-  `EmailAddress` varchar(45) DEFAULT NULL,
+  `UserId` int(11) NOT NULL AUTO_INCREMENT,
+  `FirstName` varchar(64) DEFAULT NULL,
+  `LastName` varchar(64) DEFAULT NULL,
+  `EmailAddress` varchar(64) DEFAULT NULL,
   `PictureURL` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `Provider` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+  `Provider` varchar(64) DEFAULT NULL,
+  `authToken` varchar(256) DEFAULT NULL,
+  `idToken` varchar(2048) DEFAULT NULL,
+  PRIMARY KEY (`UserId`),
+  UNIQUE KEY `EmailAddress_UNIQUE` (`EmailAddress`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
