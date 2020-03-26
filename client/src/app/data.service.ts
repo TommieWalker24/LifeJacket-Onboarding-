@@ -4,16 +4,18 @@ import { map, tap, catchError } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { AppState } from './app.state';
 import { Store } from '@ngrx/store';
+import * as CategoryActions from './actions/category.actions';
+import * as PendingCategoryActions from './actions/pendingCategory.actions';
+import * as CurrentCategoryActions from './actions/currentCategory.actions';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private store: Store<AppState>) { }
 
-  // private serviceUrl = 'http://localhost:8080';
-  private serviceUrl = 'api'
+  private serviceUrl = 'http://localhost:8080';
 
   handleError(operation = 'operation', result) {
     return (error: any) => {
@@ -23,27 +25,33 @@ export class DataService {
   }
 
   getCategories() {
-    return this.http.get(`${this.serviceUrl}/categories`)
-      .pipe(
-        map(result => result),
-        catchError(this.handleError('getCategories', []))
-      );
+    fetch(`${this.serviceUrl}/category/findAll`)
+      .then(res => {
+        return res.json();
+      })
+      .then(categories => {
+        this.store.dispatch(new CategoryActions.SetCategories(categories));
+      })
   }
 
   getUserPendingCategory(email) {
-    return this.http.get(`${this.serviceUrl}/categories/firstPending?email=${email}`)
-      .pipe(
-        map(result => result),
-        catchError(this.handleError('getiUserPendingCategories', []))
-      );
+    fetch(`${this.serviceUrl}/categories/firstPending?email=${email}`)
+      .then(res => {
+        return res.json();
+      })
+      .then(pendingCategory => {
+        this.store.dispatch(new PendingCategoryActions.SetPendingCategory(pendingCategory));
+      })
   }
 
   getCategoryDetails(email, categoryId) {
-    return this.http.get(`${this.serviceUrl}/categories/getUserCategory?email=${email}&categoryId=${categoryId}`)
-      .pipe(
-        map(result => result),
-        catchError(this.handleError('getiUserPendingCategories', []))
-      );
+    fetch(`${this.serviceUrl}/categories/getUserCategory?email=${email}&categoryId=${categoryId}`)
+      .then(res => {
+        return res.json();
+      })
+      .then(currentCategory => {
+        this.store.dispatch(new CurrentCategoryActions.SetCurrentCategory(currentCategory));
+      })
   }
 
   getDevCenters() {

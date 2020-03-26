@@ -1,6 +1,9 @@
 import { Step } from './step.model';
 
 export class Category {
-  name: string;
+  category: string;
+  categoryId: number;
+  seqNum: number;
   steps: Step[];
+  role: string;
 }

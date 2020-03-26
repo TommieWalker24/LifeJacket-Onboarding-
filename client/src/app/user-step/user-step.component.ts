@@ -22,12 +22,13 @@ export class UserStepComponent implements OnInit {
   stepProgress: number;
   categories$: Observable<Category[]>;
   categories: Category[];
-  currentStep: Step;
+  currentCategory$: Observable<Category>;
   currentCategory: Category;
 
   constructor(private store: Store<AppState>, private dataService: DataService, private accountService: AccountService, private activeRoute: ActivatedRoute, private route: Router) {
     this.users$ = store.select('user');
     this.categories$ = store.select('categories');
+    this.currentCategory$ = store.select('currentCategory');
     this.routeEvent(this.route);
   }
 
@@ -44,25 +45,25 @@ export class UserStepComponent implements OnInit {
   }
 
   handleLoad() {
-    let stepsArray = [];
-    const urlParams = this.activeRoute.snapshot.paramMap.get('category');
-    this.users$.subscribe(result => {
-      this.user = result;
-    });
-    if (!this.user) {
-      console.log('We tried to refresh the user');
-      this.accountService.Refresh();
-    }
-    console.log("We tried to fetch the user categories");
-    // this.dataService.getCategories(this.user.EmailAddress);
+    this.users$.subscribe(result => this.user = result);
+    if (!this.user) this.accountService.Refresh();
     this.categories$.subscribe(results => this.categories = results);
-    this.currentCategory = this.categories.find(category => category.name === urlParams);
+    if (!this.categories) this.dataService.getCategories();
+
+    this.currentCategory$.subscribe(results => this.currentCategory = results);
+    if (!this.currentCategory) {
+      const urlParams = this.activeRoute.snapshot.paramMap.get('category');
+      const currentCategoryId = this.categories.filter(category => category.category === urlParams);
+      this.dataService.getCategoryDetails(this.user.EmailAddress, currentCategoryId);
+    }
+
+    let stepsArray = [];
     const steps = this.categories.map(category => category.steps.map(step => stepsArray.push(step)));
     this.stepProgress = Math.floor((stepsArray.filter(step => step.complete === true).length / stepsArray.length) * 100);
   }
 
-  completeStep(step) {
-    this.dataService.userCompleteStep(step, this.user.EmailAddress);
+  completeStep(stepTitle) {
+    this.dataService.userCompleteStep(stepTitle, this.user.EmailAddress);
   }
 
 }

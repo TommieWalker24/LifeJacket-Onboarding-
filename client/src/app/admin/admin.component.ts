@@ -29,13 +29,7 @@ export class AdminComponent implements OnInit {
 
   ngOnInit() {
     this.categories$.subscribe(result => {
-      if (!result) {
-        this.dataService.getCategories()
-          .subscribe(categories => {
-            this.store.dispatch(new CategoryActions.SetCategories(categories));
-            this.categories = categories;
-          })
-      }
+      if (!result) this.dataService.getCategories();
     });
     this.editorForm = new FormGroup({
       'editor': new FormControl(null),

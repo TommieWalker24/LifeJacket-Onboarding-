@@ -6,7 +6,7 @@ export function categoryReducer(state: Category[], action: CategoryActions.Actio
     case CategoryActions.ADD_CATEGORY:
       return [...state, action.payload];
     case CategoryActions.SET_CATEGORIES:
-      return [action.payload];
+      return action.payload;
     case CategoryActions.REMOVE_CATEGORY:
       return [...state, action.payload];
     default:

@@ -28,11 +28,11 @@ export class HeadNavComponent implements OnInit {
   }
 
   handleLoad() {
-    this.users$.subscribe(result => {
-      this.user = result;
+    this.users$.subscribe(result => this.user = result);
+    this.categories$.subscribe(results => {
+      this.categories = results;
+      this.searchOptions = results;
     });
-    this.categories$.subscribe(results => this.categories = results);
-    this.searchOptions = this.categories;
   }
 
   toggleDropdown() {
@@ -40,6 +40,7 @@ export class HeadNavComponent implements OnInit {
   }
 
   updateSearchOptions(value) {
-    this.searchOptions = this.categories.filter(category => category.name.includes(value));
+    this.searchOptions = this.categories.filter(category => category.category.includes(value));
+    console.log(this.searchOptions);
   }
 }
