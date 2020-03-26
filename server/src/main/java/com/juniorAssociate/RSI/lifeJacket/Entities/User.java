@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import java.io.Serializable;
 import java.util.List;
 /*
@@ -51,24 +52,34 @@ public class User implements Serializable {
     @Column(name= "last_name", nullable = false)
     String lastName;
 
-    //todo: many to one
+    @Column(name="photo_url")
+     String photoUrl;
+
+    @Column(name = "provider")
+    String provider;
+
+    @Column(name = "auth_token", length = 300)
+    String authToken;
+
+    @Column(name = "id_token", length = 2050)
+    String idToken;
+
     @NotNull
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "role", referencedColumnName = "role", nullable = false)
+    @ManyToOne
     private Role role;
 
     @NotNull
-    @ManyToOne(cascade= CascadeType.ALL)
-    @JoinColumn(name = "dev_center", nullable = false)
+    @ManyToOne
     private DevCenter devCenter;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user",orphanRemoval = true, cascade = CascadeType.ALL)
     private List<UserCategories> userCategories;
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user",orphanRemoval = true, cascade = CascadeType.ALL)
     private List<UserSteps> userSteps;
 
-    @Column(name = "picture_url")
-    String pictureUrl;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "email", nullable = false)
+    private Picture picture;
 
     public User() {
     }

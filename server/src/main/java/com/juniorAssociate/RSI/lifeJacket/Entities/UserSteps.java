@@ -47,9 +47,9 @@ public class UserSteps {
     long userStepId;
     Boolean complete;
     Boolean pending;
+
     @NotNull
-    @ManyToOne(cascade= CascadeType.ALL)
-    @JoinColumn(name = "email", nullable = false)
+    @ManyToOne
     private User user;
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -59,8 +59,7 @@ public class UserSteps {
     private Steps stepId;
 
     @NotNull
-    @ManyToOne(cascade= CascadeType.ALL)
-    @JoinColumn(name = "user_category_id", nullable = false)
+    @ManyToOne
     private UserCategories userCategoriesId;
 
     public UserSteps() {

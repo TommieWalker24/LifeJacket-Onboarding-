@@ -57,17 +57,15 @@ public class Categories {
     @Column(name = "original_category_name", nullable = false)
     String category;
 
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "categoriesId", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Steps> steps;
+
     @NotNull
-    @ManyToOne(cascade= CascadeType.ALL)
-    @JoinColumn(name = "role", nullable = false)
+    @ManyToOne
     private Role role;
 
     public Categories() {
     }
-
     public void setCategory(String category){
         this.category = category;
     }
