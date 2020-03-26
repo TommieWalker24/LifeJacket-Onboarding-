@@ -33,6 +33,9 @@ export class UserComponent implements OnInit {
     this.categories$.subscribe(results => this.categories = results);
     if (!this.categories) this.dataService.getCategories();
     this.pendingCategory$.subscribe(results => this.pendingCategory = results);
-    if (!this.pendingCategory) this.dataService.getUserPendingCategory(this.user.EmailAddress);
+    // if (!this.pendingCategory) this.dataService.getUserPendingCategory(this.user.EmailAddress);
+
+    console.log(this.user);
+    console.log(this.categories);
   }
 }

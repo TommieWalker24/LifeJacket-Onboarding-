@@ -30,6 +30,7 @@ export class DataService {
         return res.json();
       })
       .then(categories => {
+        console.log('here');
         this.store.dispatch(new CategoryActions.SetCategories(categories));
       })
   }
