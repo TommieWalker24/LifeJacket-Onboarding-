@@ -2,6 +2,7 @@ package com.juniorAssociate.RSI.lifeJacket.Entities;
 
 
 import com.sun.istack.NotNull;
+import org.hibernate.annotations.Columns;
 import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.CascadeType;
@@ -12,8 +13,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import java.util.List;
+
 /*
 This class directly generates and describes an sql table "steps"
 Table ID:
@@ -33,6 +37,7 @@ Non-Null fields in database include
 Relations:
     o	Many-To-One: Categories  - used to associate steps to a given category.
     o	One-To-One: UserStep - used to provide userSteps with generic step information.
+     o	One-To-Many: Picture  - used to associate steps many pictures in picture table.
 
 @author: Tommie Walker
 @version: 1.0.0
@@ -56,13 +61,15 @@ public class Steps {
     String categoryName;
 
     @NotNull
-    @ManyToOne(cascade= CascadeType.ALL)
-    @JoinColumn(name = "category_id", nullable = false)
+    @ManyToOne
     private Categories categoriesId;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "step_id", referencedColumnName = "user_step_id", nullable = false)
     private UserSteps userStep;
+
+    @OneToMany(mappedBy = "step", orphanRemoval = true, cascade = CascadeType.ALL)
+    List<Picture> pictureList;
 
 
     public Steps(Long stepId, int stepSequenceNum, String title, String description) {

@@ -48,17 +48,18 @@ public class UserCategories {
     long userCategoriesId;
     Boolean complete;
     Boolean pending;
+
     @NotNull
-    @ManyToOne(cascade= CascadeType.ALL)
-    @JoinColumn(name = "email", nullable = false)
+    @ManyToOne
     private User user;
+
     @NotNull
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id", nullable = false)
     private Categories categories;
 
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "userCategoriesId", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<UserSteps> userSteps;
 
 

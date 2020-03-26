@@ -38,7 +38,7 @@ public class DevCenter {
     @NotNull
     @Column(name = "hr_rep", nullable = false)
     String hrRep;
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "devCenter", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<User> users;
 
     public String getLocation() {

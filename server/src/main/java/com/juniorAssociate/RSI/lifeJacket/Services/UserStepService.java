@@ -4,6 +4,7 @@ package com.juniorAssociate.RSI.lifeJacket.Services;
 import com.juniorAssociate.RSI.lifeJacket.Entities.UserSteps;
 import com.juniorAssociate.RSI.lifeJacket.Repositories.UserStepRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
