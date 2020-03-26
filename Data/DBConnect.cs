@@ -97,14 +97,18 @@ namespace LoginApi.Data
             int mySqlReturnCode;
             //using @ is maybe a better way to concat his with using @ ?(time permitting). 
             //also needs to be parameterized in mysql for sql injection prevention
-            string query = "INSERT INTO User (first_name, last_name, email, photo_url, provider, auth_Token, id_Token) VALUES(" +
+            string query = "INSERT INTO User (first_name, last_name, email, picture_url, provider, auth_Token, id_Token, dev_center, role) VALUES(" +
                 '"' + cred.FirstName + '"' + "," +
                 '"' + cred.LastName + '"' + "," +
                 '"' + cred.Email + '"' + "," +
                 '"' + cred.PictureUrl + '"' + "," +
                 '"' + cred.Provider + '"' + "," +
                 '"' + cred.AuthToken + '"' + "," +
-                '"' + cred.IdToken + '"' + ")";
+                '"' + cred.IdToken + '"' + "," +
+                '"' + cred.dev_center + '"' + "," +
+                '"' + cred.Role + '"'
+
+                + ")";
 
             System.Diagnostics.Debug.WriteLine(query);
 
@@ -161,7 +165,7 @@ namespace LoginApi.Data
             }
         }
 
-        alternate select statement to check for just email(query by id)
+        //alternate select statement to check for just email(query by id)
         public List<Credentials> Select()// Select(int id)
         {
             //return the email of the user with the given UserId
@@ -310,71 +314,61 @@ namespace LoginApi.Data
 
             }
         }
-        Select statement to check for user in user table
-        public List<Object> SelectDataSet()
-        {
-            string query = "SELECT * FROM user";  //user or userdata?
-            DataSet dataSet = new DataSet();
+        //Select statement to check for user in user table
+        //public List<Object> SelectDataSet()
+        //{
+        //    string query = "SELECT * FROM user";  //user or userdata?
+        //    DataSet dataSet = new DataSet();
 
-            //Create a list to store the result
-            List<Object> list = new List<object>();
-            //change to userdata object?
+        //    //Create a list to store the result
+        //    List<Object> list = new List<object>();
+        //    //change to userdata object?
 
-            #region newlists
-            //list[0] = new List<string>();
-            //list[1] = new List<string>();
-            //list[2] = new List<string>();
-            //list[3] = new List<string>();
-            //list[4] = new List<string>();
-            //list[5] = new List<string>();
-            //list[6] = new List<string>();
-            //list[7] = new List<string>();
-            #endregion
-            //Open connection
-            if (this.OpenConnection() == true)
-            {
-                //Create Command
-                MySqlCommand cmd = new MySqlCommand(query, connection);
-                //Create a data reader and Execute the command
-                MySqlDataReader reader = cmd.ExecuteReader();
-                System.Data.DataTable dt = reader.GetSchemaTable();
-                //Read the data and store them in the list
-                while (reader.Read())
-                {
-                    list.Add(new object, reader);
-                    //list
-                    //modify to add key/valud pairs instead
-                    //var rowNum = 0;
-                    list.Add(reader["UserId"] + reader. "");
-                    list.Add(reader);
-                    list.Add(reader["FirstName"] + "");
-                    list.Add(reader["LastName"] + "");
-                    list.Add(reader["EmailAddress"] + ""); dt.
-                     list.Add(reader["PictureURL"] + "");
-                    list.Add(reader["Provider"] + "");
-                    list.Add(reader["authToken"] + "");
-                    list.Add(reader["idToken"] + "");
+        //    //Open connection
+        //    if (this.OpenConnection() == true)
+        //    {
+        //        //Create Command
+        //        MySqlCommand cmd = new MySqlCommand(query, connection);
+        //        //Create a data reader and Execute the command
+        //        MySqlDataReader reader = cmd.ExecuteReader();
+        //        System.Data.DataTable dt = reader.GetSchemaTable();
+        //        //Read the data and store them in the list
+        //        while (reader.Read())
+        //        {
+        //            list.Add(new object, reader);
+        //            //list
+        //            //modify to add key/valud pairs instead
+        //            //var rowNum = 0;
+        //            list.Add(reader["UserId"] + reader. "");
+        //            list.Add(reader);
+        //            list.Add(reader["FirstName"] + "");
+        //            list.Add(reader["LastName"] + "");
+        //            list.Add(reader["EmailAddress"] + ""); dt.
+        //             list.Add(reader["PictureURL"] + "");
+        //            list.Add(reader["Provider"] + "");
+        //            list.Add(reader["authToken"] + "");
+        //            list.Add(reader["idToken"] + "");
 
 
-                    //System.Diagnostics.Debug.WriteLine(list.ToString());
-                }
+        //            //System.Diagnostics.Debug.WriteLine(list.ToString());
+        //        }
 
-                //close Data Reader
-                reader.Close();
+        //        //close Data Reader
+        //        reader.Close();
 
-                //close Connection
-                this.CloseConnection();
+        //        //close Connection
+        //        this.CloseConnection();
 
-                //return list to be displayed
-                System.Diagnostics.Debug.WriteLine(list);
-                System.Diagnostics.Debug.Write(list + Environment.NewLine);
-                return list;
-            }
-            else
-            {
-                return list;
-            }
-        }
+        //        //return list to be displayed
+        //        System.Diagnostics.Debug.WriteLine(list);
+        //        System.Diagnostics.Debug.Write(list + Environment.NewLine);
+        //        return list;
+        //    }
+        //    else
+        //    {
+        //        return list;
+        //    }
+        //}
 
         //Count statement
         public int Count()

@@ -62,25 +62,29 @@ namespace LoginApi.Controllers
             [JsonProperty("provider")]
             public string Provider { get; set; }
 
+            public string Role = "user";
+
+            public string dev_center = "None";
+
         }
 
-        // GET: api/Logins/{id}   ex: {localhost:port/api/login/1
-        [HttpGet("{id}", Name = "Get")]
-        public string GetLogins(int id) //IEnumerable<dynamic> GetLogins()
-        {
-            string connStr = "server=agssqlw02;port=3306;database=orientationapp;user=orientationapp;password=9MHCnt76dy3RmNmp";
-            MySqlConnection myConnection = new MySqlConnection(connStr);
-            myConnection.Open();
+        //////////// GET: api/Logins/{id}   ex: {localhost:port/api/login/1
+        //////////[HttpGet("{id}", Name = "Get")]
+        //////////public string GetLogins(int id) //IEnumerable<dynamic> GetLogins()
+        //////////{
+        //////////    string connStr = "server=agssqlw02;port=3306;database=orientationapp;user=orientationapp;password=9MHCnt76dy3RmNmp";
+        //////////    MySqlConnection myConnection = new MySqlConnection(connStr);
+        //////////    myConnection.Open();
 
-            string myQuery = "SELECT * FROM orientationapp.user WHERE UserID = " + id;  //from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME =
+        //////////    string myQuery = "SELECT * FROM orientationapp.user WHERE UserID = " + id;  //from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME =
             
-            MySqlCommand command = new MySqlCommand(myQuery, myConnection);
-            MySqlDataReader reader = command.ExecuteReader();
+        //////////    MySqlCommand command = new MySqlCommand(myQuery, myConnection);
+        //////////    MySqlDataReader reader = command.ExecuteReader();
 
-            var r = Serialize(reader);
-            string json = JsonConvert.SerializeObject(r, Formatting.Indented);
-            return json;
-        }
+        //////////    var r = Serialize(reader);
+        //////////    string json = JsonConvert.SerializeObject(r, Formatting.Indented);
+        //////////    return json;
+        //////////}
 
         [HttpGet]
         public string GetLogins() //IEnumerable<dynamic> GetLogins()
