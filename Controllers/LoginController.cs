@@ -223,5 +223,35 @@ namespace LoginApi.Controllers
                 return "Error occurred";
             }
         }
+
+        [HttpDelete]
+        public string Delete([FromBody] string email)
+        {
+            //Response.Cookies.Delete(somekey);
+
+            string connStr = "server=agssqlw02;port=3306;database=orientationapp;user=orientationapp;password=9MHCnt76dy3RmNmp";
+            MySqlConnection myConnection = new MySqlConnection(connStr);
+            myConnection.Open();
+
+            string myQuery = "Delete FROM orientationapp.user WHERE email = " + email;  //from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME =
+
+            MySqlCommand command = new MySqlCommand(myQuery, myConnection);
+            MySqlDataReader reader = command.ExecuteReader();
+
+            var r = Serialize(reader);
+            // string response = JsonConvert.SerializeObject(r, Formatting.Indented);
+            string response = "";
+            //return response;  
+            if (reader.RecordsAffected == 1)
+            //if (response == "")
+            {
+                return "Successfully deleted user ID: " + id;
+            }
+
+            else
+            {
+                return "Error occurred";
+            }
+        }
     }
 }
