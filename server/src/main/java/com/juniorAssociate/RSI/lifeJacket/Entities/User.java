@@ -52,8 +52,8 @@ public class User implements Serializable {
     @Column(name= "last_name", nullable = false)
     String lastName;
 
-    @Column(name="photo_url")
-     String photoUrl;
+    @Column(name="picture_url")
+     String pictureUrl;
 
     @Column(name = "provider")
     String provider;
