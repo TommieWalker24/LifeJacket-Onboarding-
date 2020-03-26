@@ -162,58 +162,58 @@ namespace LoginApi.Data
         }
 
         //alternate select statement to check for just email  (query by id)
-        public List<Credentials> Select()// Select(int id)
-        {
-            //return the email of the user with the given UserId
-            string query = "SELECT *FROM userdata"; //where UserId = 
-            //Create a list to store the result
-            var list = new List<Credentials>();
+        //public List<Credentials> Select()// Select(int id)
+        //{
+        //    //return the email of the user with the given UserId
+        //    string query = "SELECT *FROM userdata"; //where UserId = 
+        //    //Create a list to store the result
+        //    var list = new List<Credentials>();
 
 
-            string rsiEmail = "";
+        //    string rsiEmail = "";
 
-            //Open connection
-            if (this.OpenConnection() == true)
-            {
-                //Create Command
-                MySqlCommand cmd = new MySqlCommand(query, connection);
-                //Create a data reader and Execute the command
-                MySqlDataReader dataReader = cmd.ExecuteReader();
+        //    //Open connection
+        //    if (this.OpenConnection() == true)
+        //    {
+        //        //Create Command
+        //        MySqlCommand cmd = new MySqlCommand(query, connection);
+        //        //Create a data reader and Execute the command
+        //        MySqlDataReader dataReader = cmd.ExecuteReader();
 
-                //Read the data and store them in the list
-                while (dataReader.Read())
-                {
-                    list.Add(new Credentials
-                    {
-                        Id = dataReader["UserId"].ToString(),
-                        FirstName = dataReader["FirstName"].ToString(),
-                        LastName = dataReader["LastName"].ToString(),
-                        Email = dataReader["EmailAddress"].ToString(),
-                        PictureUrl = dataReader["PictureUrl"].ToString(),
-                        Provider = dataReader["Provider"].ToString(),
-                        AuthToken = dataReader["authToken"].ToString(),
-                        IdToken = dataReader["idToken"].ToString(),
-                    });
-                }
-                rsiEmail = dataReader["EmailAddress"].ToString();
+        //        //Read the data and store them in the list
+        //        while (dataReader.Read())
+        //        {
+        //            list.Add(new Credentials
+        //            {
+        //                Id = dataReader["UserId"].ToString(),
+        //                FirstName = dataReader["FirstName"].ToString(),
+        //                LastName = dataReader["LastName"].ToString(),
+        //                Email = dataReader["EmailAddress"].ToString(),
+        //                PictureUrl = dataReader["PictureUrl"].ToString(),
+        //                Provider = dataReader["Provider"].ToString(),
+        //                AuthToken = dataReader["authToken"].ToString(),
+        //                IdToken = dataReader["idToken"].ToString(),
+        //            });
+        //        }
+        //        rsiEmail = dataReader["EmailAddress"].ToString();
 
 
-                //close Data Reader
-                dataReader.Close();
+        //        //close Data Reader
+        //        dataReader.Close();
 
-                //close Connection
-                this.CloseConnection();
+        //        //close Connection
+        //        this.CloseConnection();
 
-                //return list to be displayed
-                System.Diagnostics.Debug.WriteLine(list);
-                return list;
-            }
-            else
-            {
-                return null; //not found rsiEmail;
+        //        //return list to be displayed
+        //        System.Diagnostics.Debug.WriteLine(list);
+        //        return list;
+        //    }
+        //    else
+        //    {
+        //        return null; //not found rsiEmail;
 
-            }
-        }
+        //    }
+        //}
     
         public string SelectAll()
         {
