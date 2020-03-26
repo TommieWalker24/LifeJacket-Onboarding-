@@ -24,43 +24,10 @@ namespace LoginApi.Controllers
         private readonly object _httpContextAccessor;
 
 
-        //UserData[] seedData = new UserData[] {
-        ////some sample data to work with before the client is integrated.
-
-        //new UserData                      //unique constraint on email in db
-        //{ UserId = "99", EmailAddress = "brandon.roberts@ruralsourcing.com", FirstName="Brandon", LastName = "Roberts",
-        //authToken = "ya29.ImC9B74V1kF_wL6VvsEG5q2Bcp7zHI49hEOAUBAkcn2JzQoNbivwejO-KUN5iNDEuJMdl3-bdPX-dGswM0x_jr1uL1YumayNB-MXqMReilk7OC9iK2mbpOoqXf936RxCBbI",
-        //idToken = "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijc2MmZhNjM3YWY5NTM1OTBkYjhiYjhhNjM2YmYxMWQ0MzYwYWJjOTgiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwiYXpwIjoiNDA3MDk4MTkzMTY3LTJlcWRrajRmZWFkY2tzcmE3ZDJibWZzaGZhNjExNTZvLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiNDA3MDk4MTkzMTY3LTJlcWRrajRmZWFkY2tzcmE3ZDJibWZzaGZhNjExNTZvLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTA3OTgyNTQ4MzE2ODMxNzk0OTA0IiwiaGQiOiJydXJhbHNvdXJjaW5nLmNvbSIsImVtYWlsIjoiYnJheWRlbi5yb2JiaW5zQHJ1cmFsc291cmNpbmcuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImF0X2hhc2giOiI3SWMyT1ZseGFaSjNXRHg3LTZsT2lBIiwibmFtZSI6IkJyYXlkZW4gUm9iYmlucyIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS0vQUF1RTdtQnI1YlRZaWcxeW5UQ3N1b1ZsX0RJUWc5aTNKdU5Sc1hrMV9sNF89czk2LWMiLCJnaXZlbl9uYW1lIjoiQnJheWRlbiIsImZhbWlseV9uYW1lIjoiUm9iYmlucyIsImxvY2FsZSI6ImVuIiwiaWF0IjoxNTgyMDU3MzY3LCJleHAiOjE1ODIwNjA5NjcsImp0aSI6IjNkNWVhOWVhMzM4NzkxYTFhNjM4ZTVlZTZlMTgxYzkwNDljY2JiZjIifQ.UN_7sA3WfL6qMDfogd7cgcGkDpC3ZnxR5bChsldTz2WDxmgM-jyUr4X3cntwx81G3f7hmb9VVFb-GdO_lA4UHqjJz9DzhNyGgsTa3ffLlDy_xL3_Z5tpqfc_1OIj_oF90pJiBiurp-BKDJ175Rm7_pvnnP9M8YHp4F0P24mlUCpoJrasn8WCTTE2UC9nDmnqwmri4SR61qtheIrtveIrJK7AcwChJFjGObMHDDVVtEe23aD1dIynNKSBbKvxvW7D5ZwlVRggdBqDBFuYIhoY2w_SiR9F_MjdQDtxFpG3icf3kwENVbABzLG6rX3I8BSadsSO64yEUsAWjnIqq3M2Iw",
-        //PictureUrl="https://lh3.googleusercontent.com/a-/AAuE7mBr5bTYig1ynTCsuoVl_DIQg9i3JuNRsXk1_l4_=s96-c",
-        //Provider = "GOOGLE"
-        //} ,
-        //new UserData
-        //{
-        //    UserId = "89", EmailAddress = "brian.roberts@ruralsourcing.com", FirstName="Brian", LastName = "Roberts",
-        //authToken = "ya29.ImC9B74V1kF_wL6VvsEG5q2Bcp7zHI49hEOAUBAkcn2JzQoNbivwejO-KUN5iNDEuJMdl3-bdPX-dGswM0x_jr1uL1YumayNB-MXqMReilk7OC9iK2mbpOoqXf936RxCBbI",
-        //idToken = "eyJhbGciOiJSUzI1NiIsImtpZCI6Ijc2MmZhNjM3YWY5NTM1OTBkYjhiYjhhNjM2YmYxMWQ0MzYwYWJjOTgiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwiYXpwIjoiNDA3MDk4MTkzMTY3LTJlcWRrajRmZWFkY2tzcmE3ZDJibWZzaGZhNjExNTZvLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiNDA3MDk4MTkzMTY3LTJlcWRrajRmZWFkY2tzcmE3ZDJibWZzaGZhNjExNTZvLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTA3OTgyNTQ4MzE2ODMxNzk0OTA0IiwiaGQiOiJydXJhbHNvdXJjaW5nLmNvbSIsImVtYWlsIjoiYnJheWRlbi5yb2JiaW5zQHJ1cmFsc291cmNpbmcuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImF0X2hhc2giOiI3SWMyT1ZseGFaSjNXRHg3LTZsT2lBIiwibmFtZSI6IkJyYXlkZW4gUm9iYmlucyIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS0vQUF1RTdtQnI1YlRZaWcxeW5UQ3N1b1ZsX0RJUWc5aTNKdU5Sc1hrMV9sNF89czk2LWMiLCJnaXZlbl9uYW1lIjoiQnJheWRlbiIsImZhbWlseV9uYW1lIjoiUm9iYmlucyIsImxvY2FsZSI6ImVuIiwiaWF0IjoxNTgyMDU3MzY3LCJleHAiOjE1ODIwNjA5NjcsImp0aSI6IjNkNWVhOWVhMzM4NzkxYTFhNjM4ZTVlZTZlMTgxYzkwNDljY2JiZjIifQ.UN_7sA3WfL6qMDfogd7cgcGkDpC3ZnxR5bChsldTz2WDxmgM-jyUr4X3cntwx81G3f7hmb9VVFb-GdO_lA4UHqjJz9DzhNyGgsTa3ffLlDy_xL3_Z5tpqfc_1OIj_oF90pJiBiurp-BKDJ175Rm7_pvnnP9M8YHp4F0P24mlUCpoJrasn8WCTTE2UC9nDmnqwmri4SR61qtheIrtveIrJK7AcwChJFjGObMHDDVVtEe23aD1dIynNKSBbKvxvW7D5ZwlVRggdBqDBFuYIhoY2w_SiR9F_MjdQDtxFpG3icf3kwENVbABzLG6rX3I8BSadsSO64yEUsAWjnIqq3M2Iw",
-        //PictureUrl="https://lh3.googleusercontent.com/a-/AAuE7mBr5bTYig1ynTCsuoVl_DIQg9i3JuNRsXk1_l4_=s96-c",
-        //Provider = "GOOGLE"
-        //}
-        //};
+      
 
 
 
-        // GET: api/Login
-        //[HttpGet]
-        //public List<UserData> Get()
-        //{
-        //    //return all logged in users that are in the userdata column 
-
-        //    var users = myDbc.Select();
-        //    //IEnumerable<Userdata>[] columnData = myDbc.Select();
-
-
-        //    // select * from userdata table which is a list of valid logged in users with {first}.{last}@ruralsourcing.com email
-        //    users = myDbc.Select();
-        //    return users;
-
-        //}
 
 
         //references the json object data passed in from client
@@ -105,7 +72,7 @@ namespace LoginApi.Controllers
             MySqlConnection myConnection = new MySqlConnection(connStr);
             myConnection.Open();
 
-            string myQuery = "SELECT * FROM orientationapp.userdata WHERE UserID = " + id;  //from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME =
+            string myQuery = "SELECT * FROM orientationapp.user WHERE UserID = " + id;  //from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME =
             
             MySqlCommand command = new MySqlCommand(myQuery, myConnection);
             MySqlDataReader reader = command.ExecuteReader();
@@ -123,7 +90,7 @@ namespace LoginApi.Controllers
             MySqlConnection myConnection = new MySqlConnection(connStr);
             myConnection.Open();
 
-            string myQuery = "SELECT * FROM orientationapp.userdata";  //from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME =
+            string myQuery = "SELECT * FROM orientationapp.user";  //from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME =
             MySqlCommand command = new MySqlCommand(myQuery, myConnection);
             MySqlDataReader reader = command.ExecuteReader();
 
@@ -137,7 +104,7 @@ namespace LoginApi.Controllers
             //MySqlConnection myConnection = new MySqlConnection(connStr);
             //myConnection.Open();
                
-            //string myQuery = "SELECT * FROM orientationapp.userdata";  //from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME =
+            //string myQuery = "SELECT * FROM orientationapp.user";  //from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME =
             //using ( myConnection ) 
             //{
 
@@ -232,7 +199,7 @@ namespace LoginApi.Controllers
                 MySqlConnection myConnection = new MySqlConnection(connStr);
                 myConnection.Open();
 
-                string myQuery = "Delete FROM orientationapp.userdata WHERE UserID = " + id;  //from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME =
+                string myQuery = "Delete FROM orientationapp.user WHERE UserID = " + id;  //from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME =
 
                 MySqlCommand command = new MySqlCommand(myQuery, myConnection);
                 MySqlDataReader reader = command.ExecuteReader();

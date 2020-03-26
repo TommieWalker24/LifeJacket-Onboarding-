@@ -97,7 +97,7 @@ namespace LoginApi.Data
             int mySqlReturnCode;
             //using @ is maybe a better way to concat his with using @ ?(time permitting). 
             //also needs to be parameterized in mysql for sql injection prevention
-            string query = "INSERT INTO Userdata (FirstName, LastName, EmailAddress, PictureURL, Provider, authToken, idToken) VALUES(" +
+            string query = "INSERT INTO User (first_name, last_name, email, photo_url, provider, auth_Token, id_Token) VALUES(" +
                 '"' + cred.FirstName + '"' + "," +
                 '"' + cred.LastName + '"' + "," +
                 '"' + cred.Email + '"' + "," +
@@ -151,7 +151,7 @@ namespace LoginApi.Data
         public void Delete(Credentials cred)
         {
             string queryParam = cred.Email;
-            string query = "DELETE FROM userdata WHERE email= " + '"' + queryParam + '"';
+            string query = "DELETE FROM user WHERE email= " + '"' + queryParam + '"';
 
             if (this.OpenConnection() == true)
             {
@@ -161,64 +161,64 @@ namespace LoginApi.Data
             }
         }
 
-        //alternate select statement to check for just email  (query by id)
-        //public List<Credentials> Select()// Select(int id)
-        //{
-        //    //return the email of the user with the given UserId
-        //    string query = "SELECT *FROM userdata"; //where UserId = 
-        //    //Create a list to store the result
-        //    var list = new List<Credentials>();
+        alternate select statement to check for just email(query by id)
+        public List<Credentials> Select()// Select(int id)
+        {
+            //return the email of the user with the given UserId
+            string query = "SELECT * FROM user"; //where UserId = 
+            //Create a list to store the result
+            var list = new List<Credentials>();
 
 
-        //    string rsiEmail = "";
+            string rsiEmail = "";
 
-        //    //Open connection
-        //    if (this.OpenConnection() == true)
-        //    {
-        //        //Create Command
-        //        MySqlCommand cmd = new MySqlCommand(query, connection);
-        //        //Create a data reader and Execute the command
-        //        MySqlDataReader dataReader = cmd.ExecuteReader();
+            //Open connection
+            if (this.OpenConnection() == true)
+            {
+                //Create Command
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                //Create a data reader and Execute the command
+                MySqlDataReader dataReader = cmd.ExecuteReader();
 
-        //        //Read the data and store them in the list
-        //        while (dataReader.Read())
-        //        {
-        //            list.Add(new Credentials
-        //            {
-        //                Id = dataReader["UserId"].ToString(),
-        //                FirstName = dataReader["FirstName"].ToString(),
-        //                LastName = dataReader["LastName"].ToString(),
-        //                Email = dataReader["EmailAddress"].ToString(),
-        //                PictureUrl = dataReader["PictureUrl"].ToString(),
-        //                Provider = dataReader["Provider"].ToString(),
-        //                AuthToken = dataReader["authToken"].ToString(),
-        //                IdToken = dataReader["idToken"].ToString(),
-        //            });
-        //        }
-        //        rsiEmail = dataReader["EmailAddress"].ToString();
+                //Read the data and store them in the list
+                while (dataReader.Read())
+                {
+                    list.Add(new Credentials
+                    {
+                        Id = dataReader["UserId"].ToString(),
+                        FirstName = dataReader["FirstName"].ToString(),
+                        LastName = dataReader["LastName"].ToString(),
+                        Email = dataReader["EmailAddress"].ToString(),
+                        PictureUrl = dataReader["PictureUrl"].ToString(),
+                        Provider = dataReader["Provider"].ToString(),
+                        AuthToken = dataReader["authToken"].ToString(),
+                        IdToken = dataReader["idToken"].ToString(),
+                    });
+                }
+                rsiEmail = dataReader["EmailAddress"].ToString();
 
 
-        //        //close Data Reader
-        //        dataReader.Close();
+                //close Data Reader
+                dataReader.Close();
 
-        //        //close Connection
-        //        this.CloseConnection();
+                //close Connection
+                this.CloseConnection();
 
-        //        //return list to be displayed
-        //        System.Diagnostics.Debug.WriteLine(list);
-        //        return list;
-        //    }
-        //    else
-        //    {
-        //        return null; //not found rsiEmail;
+                //return list to be displayed
+                System.Diagnostics.Debug.WriteLine(list);
+                return list;
+            }
+            else
+            {
+                return null; //not found rsiEmail;
 
-        //    }
-        //}
-    
+            }
+        }
+
         public string SelectAll()
         {
             //return the email of the user with the given UserId
-            string query = "SELECT * userdata";
+            string query = "SELECT * user";
 
             //Create a list to store the result
             List<string>[] list = new List<string>[1];
@@ -240,7 +240,7 @@ namespace LoginApi.Data
 
                     //probably just need a string not a list  
 
-                    rsiEmail = dataReader["EmailAddress"].ToString();
+                    rsiEmail = dataReader["email"].ToString();
 
                 }
 
@@ -267,7 +267,7 @@ namespace LoginApi.Data
         public string SelectEmailByString(string email)
         {
             //return the email of the user with the given UserId
-            string query = "SELECT EmailAddress FROM userdata WHERE UserID= " + email.ToString();
+            string query = "SELECT email FROM user WHERE email= " + email.ToString();
 
             //Create a list to store the result
             List<string>[] list = new List<string>[1];
@@ -310,71 +310,71 @@ namespace LoginApi.Data
 
             }
         }
-        //Select statement to check for user in user table
-        //public List<Object> SelectDataSet()
-        //{
-        //    string query = "SELECT * FROM userdata";  //user or userdata?
-        //    DataSet dataSet = new DataSet();
+        Select statement to check for user in user table
+        public List<Object> SelectDataSet()
+        {
+            string query = "SELECT * FROM user";  //user or userdata?
+            DataSet dataSet = new DataSet();
 
-        //    //Create a list to store the result
-        //    List<Object>list = new List<object>();
-        //    //change to userdata object?
+            //Create a list to store the result
+            List<Object> list = new List<object>();
+            //change to userdata object?
 
-        //    #region newlists
-        //    //list[0] = new List<string>();
-        //    //list[1] = new List<string>();
-        //    //list[2] = new List<string>();
-        //    //list[3] = new List<string>();
-        //    //list[4] = new List<string>();
-        //    //list[5] = new List<string>();
-        //    //list[6] = new List<string>();
-        //    //list[7] = new List<string>();
-        //    #endregion
-        //    //Open connection
-        //    if (this.OpenConnection() == true)
-        //    {
-        //        //Create Command
-        //        MySqlCommand cmd = new MySqlCommand(query, connection);
-        //        //Create a data reader and Execute the command
-        //        MySqlDataReader reader = cmd.ExecuteReader();
-        //        System.Data.DataTable dt = reader.GetSchemaTable();
-        //        //Read the data and store them in the list
-        //        while (reader.Read())
-        //        {
-        //            list.Add(new object, reader);
-        //            //list
-        //            //modify to add key/valud pairs instead
-        //            //var rowNum = 0;
-        //            list.Add(reader["UserId"] + reader. "");
-        //            list.Add(reader );
-        //            list.Add(reader["FirstName"] + "");
-        //            list.Add(reader["LastName"] + "");
-        //            list.Add(reader["EmailAddress"] + "");dt.
-        //            list.Add(reader["PictureURL"] + "");
-        //            list.Add(reader["Provider"] + "");
-        //            list.Add(reader["authToken"] + "");
-        //            list.Add(reader["idToken"] + "");
+            #region newlists
+            //list[0] = new List<string>();
+            //list[1] = new List<string>();
+            //list[2] = new List<string>();
+            //list[3] = new List<string>();
+            //list[4] = new List<string>();
+            //list[5] = new List<string>();
+            //list[6] = new List<string>();
+            //list[7] = new List<string>();
+            #endregion
+            //Open connection
+            if (this.OpenConnection() == true)
+            {
+                //Create Command
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                //Create a data reader and Execute the command
+                MySqlDataReader reader = cmd.ExecuteReader();
+                System.Data.DataTable dt = reader.GetSchemaTable();
+                //Read the data and store them in the list
+                while (reader.Read())
+                {
+                    list.Add(new object, reader);
+                    //list
+                    //modify to add key/valud pairs instead
+                    //var rowNum = 0;
+                    list.Add(reader["UserId"] + reader. "");
+                    list.Add(reader);
+                    list.Add(reader["FirstName"] + "");
+                    list.Add(reader["LastName"] + "");
+                    list.Add(reader["EmailAddress"] + ""); dt.
+                     list.Add(reader["PictureURL"] + "");
+                    list.Add(reader["Provider"] + "");
+                    list.Add(reader["authToken"] + "");
+                    list.Add(reader["idToken"] + "");
 
 
-        //            //System.Diagnostics.Debug.WriteLine(list.ToString());
-        //        }
+                    //System.Diagnostics.Debug.WriteLine(list.ToString());
+                }
 
-        //        //close Data Reader
-        //        reader.Close();
+                //close Data Reader
+                reader.Close();
 
-        //        //close Connection
-        //        this.CloseConnection();
+                //close Connection
+                this.CloseConnection();
 
-        //        //return list to be displayed
-        //        System.Diagnostics.Debug.WriteLine(list);
-        //        System.Diagnostics.Debug.Write(list + Environment.NewLine);
-        //        return list;
-        //    }
-        //    else
-        //    {
-        //        return list;
-        //    }
-        //}
+                //return list to be displayed
+                System.Diagnostics.Debug.WriteLine(list);
+                System.Diagnostics.Debug.Write(list + Environment.NewLine);
+                return list;
+            }
+            else
+            {
+                return list;
+            }
+        }
 
         //Count statement
         public int Count()

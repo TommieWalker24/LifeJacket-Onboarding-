@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
+using System.Threading.Tasks;
 
 namespace LoginApi
 {
@@ -42,31 +43,26 @@ namespace LoginApi
 
             //services.AddSingleton<IUserDatabaseSettings>(sp =>
             //    sp.GetRequiredService<IOptions<UserDataDatabaseSettings>>().Value);
-
-            
+ 
 
             services
                 .AddControllers()
                 .AddNewtonsoftJson(options => options.UseMemberCasing());
 
-            //services.AddAuthentication(options =>
-            //    {
-            //        options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-            //        options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
-            //    })
-            //    .AddCookie()
-            //    .AddGoogle(options =>
-            //    {
-            //        options.ClientId = Configuration["Authentication:Google:CliendID"];
-            //        options.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
-            //    });
-            //services.Configure<CookiePolicyOptions>(options =>
-            //{
-            //    // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-            //    options.CheckConsentNeeded = context => true;
-            //    options.MinimumSameSitePolicy = Microsoft.AspNetCore.Http.SameSiteMode.None;
-            //});
-            //services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddAuthentication(options => {
+                options.DefaultScheme = "Cookies";
+            }).AddCookie("Cookies", options => {
+                options.Cookie.Name = "auth_cookie";
+                options.Cookie.SameSite = SameSiteMode.None;
+                options.Events = new CookieAuthenticationEvents
+                {
+                    OnRedirectToLogin = redirectContext =>
+                    {
+                        redirectContext.HttpContext.Response.StatusCode = 401;
+                        return Task.CompletedTask;
+                    }
+                };
+            });
 
         }
         #endregion

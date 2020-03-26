@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Controllers\RefreshController.cs" />
     <Compile Remove="Controllers\ValuesController.cs" />
     <Compile Remove="Controllers\WeatherForecastController.cs" />
   </ItemGroup>
