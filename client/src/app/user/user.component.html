@@ -2,13 +2,11 @@
 <div class="container-fluid">
   <div class="container user">
     <div class="jumbotron">
-      <h1>The RSI Life Jacket</h1>
-      <p>The RSI Life Jacket is here to help you learn about the office and begin your career
-        here at Rural
-        Sourcing.</p>
+      <h1>Welcome Back!</h1>
+      <p>Lets continue with your next step: <b>{{pendingCategory.category}}</b></p>
       <hr class="my-4">
-      <a routerLink="/user/{{categories[0].name}}" class="btn btn-info float-right">
-        Begin
+      <a routerLink="/user/{{pendingCategory.category}}" class="btn btn-info">
+        Continue
       </a>
     </div>
   </div>

@@ -34,12 +34,12 @@
   [className]="!dropdownShow ? 'container-fluid sectionsDropdown navbar-expand-lg navbar-dark bg-dark d-none' : 'container-fluid sectionsDropdown navbar-expand-lg navbar-dark bg-dark d-block'">
   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6 navbar-nav">
     <div *ngFor="let category of categories$ | async" class="col nav-item">
-      <a routerLink="/user/{{category.name}}" class="nav-link" (click)="toggleDropdown()">{{category.name}}</a>
+      <a routerLink="/user/{{category.category}}" class="nav-link" (click)="toggleDropdown()">{{category.category}}</a>
     </div>
   </div>
 </div>
 
-<div class=" modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content searchCard">
@@ -54,8 +54,8 @@
           aria-label="Search" (input)="updateSearchOptions(searchBox.value)" autocomplete="off" />
         <ul class="list-group">
           <li *ngFor="let searchOption of searchOptions" class="list-group-item">
-            <a routerLink="/user/{{searchOption.name}}" data-dismiss="modal"
-              (click)="searchBox.value = ''">{{searchOption.name}}</a>
+            <a routerLink="/user/{{searchOption.category}}" data-dismiss="modal"
+              (click)="searchBox.value = ''">{{searchOption.category}}</a>
           </li>
         </ul>
       </div>

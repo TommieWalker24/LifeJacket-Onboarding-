@@ -2,13 +2,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
 import { StoreModule } from '@ngrx/store';
 import { QuillModule } from 'ngx-quill';
 
-import { InMemoryDataService } from './in-memory-data.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -16,9 +14,13 @@ import { UserComponent } from './user/user.component';
 import { AdminComponent } from './admin/admin.component';
 import { HeadNavComponent } from './head-nav/head-nav.component';
 import { LocationComponent } from './location/location.component';
+import { UserStepComponent } from './user-step/user-step.component';
+
 import { userReducer } from './reducers/user.reducer';
 import { categoryReducer } from './reducers/category.reducer';
-import { UserStepComponent } from './user-step/user-step.component';
+import { pendingCategoryReducer } from './reducers/pendingCategory.reducer';
+import { currentCategoryReducer } from './reducers/currentCategory.reducer';
+
 
 let config = new AuthServiceConfig([
   {
@@ -45,13 +47,12 @@ export function provideConfig() {
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, { dataEncapsulation: false }
-    ),
     SocialLoginModule.initialize(config),
     StoreModule.forRoot({
       user: userReducer,
-      categories: categoryReducer
+      categories: categoryReducer,
+      pendingCategory: pendingCategoryReducer,
+      currentCategoryReducer: currentCategoryReducer
     }),
     QuillModule.forRoot(),
     ReactiveFormsModule

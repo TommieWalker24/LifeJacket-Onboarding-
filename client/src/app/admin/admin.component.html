@@ -1,47 +1,162 @@
-<app-head-nav></app-head-nav>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top head-nav shadow">
+  <img src="assets/img/editedLogo.jpg" style="height: 5em;">
+  <a class="navbar-brand" href="#">RSI Life Jacket</a>
+</nav>
+
+
 <div class="container">
-  <h1>Administration</h1>
-  <div class="card">
-    <div class="card-body">
+  <h1 class="text-center">Administrator Tools</h1>
 
-      <div *ngIf="addSuccess" class="alert alert-success alert-dismissible fade show" role="alert">Your step was added!
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="hideAlert">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div *ngIf="addFailure" class="alert alert-danger alert-dismissible fade show" role="alert">Sorry, your step could
-        not be added at this time.
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="hideAlert">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="category-tab" data-toggle="tab" href="#category" role="tab"
+        aria-controls="category" aria-selected="true">Categories</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="steps-tab" data-toggle="tab" href="#steps" role="tab" aria-controls="steps"
+        aria-selected="false">Steps</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="document-tab" data-toggle="tab" href="#document" role="tab" aria-controls="document"
+        aria-selected="false">Document</a>
+    </li>
+  </ul>
 
-      <h3 class="banner">Add a new Step to the Onboarding Process</h3>
-      <form [formGroup]="editorForm" (ngSubmit)="onSubmit()">
+  <div class="tab-content" id="myTabContent">
+
+    <div class="tab-pane fade show active" id="category" role="tabpanel" aria-labelledby="category-tab">
+      <h3 class="text-center">Create a new category</h3>
+      <form>
+        <div class="form-group">
+          <label for="categoryName">Name</label>
+          <input id="categoryName" type="text" class="form-control" #categoryName>
+        </div>
+        <button type="submit" class="btn btn-primary"
+          (click)="addCategory(categoryName.value); categoryName.value='';">Add</button>
+      </form>
+      <hr class="my-4">
+      <h3 class="text-center">Edit Categories</h3>
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-3">
+        <div class="col" *ngFor="let category of categories">
+          <div class="card  mb-4">
+            <div class="card-header">
+              <h5>{{category.name}}</h5>
+            </div>
+            <div class="card-body">
+              <form>
+                <div class="form-group">
+                  <label [for]="'newName' + category.fixedName">Title</label>
+                  <input [id]="'newName' + category.fixedName" placeholder="{{category.name}}" required
+                    class="form-control mb-3" #newName />
+                </div>
+                <button class="btn btn-info saveButton mr-3" (click)="updateCategoryName(category.name, newName.value)">
+                  <i class="far fa-save"></i> Save
+                </button>
+                <button class="btn btn-danger saveButton" data-toggle="modal"
+                  [attr.data-target]="'#' + category.fixedName">
+                  <i class="fas fa-trash"></i> Delete
+                </button>
+              </form>
+              <div class="modal fade" [id]="category.fixedName" tabindex="-1" role="dialog"
+                [attr.aria-labelledby]="category.fixedName + 'Label'" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" [id]="category.fixedName + 'Label'">Delete?</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <h1>Danger</h1>
+                      <p>Deleting <b>{{category.name}}</b> will delete all of the steps within it.</p>
+                      <form>
+                        <div class="form-group">
+                          <label [for]="'deleteForm' + category.fixedName">Please type "<b>{{category.name}}</b>"
+                            to confirm.</label>
+                          <input [id]="'deleteForm' + category.fixedName" class="form-control mb-3" #deleteForm
+                            (keyup)="deleteInputChange(deleteForm.value, category.name)" />
+                        </div>
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                      <button type="button" class="btn btn-danger" data-dismiss="modal"
+                        (click)="deleteCategory(category.name)" [disabled]="!match">Delete</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-pane fade" id="steps" role="tabpanel" aria-labelledby="steps-tab">
+      <h3 class="text-center">Create a new Step</h3>
+      <form [formGroup]="editorForm" (ngSubmit)="addStep()">
         <div class="form-group">
           <label for="title">Title</label>
           <input formControlName="title" type="text" class="form-control">
         </div>
+      </form>
+      <hr class="my-4">
+      <div class="form-group">
+        <label>What category does this step belong to?</label>
+        <div class="dropdown">
+          <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Select Category
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+            <button *ngFor="let category of categories" class="dropdown-item" type="button"
+              (click)="selectCategory(category.name)">{{category.name}}</button>
+          </div>
+          <h5 *ngIf="selectedCategory">Category Selected: {{selectedCategory}}</h5>
+        </div>
+        <hr class="my-4">
         <div class="form-group">
           <label for="editor">Content</label>
           <quill-editor formControlName="editor" [styles]="editorStyle"></quill-editor>
         </div>
         <button type="submit" class="btn btn-primary">Add</button>
-      </form>
+      </div>
     </div>
-  </div>
 
-  <div class="card">
-    <div class="card-body">
-      <h3 class="banner">Asset Controls</h3>
-      <form>
-        <div class="form-group">
-          <label for="assetName">Enter a new asset for the associates</label>
-          <input id="assetName" type="text" class="form-control" #assetName>
+    <div class="tab-pane fade" id="document" role="tabpanel" aria-labelledby="document-tab">
+      <h3 class="text-center">Document View</h3>
+      <div *ngFor="let category of categories">
+        <span>
+          <h4>{{category.name}}</h4>
+
+        </span>
+        <div *ngFor="let step of category.steps" class="mb-4 shadow-sm p-3 mb-5 bg-white rounded">
+          <h5>{{step.title}}</h5>
+          <quill-view-html [content]="step.content" theme="snow"></quill-view-html>
+          <hr class="my-4">
+          <button class="btn btn-danger" (click)="deleteStep(step.title)">Delete</button>
         </div>
-        <button type="submit" class="btn btn-primary"
-          (click)="addAsset(assetName.value); assetName.value='';">Add</button>
-      </form>
+      </div>
+      <div class="tab-pane fade" id="assets" role="tabpanel" aria-labelledby="assets-tab">
+        <h3 class="banner">Asset Controls</h3>
+        <form>
+          <div class="form-group">
+            <label for="assetName">Enter a new asset for the associates</label>
+            <input id="assetName" type="text" class="form-control" #assetName>
+          </div>
+          <button type="submit" class="btn btn-primary"
+            (click)="addAsset(assetName.value); assetName.value='';">Add</button>
+        </form>
+        <hr class="my-4">
+        <h3 class="banner">Assets</h3>
+        <ul class="list-group">
+          <li *ngFor="let asset of assets" class="list-group-item">
+            <div>{{asset.name}}</div>
+          </li>
+        </ul>
+      </div>
     </div>
+
   </div>
 </div>

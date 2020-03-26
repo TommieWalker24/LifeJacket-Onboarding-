@@ -15,31 +15,24 @@ import { AccountService } from '../account.service';
 export class UserComponent implements OnInit {
   users$: Observable<User>;
   user: User;
-  stepProgress: number;
   categories$: Observable<Category[]>;
   categories: Category[];
+  pendingCategory$: Observable<Object>;
+  pendingCategory: Object;
+  stepProgress: number;
 
   constructor(private store: Store<AppState>, private dataService: DataService, private accountService: AccountService) {
     this.users$ = store.select('user');
     this.categories$ = store.select('categories');
+    this.pendingCategory$ = store.select('pendingCategory');
   }
 
   ngOnInit() {
-    this.users$.subscribe(result => {
-      this.user = result;
-    });
-    if (!this.user) {
-      console.log('We tried to refresh the user');
-      this.accountService.Refresh();
-    }
-    console.log("We tried to fetch the user categories");
-    // this.dataService.getCategories(this.user.EmailAddress);
-    this.categories$.subscribe(results => {
-      this.categories = results;
-    });
-  }
-
-  handleClick() {
-    console.log('here');
+    this.users$.subscribe(result => this.user = result);
+    if (!this.user) this.accountService.Refresh();
+    this.categories$.subscribe(results => this.categories = results);
+    if (!this.categories) this.dataService.getCategories();
+    this.pendingCategory$.subscribe(results => this.pendingCategory = results);
+    if (!this.pendingCategory) this.dataService.getUserPendingCategory(this.user.EmailAddress);
   }
 }

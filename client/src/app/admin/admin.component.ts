@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 import { FormGroup, FormControl } from '@angular/forms';
+import { Category } from '../models/category.model';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { AppState } from '../app.state';
+import * as CategoryActions from '../actions/category.actions';
 
 @Component({
   selector: 'app-admin',
@@ -8,48 +13,83 @@ import { FormGroup, FormControl } from '@angular/forms';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
-
-  addSuccess: boolean = false;
-  addFailure: boolean = false;
+  categories$: Observable<Category[]>;
+  categories: Category[];
+  selectedCategory: string;
   editorForm: FormGroup;
+  editStepForm: FormGroup;
+  match: boolean = false;
 
   editorStyle = {
-    height: '200px'
+    height: '300px'
   }
 
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService, private store: Store<AppState>) {
+    this.categories$ = store.select('categories');
+  }
 
   ngOnInit() {
+    this.categories$.subscribe(result => {
+      if (!result) this.dataService.getCategories();
+    });
     this.editorForm = new FormGroup({
       'editor': new FormControl(null),
       'title': new FormControl(null)
-    })
+    });
+
+    this.editStepForm = new FormGroup({
+      'body': new FormControl(null)
+    });
   }
 
-  hideAlert() {
-    this.addFailure = false;
-    this.addSuccess = false;
-  }
-
-  onSubmit() {
+  addStep() {
+    // const delta = this.editorForm.getContents()
     const content = this.editorForm.get('editor').value;
     const title = this.editorForm.get('title').value;
-    const data = { title, content, pending: false, complete: false };
-    // this.dataService.addStep(data).subscribe(
-    //   result => {
-    //     console.log('success', result);
-    //     this.addSuccess = true;
-    //   },
-    //   error => {
-    //     console.log(error);
-    //     this.addFailure = true;
-    //   }
-    // );
+    const data = { title, category: this.selectedCategory, content };
+    this.dataService.addStep(data)
+      .subscribe(
+        result => {
+          if (result.status !== 200) return new Error('Step couldn\'t be added')
+          console.log('success', result);
+        },
+        error => {
+          console.log(error);
+        }
+      );
   }
 
-  // addAsset(assetName) {
-  //   console.log(assetName);
-  // }
+  deleteStep(title) {
+    this.dataService.deleteStep(title)
+      .subscribe(
+        result => {
+          if (result.status !== 200) return new Error('Step couldn\'t be added')
+          console.log('success', result);
+        },
+        error => {
+          console.log(error);
+        }
+      );
+  }
 
+  addCategory(categoryName) {
+    this.dataService.addCategory(categoryName);
+  }
+
+  deleteCategory(category) {
+    this.dataService.deleteCategory(category);
+  }
+
+  deleteInputChange(value, categoryName) {
+    value === categoryName ? this.match = true : this.match = false;
+  }
+
+  selectCategory(category) {
+    this.selectedCategory = category;
+  }
+
+  updateCategoryName(originalName, newName) {
+    this.dataService.editCategoryName(originalName, newName);
+  }
 
 }
