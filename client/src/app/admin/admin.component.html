@@ -56,37 +56,37 @@
                   [attr.data-target]="'#' + category.fixedName">
                   <i class="fas fa-trash"></i> Delete
                 </button>
-                <div class="modal fade" [id]="category.fixedName" tabindex="-1" role="dialog"
-                  [attr.aria-labelledby]="category.fixedName + 'Label'" aria-hidden="true">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" [id]="category.fixedName + 'Label'">Delete?</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                        <h1>Danger</h1>
-                        <p>Deleting <b>{{category.name}}</b> will delete all of the steps within it.</p>
-                        <form>
-                          <div class="form-group">
-                            <label [for]="'deleteForm' + category.fixedName">Please type "<b>{{category.name}}</b>"
-                              to confirm.</label>
-                            <input [id]="'deleteForm' + category.fixedName" class="form-control mb-3" #deleteForm
-                              (keyup)="deleteInputChange(deleteForm.value, category.name)" />
-                          </div>
-                        </form>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal"
-                          (click)="deleteCategory(category.name)" [disabled]="!match">Delete</button>
-                      </div>
+              </form>
+              <div class="modal fade" [id]="category.fixedName" tabindex="-1" role="dialog"
+                [attr.aria-labelledby]="category.fixedName + 'Label'" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" [id]="category.fixedName + 'Label'">Delete?</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <h1>Danger</h1>
+                      <p>Deleting <b>{{category.name}}</b> will delete all of the steps within it.</p>
+                      <form>
+                        <div class="form-group">
+                          <label [for]="'deleteForm' + category.fixedName">Please type "<b>{{category.name}}</b>"
+                            to confirm.</label>
+                          <input [id]="'deleteForm' + category.fixedName" class="form-control mb-3" #deleteForm
+                            (keyup)="deleteInputChange(deleteForm.value, category.name)" />
+                        </div>
+                      </form>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                      <button type="button" class="btn btn-danger" data-dismiss="modal"
+                        (click)="deleteCategory(category.name)" [disabled]="!match">Delete</button>
                     </div>
                   </div>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
         </div>
@@ -100,27 +100,28 @@
           <label for="title">Title</label>
           <input formControlName="title" type="text" class="form-control">
         </div>
+      </form>
+      <hr class="my-4">
+      <div class="form-group">
+        <label>What category does this step belong to?</label>
+        <div class="dropdown">
+          <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Select Category
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+            <button *ngFor="let category of categories" class="dropdown-item" type="button"
+              (click)="selectCategory(category.name)">{{category.name}}</button>
+          </div>
+          <h5 *ngIf="selectedCategory">Category Selected: {{selectedCategory}}</h5>
+        </div>
         <hr class="my-4">
         <div class="form-group">
-          <label>What category does this step belong to?</label>
-          <div class="dropdown">
-            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">
-              Select Category
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-              <button *ngFor="let category of categories" class="dropdown-item" type="button"
-                (click)="selectCategory(category.name)">{{category.name}}</button>
-            </div>
-            <h5 *ngIf="selectedCategory">Category Selected: {{selectedCategory}}</h5>
-          </div>
-          <hr class="my-4">
-          <div class="form-group">
-            <label for="editor">Content</label>
-            <quill-editor formControlName="editor" [styles]="editorStyle"></quill-editor>
-          </div>
-          <button type="submit" class="btn btn-primary">Add</button>
-      </form>
+          <label for="editor">Content</label>
+          <quill-editor formControlName="editor" [styles]="editorStyle"></quill-editor>
+        </div>
+        <button type="submit" class="btn btn-primary">Add</button>
+      </div>
     </div>
 
     <div class="tab-pane fade" id="document" role="tabpanel" aria-labelledby="document-tab">
@@ -155,6 +156,7 @@
           </li>
         </ul>
       </div>
-
     </div>
+
   </div>
+</div>

@@ -5,5 +5,5 @@ export class User {
   EmailAddress: string
   PictureUrl?: string
   Location?: string
-  Role: string
+  Role?: string
 }
