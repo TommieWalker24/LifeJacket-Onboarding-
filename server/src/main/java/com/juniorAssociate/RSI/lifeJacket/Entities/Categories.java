@@ -1,6 +1,8 @@
 package com.juniorAssociate.RSI.lifeJacket.Entities;
 //Todo: id is of type long
 import com.sun.istack.NotNull;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -42,14 +44,13 @@ Relations:
 @Table(name="categories")
 public class Categories {
 
-    //todo: need to set ai to true through code
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_id", insertable = false)
     long categoryId;
 
     @NotNull
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "sequence_number", nullable = false)
     int seqNum;
 
@@ -57,6 +58,7 @@ public class Categories {
     @Column(name = "original_category_name", nullable = false)
     String category;
 
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToMany(mappedBy = "categoriesId", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Steps> steps;
 

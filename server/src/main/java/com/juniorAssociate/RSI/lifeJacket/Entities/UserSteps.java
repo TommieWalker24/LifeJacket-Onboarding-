@@ -42,7 +42,7 @@ Relations:
 @Table(name = "user_step")
 public class UserSteps {
     @Id
-    @GeneratedValue(strategy= GenerationType.SEQUENCE)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "user_step_id")
     long userStepId;
     Boolean complete;

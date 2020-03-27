@@ -45,8 +45,8 @@ public class UserCategoriesController {
 
     @PatchMapping(value = "/completeCategory/{categoryId}")
     public ResponseEntity responseEntity(@PathVariable long categoryId){
-        userCategoriesService.completeCategory(categoryId);
-        return new ResponseEntity(HttpStatus.OK);
+            userCategoriesService.completeCategory(categoryId);
+            return new ResponseEntity(HttpStatus.OK);
     }
 
     @RequestMapping("/findByID/{id}")
