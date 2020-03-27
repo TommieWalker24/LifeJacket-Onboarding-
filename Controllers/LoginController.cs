@@ -102,12 +102,13 @@ namespace LoginApi.Controllers
             string json = JsonConvert.SerializeObject(r, Formatting.Indented);
             return json;
 
+            #region expando
             //var data = new ExpandoObject() as IDictionary<string, Object>;
             //string connStr;
             //connStr = "server=agssqlw02;port=3306;database=orientationapp;user=orientationapp;password=9MHCnt76dy3RmNmp";
             //MySqlConnection myConnection = new MySqlConnection(connStr);
             //myConnection.Open();
-               
+
             //string myQuery = "SELECT * FROM orientationapp.user";  //from INFORMATION_SCHEMA.COLUMNS where TABLE_NAME =
             //using ( myConnection ) 
             //{
@@ -142,10 +143,10 @@ namespace LoginApi.Controllers
             //        yield return (ExpandoObject)data;
             //    }
             //}
-
+            #endregion
 
         }
-        
+
         //serialize into a dictionary then convert to json
         public IEnumerable<Dictionary<string, object>> Serialize(MySqlDataReader reader)
         {

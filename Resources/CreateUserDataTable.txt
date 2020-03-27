@@ -1,8 +1,10 @@
-﻿CREATE TABLE `userdata` (
+﻿CREATE TABLE `userdata (
   `UserId` int(11) NOT NULL AUTO_INCREMENT,
   `FirstName` varchar(64) DEFAULT NULL,
   `LastName` varchar(64) DEFAULT NULL,
-  `EmailAddress` varchar(64) DEFAULT NULL,
+  `EmailAddress` varchar(64) DEFAULT NULL, OREIGN KEY (user_email)
+        REFERENCES user_categories (user_email)
+        ON DELETE CASCADE,
   `PictureURL` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `Provider` varchar(64) DEFAULT NULL,
   `authToken` varchar(256) DEFAULT NULL,
