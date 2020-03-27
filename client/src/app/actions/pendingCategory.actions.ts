@@ -1,9 +1,9 @@
 import { Action } from '@ngrx/store';
 
-export const SET_CATEGORY = '[CATEGORY] Set';
+export const SET_PENDING_CATEGORY = '[CATEGORY] Set';
 
 export class SetPendingCategory implements Action {
-  readonly type = SET_CATEGORY;
+  readonly type = SET_PENDING_CATEGORY;
   constructor(public payload) { }
 }
 

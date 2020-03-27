@@ -14,14 +14,20 @@ Table ID:
     o	pictureId
 Non-Null fields include
     o	pictureId
-
+    o	stepSequenceNum
+    o	title
+    o	categoriesId
 
 Non-Null fields in database include
     o	picture_id
+    o	sequence_num
+    o	title
+    o	categories_id
 
 Relations:
-    o	Many-To-One: Steps  - allows many pictures to be associated to a particular step.
-
+    o	Many-To-One: Categories  - used to associate steps to a given category.
+    o	One-To-One: UserStep - used to provide userSteps with generic step information.
+     o	One-To-Many: Picture  - used to associate steps many pictures in picture table.
 
 @author: Tommie Walker
 @version: 1.0.0
@@ -33,7 +39,6 @@ public class Picture {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name = "picture_id", insertable = false)
     long pictureId;
-
     @Column
     byte[] image;
 

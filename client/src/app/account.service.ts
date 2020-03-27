@@ -11,17 +11,26 @@ import * as UserActions from './actions/user.actions';
 export class AccountService {
   constructor(private http: HttpClient, private store: Store<AppState>) { }
   //properties needed
-  private baseUrlLogin = 'api/users';
+  private baseUrlLogin = 'https://localhost:44375/api';
   //communicate with web api
   Login(userData) {
-    return this.http.post<any>(this.baseUrlLogin, userData).pipe(
-      map(result => {
-        if (result.message != null) {
-          console.log('We sent a message to our Controller API. It works');
-        }
-        return result;
-      })
-    );
+    console.log('here');
+    // fetch(`${this.baseUrlLogin}`, {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify(userData)
+    // })
+    //   .then(res => {
+    //     return res.json();
+    //   })
+    //   .then(user => {
+    //     console.log(user);
+    //   })
+    //   .catch(error => {
+    //     console.error(error);
+    //   })
   }
 
   Refresh() {
@@ -32,11 +41,19 @@ export class AccountService {
     );
   }
 
-  CheckUserExist(email) {
-    return this.http.get(`${this.baseUrlLogin}/${email}`).pipe(
-      map(res => {
-        return res;
-      })
-    );
-  }
+  // CheckUserExist(email) {
+  //   fetch(`${this.baseUrlLogin}`, {
+  //     method: 'POST', 
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify(email)
+  //   })
+  //     .then(res => {
+  //       return res.json();
+  //     })
+  //     .then(user => {
+  //       console.log(user);
+  //     })
+  // }
 }

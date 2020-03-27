@@ -28,10 +28,11 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.users$.subscribe(result => this.user = result);
-    if (!this.user) this.accountService.Refresh();
     this.categories$.subscribe(results => this.categories = results);
     if (!this.categories) this.dataService.getCategories();
+    this.users$.subscribe(result => this.user = result);
+    if (!this.user) this.accountService.Refresh();
+
     this.pendingCategory$.subscribe(results => this.pendingCategory = results);
     if (!this.pendingCategory) this.dataService.getUserPendingCategory(this.user.EmailAddress);
   }

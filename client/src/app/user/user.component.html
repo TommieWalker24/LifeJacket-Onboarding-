@@ -3,9 +3,9 @@
   <div class="container user">
     <div class="jumbotron">
       <h1>Welcome Back!</h1>
-      <p>Lets continue with your next step: <b>{{pendingCategory.category}}</b></p>
+      <p>Lets continue with your next step: <b>{{pendingCategory?.value1}}</b></p>
       <hr class="my-4">
-      <a routerLink="/user/{{pendingCategory.category}}" class="btn btn-info">
+      <a routerLink="/user/{{pendingCategory?.value1}}" class="btn btn-info">
         Continue
       </a>
     </div>

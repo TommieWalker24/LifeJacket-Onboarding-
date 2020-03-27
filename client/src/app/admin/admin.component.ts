@@ -43,7 +43,6 @@ export class AdminComponent implements OnInit {
   }
 
   addStep() {
-    // const delta = this.editorForm.getContents()
     const content = this.editorForm.get('editor').value;
     const title = this.editorForm.get('title').value;
     const data = { title, category: this.selectedCategory, content };
