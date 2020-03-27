@@ -10,7 +10,7 @@ using LoginApi.Controllers;
 using static LoginApi.Controllers.LoginController;
 using static LoginApi.Models.LoginModel;
 using Newtonsoft.Json;
-
+using System.Net.Mail;
 
 namespace LoginApi.Data
 {
@@ -109,23 +109,47 @@ namespace LoginApi.Data
                 '"' + cred.Role + '"'
 
                 + ")";
-
             System.Diagnostics.Debug.WriteLine(query);
 
-            if (this.OpenConnection() == true)
+        
+            if (IsValid(cred)) // ensure host is 'ruralsourcing.com'
             {
-                //create command and assign the query and connection from the constructor
-                MySqlCommand cmd = new MySqlCommand(query, connection);
 
-                //Execute command
-                mySqlReturnCode = cmd.ExecuteNonQuery();
-                System.Diagnostics.Debug.WriteLine(mySqlReturnCode);
 
-                //close connection
-                this.CloseConnection();
-            }
+                if (this.OpenConnection() == true)
+                {
+                    //create command and assign the query and connection from the constructor
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+
+                    //Execute command
+                    mySqlReturnCode = cmd.ExecuteNonQuery();
+
+                    System.Diagnostics.Debug.WriteLine(mySqlReturnCode);
+
+                    //close connection
+                    this.CloseConnection();
+                }
+               
+            } else throw new UnauthorizedAccessException("Invalid domain");
 
         }
+
+        private bool IsValid(Credentials cred)
+        {
+            char atSign = '@';
+            string host = cred.Email.Split(atSign)[1]; // domain i.e. ruralsourcing.com
+
+            System.Diagnostics.Debug.WriteLine(host);
+            if (host == "ruralsourcing.com")
+            {
+                return true;
+            }
+            else 
+            {
+                return false;
+            }
+        }
+
         //Update statement
         public void Update()
         {
