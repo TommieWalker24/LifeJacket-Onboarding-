@@ -97,7 +97,7 @@ namespace LoginApi.Data
             int mySqlReturnCode;
             //using @ is maybe a better way to concat his with using @ ?(time permitting). 
             //also needs to be parameterized in mysql for sql injection prevention
-            string query = "INSERT INTO User (first_name, last_name, email, picture_url, provider, auth_Token, id_Token, dev_center, role) VALUES(" +
+            string query = "INSERT INTO User (first_name, last_name, email, picture_url, provider, auth_Token, id_Token, dev_center_location, role_role) VALUES(" +
                 '"' + cred.FirstName + '"' + "," +
                 '"' + cred.LastName + '"' + "," +
                 '"' + cred.Email + '"' + "," +
