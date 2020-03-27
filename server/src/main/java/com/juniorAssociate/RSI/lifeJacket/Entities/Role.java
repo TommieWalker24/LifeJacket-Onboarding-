@@ -1,5 +1,9 @@
 package com.juniorAssociate.RSI.lifeJacket.Entities;
 //todo: id is of type string
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -27,10 +31,11 @@ Relations:
  */
 @Entity
 public class Role implements Serializable {
+    @JsonProperty
     @Id
     String role;
 
-
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToMany(mappedBy = "role", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<User> users;
 

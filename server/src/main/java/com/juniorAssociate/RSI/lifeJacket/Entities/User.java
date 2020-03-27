@@ -1,6 +1,8 @@
 package com.juniorAssociate.RSI.lifeJacket.Entities;
 
 import com.sun.istack.NotNull;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -73,8 +75,10 @@ public class User implements Serializable {
     private DevCenter devCenter;
 
     @OneToMany(mappedBy = "user",orphanRemoval = true, cascade = CascadeType.ALL)
+    @OnDelete(action= OnDeleteAction.CASCADE)
     private List<UserCategories> userCategories;
     @OneToMany(mappedBy = "user",orphanRemoval = true, cascade = CascadeType.ALL)
+    @OnDelete(action= OnDeleteAction.CASCADE)
     private List<UserSteps> userSteps;
 
 //    @OneToOne(cascade = CascadeType.ALL)
