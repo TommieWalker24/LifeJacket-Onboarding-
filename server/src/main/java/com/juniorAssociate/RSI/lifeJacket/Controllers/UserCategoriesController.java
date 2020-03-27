@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
 @RestController
 @RequestMapping("/userCategories")
 public class UserCategoriesController {
@@ -31,6 +31,7 @@ public class UserCategoriesController {
     public List<UserCategories> findAllCategories(){
         return userCategoriesService.findAllCategories();
     }
+
 
     @RequestMapping(value= "/firstPending/{email}")
     public Pair<Long, String> findFirstPendingCategories(@PathVariable String email){

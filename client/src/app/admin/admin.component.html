@@ -40,16 +40,17 @@
         <div class="col" *ngFor="let category of categories">
           <div class="card  mb-4">
             <div class="card-header">
-              <h5>{{category.name}}</h5>
+              <h5>{{category.category}}</h5>
             </div>
             <div class="card-body">
               <form>
                 <div class="form-group">
                   <label [for]="'newName' + category.fixedName">Title</label>
-                  <input [id]="'newName' + category.fixedName" placeholder="{{category.name}}" required
+                  <input [id]="'newName' + category.fixedName" placeholder="{{category.category}}" required
                     class="form-control mb-3" #newName />
                 </div>
-                <button class="btn btn-info saveButton mr-3" (click)="updateCategoryName(category.name, newName.value)">
+                <button class="btn btn-info saveButton mr-3"
+                  (click)="updateCategoryName(category.category, newName.value)">
                   <i class="far fa-save"></i> Save
                 </button>
                 <button class="btn btn-danger saveButton" data-toggle="modal"
@@ -69,20 +70,20 @@
                     </div>
                     <div class="modal-body">
                       <h1>Danger</h1>
-                      <p>Deleting <b>{{category.name}}</b> will delete all of the steps within it.</p>
+                      <p>Deleting <b>{{category.category}}</b> will delete all of the steps within it.</p>
                       <form>
                         <div class="form-group">
-                          <label [for]="'deleteForm' + category.fixedName">Please type "<b>{{category.name}}</b>"
+                          <label [for]="'deleteForm' + category.fixedName">Please type "<b>{{category.category}}</b>"
                             to confirm.</label>
                           <input [id]="'deleteForm' + category.fixedName" class="form-control mb-3" #deleteForm
-                            (keyup)="deleteInputChange(deleteForm.value, category.name)" />
+                            (keyup)="deleteInputChange(deleteForm.value, category.category)" />
                         </div>
                       </form>
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                       <button type="button" class="btn btn-danger" data-dismiss="modal"
-                        (click)="deleteCategory(category.name)" [disabled]="!match">Delete</button>
+                        (click)="deleteCategory(category.category)" [disabled]="!match">Delete</button>
                     </div>
                   </div>
                 </div>
@@ -100,20 +101,20 @@
           <label for="title">Title</label>
           <input formControlName="title" type="text" class="form-control">
         </div>
-      </form>
-      <hr class="my-4">
-      <div class="form-group">
-        <label>What category does this step belong to?</label>
-        <div class="dropdown">
-          <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
-            Select Category
-          </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-            <button *ngFor="let category of categories" class="dropdown-item" type="button"
-              (click)="selectCategory(category.name)">{{category.name}}</button>
+        <hr class="my-4">
+        <div class="form-group">
+          <label>What category does this step belong to?</label>
+          <div class="dropdown">
+            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Select Category
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <button *ngFor="let category of categories" class="dropdown-item" type="button"
+                (click)="selectCategory(category.category)">{{category.category}}</button>
+            </div>
+            <h5 *ngIf="selectedCategory">Category Selected: {{selectedCategory}}</h5>
           </div>
-          <h5 *ngIf="selectedCategory">Category Selected: {{selectedCategory}}</h5>
         </div>
         <hr class="my-4">
         <div class="form-group">
@@ -121,14 +122,14 @@
           <quill-editor formControlName="editor" [styles]="editorStyle"></quill-editor>
         </div>
         <button type="submit" class="btn btn-primary">Add</button>
-      </div>
+      </form>
     </div>
 
     <div class="tab-pane fade" id="document" role="tabpanel" aria-labelledby="document-tab">
       <h3 class="text-center">Document View</h3>
       <div *ngFor="let category of categories">
         <span>
-          <h4>{{category.name}}</h4>
+          <h4>{{category.category}}</h4>
 
         </span>
         <div *ngFor="let step of category.steps" class="mb-4 shadow-sm p-3 mb-5 bg-white rounded">

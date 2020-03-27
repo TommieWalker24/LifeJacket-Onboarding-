@@ -5,7 +5,6 @@ import { User } from './../models/user.model';
 import { AppState } from './../app.state';
 import { Category } from '../models/category.model';
 import { DataService } from '../data.service';
-import * as CategoryActions from '../actions/category.actions';
 
 @Component({
   selector: 'app-head-nav',
@@ -32,6 +31,7 @@ export class HeadNavComponent implements OnInit {
   handleLoad() {
     this.users$.subscribe(result => this.user = result);
     this.categories$.subscribe(results => {
+      console.log(results);
       this.categories = results;
       this.searchOptions = results;
     });

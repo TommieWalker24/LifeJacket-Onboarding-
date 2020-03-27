@@ -27,15 +27,17 @@ export class DataService {
   getCategories() {
     fetch(`${this.serviceUrl}/category/findAll`)
       .then(res => {
+        console.log(res.json());
         return res.json();
       })
       .then(categories => {
+        console.log('here');
         this.store.dispatch(new CategoryActions.SetCategories(categories));
       })
   }
 
   getUserPendingCategory(email) {
-    fetch(`${this.serviceUrl}/categories/firstPending?email=${email}`)
+    fetch(`${this.serviceUrl}/userCategories/firstPending/${email}`)
       .then(res => {
         return res.json();
       })
@@ -83,11 +85,13 @@ export class DataService {
   }
 
   addCategory(categoryName) {
-    return this.http.post(this.serviceUrl, { categoryName })
-      .pipe(
-        map(result => result),
-        catchError(this.handleError('addCategory', []))
-      );
+    fetch(`${this.serviceUrl}/categories/addCategory/${categoryName}`)
+      .then(res => {
+        return res.json();
+      })
+      .then(category => {
+        this.store.dispatch(new CategoryActions.AddCategory(category));
+      })
   }
 
   editCategoryName(categoryId, newName) {
