@@ -36,7 +36,6 @@ export class HomeComponent implements OnInit {
           return this.resultMessage = "Make sure you use your RSI email.";
         }
         await this.store.dispatch(new UserActions.AddUser({
-          UserId: response.id,
           FirstName: response.firstName,
           LastName: response.lastName,
           EmailAddress: response.email,

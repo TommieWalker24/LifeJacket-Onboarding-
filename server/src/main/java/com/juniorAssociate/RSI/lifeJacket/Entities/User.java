@@ -77,9 +77,9 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "user",orphanRemoval = true, cascade = CascadeType.ALL)
     private List<UserSteps> userSteps;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "email", nullable = false)
-    private Picture picture;
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "email", nullable = false)
+//    private Picture picture;
 
     public User() {
     }
