@@ -1,6 +1,9 @@
 package com.juniorAssociate.RSI.lifeJacket.Entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.istack.NotNull;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -34,10 +37,15 @@ Relations:
 @Table(name="dev_center")
 public class DevCenter {
     @Id
+    @JsonProperty
     String location;
+
+    @JsonProperty
     @NotNull
     @Column(name = "hr_rep", nullable = false)
     String hrRep;
+
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToMany(mappedBy = "devCenter", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<User> users;
 

@@ -1,6 +1,9 @@
 package com.juniorAssociate.RSI.lifeJacket.Entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.istack.NotNull;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -43,6 +46,7 @@ Relations:
 @Table(name = "user_categories")
 public class UserCategories {
     @Id
+    @JsonProperty
     @GeneratedValue(strategy= GenerationType.SEQUENCE)
     @Column(name = "user_categories_id")
     long userCategoriesId;
@@ -59,6 +63,7 @@ public class UserCategories {
     private Categories categories;
 
 
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToMany(mappedBy = "userCategoriesId", orphanRemoval = true, cascade = CascadeType.ALL)
     private List<UserSteps> userSteps;
 

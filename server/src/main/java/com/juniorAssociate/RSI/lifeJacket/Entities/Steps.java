@@ -1,8 +1,11 @@
 package com.juniorAssociate.RSI.lifeJacket.Entities;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.istack.NotNull;
 import org.hibernate.annotations.Columns;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.UniqueElements;
 
 import javax.persistence.CascadeType;
@@ -49,15 +52,19 @@ public class Steps {
     @GeneratedValue(strategy= GenerationType.SEQUENCE)
     @Column(name = "step_id")
     long stepId;
+
    @NotNull
    @GeneratedValue(strategy = GenerationType.SEQUENCE)
    @Column(name = "sequence_num", nullable = false)
    int stepSequenceNum;
+
     @NotNull
     @UniqueElements
     @Column(name = "title", nullable = false)
     String title;
+
     String description;
+
     String categoryName;
 
     @NotNull
@@ -65,9 +72,11 @@ public class Steps {
     private Categories categoriesId;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "step_id", referencedColumnName = "user_step_id", nullable = false)
     private UserSteps userStep;
 
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToMany(mappedBy = "step", orphanRemoval = true, cascade = CascadeType.ALL)
     List<Picture> pictureList;
 
