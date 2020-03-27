@@ -76,9 +76,9 @@ public class Steps {
     @JoinColumn(name = "step_id", referencedColumnName = "user_step_id", nullable = false)
     private UserSteps userStep;
 
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @OneToMany(mappedBy = "step", orphanRemoval = true, cascade = CascadeType.ALL)
-    List<Picture> pictureList;
+//    @OnDelete(action = OnDeleteAction.CASCADE)
+////    @OneToMany(mappedBy = "step", orphanRemoval = true, cascade = CascadeType.ALL)
+////    List<Picture> pictureList;
 
 
     public Steps(Long stepId, int stepSequenceNum, String title, String description) {

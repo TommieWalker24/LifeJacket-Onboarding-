@@ -81,6 +81,10 @@ public class User implements Serializable {
     @OnDelete(action= OnDeleteAction.CASCADE)
     private List<UserSteps> userSteps;
 
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "email", nullable = false)
+//    private Picture picture;
+
     public User() {
     }
 }
